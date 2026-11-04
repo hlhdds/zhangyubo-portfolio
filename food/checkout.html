@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>确认订单 - 美味点餐</title>
+<style>
+    :root {
+        --primary: #ff6a00;
+        --primary-light: #ff9448;
+        --accent: #ff4500;
+        --bg: #f5f6f8;
+        --card: #ffffff;
+        --text: #2c2c2c;
+        --text-sub: #8a8f99;
+        --text-light: #b8bcc4;
+        --border: #f0f1f3;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
+        --radius-sm: 10px;
+        --radius-md: 14px;
+        --radius-lg: 18px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+        font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        max-width: 640px;
+        margin: 0 auto;
+        min-height: 100vh;
+        padding-bottom: 90px;
+    }
+    .header {
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: #fff;
+        padding: 18px 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        box-shadow: 0 4px 16px rgba(255,106,0,.25);
+    }
+    .header h1 { font-size: 18px; font-weight: 700; }
+    .back { color: #fff; text-decoration: none; font-size: 14px; opacity: .92; }
+    main { padding: 14px; }
+    .card {
+        background: var(--card);
+        border-radius: var(--radius-md);
+        padding: 16px 18px;
+        margin-bottom: 13px;
+        box-shadow: var(--shadow-sm);
+        animation: fadeUp .35s ease both;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    .card:nth-child(1) { animation-delay: .05s; }
+    .card:nth-child(2) { animation-delay: .1s; }
+    .card:nth-child(3) { animation-delay: .15s; }
+    .card:nth-child(4) { animation-delay: .2s; }
+    .card h2 { font-size: 15px; margin-bottom: 13px; font-weight: 700; }
+
+    /* 收货方式 */
+    .otypes { display: flex; gap: 10px; }
+    .otypes label { flex: 1; cursor: pointer; }
+    .otypes input { display: none; }
+    .otypes span {
+        display: block;
+        text-align: center;
+        padding: 10px 0;
+        border: 1.5px solid #e8e9ec;
+        border-radius: 999px;
+        font-size: 14px;
+        color: var(--text-sub);
+        transition: all .18s;
+        font-weight: 500;
+    }
+    .otypes input:checked + span {
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        border-color: transparent;
+        color: #fff;
+        font-weight: 700;
+        box-shadow: 0 3px 10px rgba(255,106,0,.3);
+    }
+
+    /* 收货地址 */
+    #addrCard { display: none; }
+    .addr-main {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+    }
+    .addr-none { flex: 1; color: var(--text-sub); font-size: 14px; }
+    .addr-picked { flex: 1; min-width: 0; }
+    .addr-picked .who { font-size: 15px; font-weight: 700; }
+    .addr-picked .who em { font-size: 13px; font-weight: 400; color: var(--text-sub); font-style: normal; margin-left: 8px; }
+    .addr-picked .where { font-size: 13px; color: var(--text-sub); margin-top: 6px; line-height: 1.5; }
+    .addr-arrow { color: var(--text-light); font-size: 18px; flex-shrink: 0; }
+    .addr-tip { font-size: 12px; color: #f44336; margin-top: 8px; display: none; }
+    .addr-tip.show { display: block; }
+
+    /* 地址选择抽屉 */
+    .addr-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, .5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .25s;
+        z-index: 40;
+    }
+    .addr-overlay.show { opacity: 1; pointer-events: auto; }
+    .addr-sheet {
+        position: fixed;
+        left: 0; right: 0; bottom: 0;
+        max-width: 640px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 20px 20px 0 0;
+        max-height: 70vh;
+        display: flex;
+        flex-direction: column;
+        transform: translateY(105%);
+        transition: transform .3s cubic-bezier(.32,.72,0,1);
+        z-index: 41;
+        box-shadow: 0 -8px 30px rgba(0,0,0,.15);
+    }
+    .addr-sheet.show { transform: translateY(0); }
+    .addr-sheet-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--border);
+    }
+    .addr-sheet-header h2 { font-size: 16px; font-weight: 700; }
+    .addr-sheet-header a { font-size: 13px; color: var(--primary); text-decoration: none; font-weight: 600; }
+    .addr-list { overflow-y: auto; padding: 4px 18px 18px; }
+    .addr-option {
+        padding: 13px 0;
+        border-bottom: 1px solid #f7f8fa;
+        cursor: pointer;
+        transition: opacity .15s;
+    }
+    .addr-option:active { opacity: .6; }
+    .addr-option:last-child { border-bottom: none; }
+    .addr-option .who { font-size: 15px; font-weight: 600; }
+    .addr-option .who em { font-size: 13px; font-weight: 400; color: var(--text-sub); font-style: normal; margin-left: 8px; }
+    .addr-option .where { font-size: 13px; color: var(--text-sub); margin-top: 5px; line-height: 1.4; }
+    .addr-option .whose-tag {
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 5px;
+        background: #f2f3f5;
+        color: var(--text-sub);
+        margin-left: 6px;
+    }
+    .addr-option .dot {
+        width: 19px;
+        height: 19px;
+        border-radius: 50%;
+        border: 1.5px solid #d9dce2;
+        margin-left: 10px;
+        flex-shrink: 0;
+    }
+    .addr-option.on .dot { border-color: var(--primary); background: var(--primary); box-shadow: inset 0 0 0 3px #fff; }
+
+    textarea {
+        width: 100%;
+        height: 76px;
+        border: 1.5px solid #eceef1;
+        border-radius: var(--radius-sm);
+        padding: 12px;
+        font-size: 14px;
+        font-family: inherit;
+        resize: none;
+        outline: none;
+        transition: border-color .15s;
+        background: #fafbfc;
+    }
+    textarea:focus { border-color: var(--primary-light); background: #fff; }
+
+    /* 商品清单 */
+    .item {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 11px 0;
+        border-bottom: 1px solid #f7f8fa;
+    }
+    .item:last-child { border-bottom: none; }
+    .item img { width: 50px; height: 50px; border-radius: var(--radius-sm); object-fit: cover; background: #f0f1f3; }
+    .item-info { flex: 1; min-width: 0; }
+    .item-name { font-size: 14px; font-weight: 600; }
+    .item-unit { font-size: 12px; color: var(--text-sub); margin-top: 4px; }
+    .item-sub { color: var(--accent); font-weight: 700; font-size: 15px; }
+    .total-row {
+        display: flex;
+        justify-content: flex-end;
+        align-items: baseline;
+        gap: 8px;
+        padding-top: 14px;
+        border-top: 1px dashed #eee;
+        font-size: 13px;
+        color: var(--text-sub);
+    }
+    .total-row b { color: var(--accent); font-size: 21px; font-weight: 800; }
+
+    /* 底部栏 */
+    .bottom-bar {
+        position: fixed;
+        left: 0; right: 0; bottom: 0;
+        max-width: 640px;
+        margin: 0 auto;
+        height: 62px;
+        background: #1e2026;
+        display: flex;
+        align-items: center;
+        padding: 0 14px;
+        z-index: 30;
+        box-shadow: 0 -4px 16px rgba(0,0,0,.18);
+    }
+    .bar-total { flex: 1; color: #9094a0; font-size: 13px; }
+    .bar-total b { color: #fff; font-size: 21px; font-weight: 800; }
+    #submitBtn {
+        border: none;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: #fff;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 0 30px;
+        height: 46px;
+        border-radius: 999px;
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(255,106,0,.4);
+        transition: transform .1s;
+    }
+    #submitBtn:active { transform: scale(.96); }
+    #submitBtn:disabled { background: #3a3d45; color: #6c7080; cursor: not-allowed; box-shadow: none; }
+
+    .empty { text-align: center; color: var(--text-light); padding: 60px 0; font-size: 14px; }
+    .empty a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .toast {
+        position: fixed;
+        left: 50%;
+        top: 45%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, .78);
+        color: #fff;
+        padding: 13px 24px;
+        border-radius: 12px;
+        font-size: 14px;
+        z-index: 60;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .25s;
+        backdrop-filter: blur(4px);
+    }
+    .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<header class="header">
+    <a class="back" href="index.html">‹ 返回点菜</a>
+    <h1>确认订单</h1>
+</header>
+
+<main>
+    <section class="card">
+        <h2>收货方式</h2>
+        <div class="otypes">
+            <label><input type="radio" name="otype" value="堂食" checked><span>堂食</span></label>
+            <label><input type="radio" name="otype" value="外卖"><span>外卖</span></label>
+            <label><input type="radio" name="otype" value="自提"><span>自提</span></label>
+        </div>
+    </section>
+
+    <section class="card" id="addrCard">
+        <h2>收货地址</h2>
+        <div class="addr-main" id="addrMain">
+            <div class="addr-none" id="addrNone">请选择收货地址 ›</div>
+            <div class="addr-picked" id="addrPicked" style="display:none">
+                <div class="who"><span id="addrName"></span><em id="addrPhone"></em></div>
+                <div class="where" id="addrWhere"></div>
+            </div>
+            <span class="addr-arrow">›</span>
+        </div>
+        <div class="addr-tip" id="addrTip">请先选择收货地址</div>
+    </section>
+
+    <section class="card">
+        <h2>备注</h2>
+        <textarea id="remark" maxlength="200" placeholder="口味偏好、忌口等(选填,200 字以内)"></textarea>
+    </section>
+
+    <section class="card" id="itemsCard">
+        <h2>商品清单</h2>
+        <div id="items"></div>
+        <div class="total-row">合计 <b id="total">¥0.00</b></div>
+    </section>
+</main>
+
+<div class="bottom-bar">
+    <div class="bar-total">合计 <b id="barTotal">¥0.00</b></div>
+    <button id="submitBtn">提交订单</button>
+</div>
+
+<div class="addr-overlay" id="addrOverlay"></div>
+<div class="addr-sheet" id="addrSheet">
+    <div class="addr-sheet-header">
+        <h2>选择收货地址</h2>
+        <a href="address.html">管理地址</a>
+    </div>
+    <div class="addr-list" id="addrList"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script>
+const CART_KEY = 'foodCartV1';
+const ADDR_KEY = 'foodAddressesV1';     // 地址簿(与 address.html 共用)
+const ADDR_SEL = 'foodSelectedAddressV1'; // 本次结算选中的地址 id
+const fmt = fen => '¥' + (fen / 100).toFixed(2);
+const $ = id => document.getElementById(id);
+
+let items = [];   // [{dish_id, name, price, quantity, img}]
+let addrList = []; // 地址簿
+let selAddrId = null;
+
+/* 当前收货方式 */
+const orderType = () => document.querySelector('input[name="otype"]:checked').value;
+
+/* 地址展示文本(省市同名时去重) */
+const addrText = a => [a.province, a.city === a.province ? '' : a.city, a.district, a.detail]
+    .filter(Boolean).join(' ');
+
+function toast(msg) {
+    const t = $('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+/* 提交订单 */
+async function submit() {
+    if (items.length === 0) return;
+    // 外卖必须选择收货地址
+    if (orderType() === '外卖' && !addrList.find(a => a.id === selAddrId)) {
+        $('addrTip').classList.add('show');
+        toast('请选择收货地址');
+        return;
+    }
+    $('submitBtn').disabled = true;
+    try {
+        const res = await API.createOrder({
+            items: items.map(i => ({ dish_id: i.dish_id, quantity: i.quantity })),
+            order_type: document.querySelector('input[name="otype"]:checked').value,
+            remark: $('remark').value
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '下单失败');
+        // 下单成功:清空购物车中已勾选的商品,未勾选的保留
+        const cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+        localStorage.setItem(CART_KEY, JSON.stringify(cart.filter(i => !i.checked)));
+        location.href = 'order_detail.html?no=' + data.order_no;
+    } catch (e) {
+        toast(e.message || '网络异常,下单失败');
+        $('submitBtn').disabled = false;
+    }
+}
+
+/* ---------- 收货地址 ---------- */
+function loadAddrs() {
+    try {
+        addrList = JSON.parse(localStorage.getItem(ADDR_KEY)) || [];
+        if (!Array.isArray(addrList)) addrList = [];
+    } catch { addrList = []; }
+    // 选中的地址:上次选中的 -> 默认地址 -> 第一条
+    const saved = localStorage.getItem(ADDR_SEL);
+    const hit = addrList.find(a => a.id === Number(saved))
+             || addrList.find(a => a.isDefault)
+             || addrList[0];
+    selAddrId = hit ? hit.id : null;
+}
+
+/* 收货方式切换时,外卖显示地址卡,堂食/自提隐藏 */
+function syncAddressCard() {
+    const isDelivery = orderType() === '外卖';
+    $('addrCard').style.display = isDelivery ? 'block' : 'none';
+    if (!isDelivery) $('addrTip').classList.remove('show');
+    if (isDelivery) renderAddress();
+}
+
+function renderAddress() {
+    const a = addrList.find(x => x.id === selAddrId);
+    if (a) {
+        $('addrNone').style.display = 'none';
+        $('addrPicked').style.display = 'block';
+        $('addrName').textContent = a.name;
+        $('addrPhone').textContent = a.phone;
+        $('addrWhere').textContent = addrText(a) + ' · ' + a.tag;
+    } else {
+        $('addrNone').style.display = 'block';
+        $('addrPicked').style.display = 'none';
+        $('addrNone').textContent = addrList.length ? '请选择收货地址 ›' : '暂无地址,去新增 ›';
+    }
+}
+
+function openAddrSheet() {
+    if (addrList.length === 0) {          // 没有地址时直接去地址管理页
+        location.href = 'address.html';
+        return;
+    }
+    $('addrList').innerHTML = addrList.map(a => `
+        <div class="addr-option ${a.id === selAddrId ? 'on' : ''}" onclick="pickAddr(${a.id})">
+            <div style="display:flex;align-items:center">
+                <div style="flex:1;min-width:0">
+                    <div class="who">${a.name}<em>${a.phone}</em>
+                        <span class="whose-tag">${a.tag}</span>
+                        ${a.isDefault ? '<span class="whose-tag" style="background:#fff0e8;color:#ff6a00">默认</span>' : ''}
+                    </div>
+                    <div class="where">${addrText(a)}</div>
+                </div>
+                <span class="dot"></span>
+            </div>
+        </div>`).join('');
+    $('addrSheet').classList.add('show');
+    $('addrOverlay').classList.add('show');
+}
+
+function pickAddr(id) {
+    selAddrId = id;
+    localStorage.setItem(ADDR_SEL, String(id));
+    $('addrTip').classList.remove('show');
+    renderAddress();
+    $('addrSheet').classList.remove('show');
+    $('addrOverlay').classList.remove('show');
+}
+
+function closeAddrSheet() {
+    $('addrSheet').classList.remove('show');
+    $('addrOverlay').classList.remove('show');
+}
+
+/* 初始化:拉菜品目录 -> 读购物车勾选商品 -> 渲染 */
+(async function init() {
+    try {
+        const res = await API.dishes();
+        if (!res.ok) throw new Error(res.status);
+        const dishMap = new Map((await res.json()).map(d => [d.id, d]));
+        const cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+        items = cart.filter(i => i.checked && dishMap.has(i.id))
+                    .map(i => ({ dish_id: i.id, quantity: i.qty, ...dishMap.get(i.id) }));
+    } catch (e) {
+        items = [];
+    }
+    if (items.length === 0) {
+        $('itemsCard').innerHTML = '<div class="empty">没有待结算的商品,<a href="index.html">返回点菜</a></div>';
+        $('submitBtn').disabled = true;
+        return;
+    }
+    $('items').innerHTML = items.map(i => `
+        <div class="item">
+            <img src="${i.img}" alt="${i.name}">
+            <div class="item-info">
+                <div class="item-name">${i.name}</div>
+                <div class="item-unit">${fmt(i.price)} × ${i.quantity}</div>
+            </div>
+            <div class="item-sub">${fmt(i.price * i.quantity)}</div>
+        </div>`).join('');
+    const total = items.reduce((s, i) => s + i.price * i.quantity, 0);
+    $('total').textContent = fmt(total);
+    $('barTotal').textContent = fmt(total);
+})();
+
+$('submitBtn').addEventListener('click', submit);
+$('addrMain').addEventListener('click', openAddrSheet);
+$('addrOverlay').addEventListener('click', closeAddrSheet);
+document.querySelectorAll('input[name="otype"]').forEach(r =>
+    r.addEventListener('change', syncAddressCard));
+
+/* 初始化地址(堂食/自提默认隐藏地址卡) */
+loadAddrs();
+syncAddressCard();
+</script>
+</body>
+</html>

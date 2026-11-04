@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美味点餐 - 购物车</title>
+<style>
+    :root {
+        --primary: #ff6a00;
+        --primary-light: #ff9448;
+        --primary-dark: #e85d00;
+        --accent: #ff4500;
+        --bg: #f5f6f8;
+        --card: #ffffff;
+        --text: #2c2c2c;
+        --text-sub: #8a8f99;
+        --text-light: #b8bcc4;
+        --border: #f0f1f3;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
+        --shadow-md: 0 4px 16px rgba(0,0,0,.06), 0 2px 6px rgba(0,0,0,.04);
+        --radius-sm: 10px;
+        --radius-md: 14px;
+        --radius-lg: 18px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+        font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        max-width: 640px;
+        margin: 0 auto;
+        min-height: 100vh;
+        padding-bottom: 90px;
+    }
+
+    /* ===== 顶部 ===== */
+    .header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        color: #fff;
+        padding: 20px 16px 22px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        box-shadow: 0 4px 16px rgba(255, 106, 0, .28);
+        position: relative;
+        overflow: hidden;
+    }
+    .header::after {
+        content: '';
+        position: absolute;
+        right: -30px; top: -30px;
+        width: 120px; height: 120px;
+        background: radial-gradient(circle, rgba(255,255,255,.18) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+    .header h1 { font-size: 21px; font-weight: 700; letter-spacing: .5px; }
+    .header p { font-size: 12px; opacity: .82; margin-top: 3px; }
+    .header .order-link {
+        position: absolute;
+        right: 16px; top: 22px;
+        color: #fff;
+        font-size: 12px;
+        text-decoration: none;
+        border: 1px solid rgba(255,255,255,.7);
+        padding: 5px 13px;
+        border-radius: 999px;
+        background: rgba(255,255,255,.12);
+        backdrop-filter: blur(4px);
+        transition: background .2s;
+    }
+    .header .order-link:active { background: rgba(255,255,255,.25); }
+
+    /* ===== 菜品列表 ===== */
+    .menu { padding: 14px; }
+    .dish {
+        display: flex;
+        gap: 13px;
+        background: var(--card);
+        border-radius: var(--radius-md);
+        padding: 13px;
+        margin-bottom: 13px;
+        box-shadow: var(--shadow-sm);
+        transition: box-shadow .2s, transform .15s;
+        animation: fadeUp .4s ease both;
+    }
+    .dish:active { transform: scale(.985); box-shadow: var(--shadow-md); }
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .dish:nth-child(1) { animation-delay: .03s; }
+    .dish:nth-child(2) { animation-delay: .06s; }
+    .dish:nth-child(3) { animation-delay: .09s; }
+    .dish:nth-child(4) { animation-delay: .12s; }
+    .dish:nth-child(5) { animation-delay: .15s; }
+    .dish:nth-child(6) { animation-delay: .18s; }
+    .dish:nth-child(7) { animation-delay: .21s; }
+    .dish:nth-child(8) { animation-delay: .24s; }
+    .dish img {
+        width: 90px;
+        height: 90px;
+        border-radius: var(--radius-sm);
+        object-fit: cover;
+        background: #f0f1f3;
+        flex-shrink: 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    .dish-info { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .dish-name { font-size: 16px; font-weight: 700; }
+    .dish-desc {
+        font-size: 12px;
+        color: var(--text-sub);
+        margin: 5px 0;
+        line-height: 1.5;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .dish-bottom { margin-top: auto; display: flex; align-items: center; justify-content: space-between; }
+    .price { color: var(--accent); font-weight: 800; font-size: 18px; }
+    .price::before { content: "¥"; font-size: 12px; margin-right: 1px; font-weight: 600; }
+    .add-btn {
+        border: none;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 7px 15px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: transform .1s, box-shadow .2s;
+        box-shadow: 0 3px 8px rgba(255, 106, 0, .35);
+    }
+    .add-btn:active { transform: scale(.9); }
+
+    /* ===== 底部结算栏 ===== */
+    .cart-bar {
+        position: fixed;
+        left: 0; right: 0; bottom: 0;
+        max-width: 640px;
+        margin: 0 auto;
+        height: 62px;
+        background: #1e2026;
+        display: flex;
+        align-items: center;
+        padding: 0 14px;
+        z-index: 45;
+        box-shadow: 0 -4px 16px rgba(0, 0, 0, .18);
+    }
+    .cart-icon {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #2e3139;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: transform .1s;
+    }
+    .cart-icon:active { transform: scale(.92); }
+    .badge {
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        min-width: 20px;
+        height: 20px;
+        padding: 0 5px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #1e2026;
+    }
+    .badge.pop { animation: pop .3s; }
+    @keyframes pop { 0%{transform:scale(1)} 40%{transform:scale(1.4)} 100%{transform:scale(1)} }
+    .bar-total { flex: 1; margin-left: 14px; color: #9094a0; font-size: 13px; }
+    .bar-total b { color: #fff; font-size: 21px; font-weight: 800; }
+    .checkout-btn {
+        border: none;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: #fff;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 0 30px;
+        height: 46px;
+        border-radius: 999px;
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(255, 106, 0, .4);
+        transition: transform .1s;
+    }
+    .checkout-btn:active { transform: scale(.96); }
+    .checkout-btn:disabled {
+        background: #3a3d45;
+        color: #6c7080;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+
+    /* ===== 购物车面板 ===== */
+    .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, .5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .25s;
+        z-index: 40;
+    }
+    .overlay.show { opacity: 1; pointer-events: auto; }
+    .cart-panel {
+        position: fixed;
+        left: 0; right: 0; bottom: 62px;
+        max-width: 640px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 20px 20px 0 0;
+        max-height: 62vh;
+        display: flex;
+        flex-direction: column;
+        transform: translateY(105%);
+        transition: transform .3s cubic-bezier(.32,.72,0,1);
+        z-index: 41;
+        box-shadow: 0 -8px 30px rgba(0,0,0,.15);
+    }
+    .cart-panel.show { transform: translateY(0); }
+    .panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--border);
+    }
+    .panel-header .title { font-size: 16px; font-weight: 700; }
+    .select-all { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-sub); cursor: pointer; }
+    .cart-list { overflow-y: auto; padding: 4px 18px; }
+    .cart-empty { text-align: center; color: var(--text-light); padding: 50px 0; font-size: 14px; }
+    .cart-empty::before { content: '🛒'; display: block; font-size: 42px; margin-bottom: 12px; opacity: .5; }
+
+    /* 购物车条目 */
+    .cart-item {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 13px 0;
+        border-bottom: 1px solid #f7f8fa;
+    }
+    .cart-item:last-child { border-bottom: none; }
+    .cart-item img {
+        width: 54px;
+        height: 54px;
+        border-radius: var(--radius-sm);
+        object-fit: cover;
+        background: #f0f1f3;
+        flex-shrink: 0;
+    }
+    .item-info { flex: 1; min-width: 0; }
+    .item-name {
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .item-unit { font-size: 12px; color: var(--text-sub); margin-top: 4px; }
+    .stepper { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
+    .stepper button {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: 1.5px solid var(--primary);
+        background: #fff;
+        color: var(--primary);
+        font-size: 16px;
+        line-height: 1;
+        cursor: pointer;
+        transition: all .15s;
+    }
+    .stepper button:active { transform: scale(.88); }
+    .stepper button.plus { background: var(--primary); color: #fff; box-shadow: 0 2px 6px rgba(255,106,0,.3); }
+    .stepper .qty { min-width: 20px; text-align: center; font-size: 15px; font-weight: 700; }
+    .item-right { width: 78px; text-align: right; flex-shrink: 0; }
+    .item-subtotal { color: var(--accent); font-weight: 700; font-size: 15px; }
+    .item-del {
+        border: none;
+        background: none;
+        color: var(--text-light);
+        font-size: 12px;
+        cursor: pointer;
+        margin-top: 5px;
+        padding: 0;
+    }
+    .item-del:active { color: var(--accent); }
+    input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer; flex-shrink: 0; }
+
+    /* ===== 弹窗 & Toast ===== */
+    .modal-mask {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, .5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+        animation: fadeIn .2s;
+    }
+    .modal-mask.show { display: flex; }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    .modal {
+        background: #fff;
+        border-radius: var(--radius-lg);
+        padding: 24px 22px;
+        width: 82%;
+        max-width: 340px;
+        text-align: center;
+        animation: scaleIn .25s;
+    }
+    @keyframes scaleIn { from{transform:scale(.9);opacity:0} to{transform:scale(1);opacity:1} }
+    .modal h3 { font-size: 17px; margin-bottom: 10px; }
+    .modal p { font-size: 14px; color: var(--text-sub); margin-bottom: 18px; }
+    .modal p b { color: var(--accent); }
+    .modal-btns { display: flex; gap: 12px; }
+    .modal-btns button { flex: 1; height: 42px; border-radius: 999px; font-size: 14px; cursor: pointer; border: none; font-weight: 600; transition: transform .1s; }
+    .modal-btns button:active { transform: scale(.95); }
+    .btn-cancel { background: #f2f3f5; color: #666; }
+    .btn-ok { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; }
+    .toast {
+        position: fixed;
+        left: 50%;
+        top: 45%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, .78);
+        color: #fff;
+        padding: 13px 24px;
+        border-radius: 12px;
+        font-size: 14px;
+        z-index: 60;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .25s;
+        backdrop-filter: blur(4px);
+    }
+    .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<header class="header">
+    <h1>美味点餐</h1>
+    <p>购物车模块 MVP · 菜品/下单走后端 API,购物车本地存储</p>
+    <a href="orders.html" class="order-link">我的订单</a>
+</header>
+
+<main class="menu" id="menu"></main>
+
+<!-- 底部结算栏 -->
+<div class="cart-bar">
+    <div class="cart-icon" id="cartIcon" title="查看购物车">
+        🛒<span class="badge" id="badge" style="display:none">0</span>
+    </div>
+    <div class="bar-total">合计 <b id="totalPrice">¥0.00</b></div>
+    <button class="checkout-btn" id="checkoutBtn" disabled>去结算</button>
+</div>
+
+<!-- 购物车面板 -->
+<div class="overlay" id="overlay"></div>
+<div class="cart-panel" id="cartPanel">
+    <div class="panel-header">
+        <label class="select-all"><input type="checkbox" id="selectAll"> 全选</label>
+        <span class="title">购物车</span>
+        <span style="width:44px"></span>
+    </div>
+    <div class="cart-list" id="cartList"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script>
+/* ============================================================
+ * 购物车模块 MVP
+ * 数据结构(localStorage key: foodCartV1):
+ *   [{ id: 菜品ID, qty: 数量, checked: 是否勾选 }]
+ * 金额统一用"分"存储，避免浮点误差。
+ * ============================================================ */
+const CART_KEY = 'foodCartV1';
+/* 菜品目录:由 data.js 内置下发 */
+let DISHES = [];
+let dishMap = new Map();
+
+/* ---------- 本地存储 ---------- */
+function loadCart() {
+    try {
+        const data = JSON.parse(localStorage.getItem(CART_KEY));
+        return Array.isArray(data) ? data.filter(i => dishMap.has(i.id)) : [];
+    } catch { return []; }
+}
+function saveCart() {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
+
+let cart = [];   // 菜品加载完成后再从 localStorage 恢复
+
+/* ---------- 工具 ---------- */
+const fmt = fen => '¥' + (fen / 100).toFixed(2);
+const $ = id => document.getElementById(id);
+
+function toast(msg) {
+    const t = $('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+/* ---------- 购物车操作 ---------- */
+function addToCart(id) {
+    const item = cart.find(i => i.id === id);
+    if (item) {
+        item.qty += 1;                       // 同菜品数量累加
+    } else {
+        cart.push({ id, qty: 1, checked: true }); // 新商品默认勾选
+    }
+    saveCart();
+    renderCart();
+    bounceBadge();
+}
+
+function changeQty(id, delta) {
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) cart = cart.filter(i => i.id !== id); // 减到 0 移除
+    saveCart();
+    renderCart();
+}
+
+function removeItem(id) {
+    cart = cart.filter(i => i.id !== id);
+    saveCart();
+    renderCart();
+}
+
+function toggleItem(id, checked) {
+    const item = cart.find(i => i.id === id);
+    if (item) { item.checked = checked; saveCart(); renderSummary(); syncSelectAll(); }
+}
+
+function toggleAll(checked) {
+    cart.forEach(i => i.checked = checked);
+    saveCart();
+    renderCart();
+}
+
+/* ---------- 渲染 ---------- */
+function renderMenu() {
+    $('menu').innerHTML = DISHES.map(d => `
+        <div class="dish">
+            <img src="${d.img}" alt="${d.name}" loading="lazy">
+            <div class="dish-info">
+                <div class="dish-name">${d.name}</div>
+                <div class="dish-desc">${d.desc}</div>
+                <div class="dish-bottom">
+                    <span class="price">${(d.price / 100).toFixed(2)}</span>
+                    <button class="add-btn" onclick="addToCart(${d.id})">加入购物车</button>
+                </div>
+            </div>
+        </div>`).join('');
+}
+
+function renderCart() {
+    const list = $('cartList');
+    if (cart.length === 0) {
+        list.innerHTML = '<div class="cart-empty">购物车还是空的,去点菜吧~</div>';
+    } else {
+        list.innerHTML = cart.map(i => {
+            const d = dishMap.get(i.id);
+            return `
+            <div class="cart-item">
+                <input type="checkbox" ${i.checked ? 'checked' : ''}
+                    onchange="toggleItem(${d.id}, this.checked)">
+                <img src="${d.img}" alt="${d.name}">
+                <div class="item-info">
+                    <div class="item-name">${d.name}</div>
+                    <div class="item-unit">单价 ${fmt(d.price)}</div>
+                </div>
+                <div class="stepper">
+                    <button onclick="changeQty(${d.id}, -1)">−</button>
+                    <span class="qty">${i.qty}</span>
+                    <button class="plus" onclick="changeQty(${d.id}, 1)">+</button>
+                </div>
+                <div class="item-right">
+                    <div class="item-subtotal">${fmt(d.price * i.qty)}</div>
+                    <button class="item-del" onclick="removeItem(${d.id})">删除</button>
+                </div>
+            </div>`;
+        }).join('');
+    }
+    renderSummary();
+    syncSelectAll();
+}
+
+/* 角标 + 合计 + 结算按钮状态 */
+function renderSummary() {
+    const totalQty = cart.reduce((s, i) => s + i.qty, 0);          // 角标:全部商品总数量
+    const checkedAmount = cart
+        .filter(i => i.checked)
+        .reduce((s, i) => s + dishMap.get(i.id).price * i.qty, 0); // 合计:仅选中商品
+
+    const badge = $('badge');
+    badge.textContent = totalQty;
+    badge.style.display = totalQty > 0 ? 'flex' : 'none';
+
+    $('totalPrice').textContent = fmt(checkedAmount);
+    $('checkoutBtn').disabled = !cart.some(i => i.checked);        // 未勾选则禁用结算
+}
+
+function syncSelectAll() {
+    const all = $('selectAll');
+    all.checked = cart.length > 0 && cart.every(i => i.checked);
+    all.indeterminate = cart.some(i => i.checked) && !cart.every(i => i.checked);
+}
+
+function bounceBadge() {
+    const b = $('badge');
+    b.classList.remove('pop');
+    void b.offsetWidth;   // 重启动画
+    b.classList.add('pop');
+}
+
+/* ---------- 结算:跳转订单确认页 ---------- */
+function checkout() {
+    if (!cart.some(i => i.checked)) return;
+    location.href = 'checkout.html';
+}
+
+/* ---------- 事件绑定 ---------- */
+$('cartIcon').addEventListener('click', () => {
+    $('cartPanel').classList.toggle('show');
+    $('overlay').classList.toggle('show');
+});
+$('overlay').addEventListener('click', () => {
+    $('cartPanel').classList.remove('show');
+    $('overlay').classList.remove('show');
+});
+$('selectAll').addEventListener('change', e => toggleAll(e.target.checked));
+$('checkoutBtn').addEventListener('click', checkout);
+
+/* ---------- 初始化:先拉取菜品目录,再恢复并渲染购物车 ---------- */
+(async function init() {
+    try {
+        const res = await API.dishes();
+        if (!res.ok) throw new Error(res.status);
+        DISHES = await res.json();
+        dishMap = new Map(DISHES.map(d => [d.id, d]));
+        cart = loadCart();
+    } catch (e) {
+        $('menu').innerHTML = '<div class="cart-empty">菜品加载失败,请确认后端服务(python server.py)已启动</div>';
+        return;
+    }
+    renderMenu();
+    renderCart();
+})();
+</script>
+</body>
+</html>

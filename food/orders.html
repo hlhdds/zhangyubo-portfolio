@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的订单 - 美味点餐</title>
+<style>
+    :root {
+        --primary: #ff6a00;
+        --primary-light: #ff9448;
+        --accent: #ff4500;
+        --bg: #f5f6f8;
+        --card: #ffffff;
+        --text: #2c2c2c;
+        --text-sub: #8a8f99;
+        --text-light: #b8bcc4;
+        --border: #f0f1f3;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
+        --radius-sm: 10px;
+        --radius-md: 14px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+        font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        max-width: 640px;
+        margin: 0 auto;
+        min-height: 100vh;
+    }
+    .header {
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: #fff;
+        padding: 18px 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        box-shadow: 0 4px 16px rgba(255,106,0,.25);
+    }
+    .header h1 { font-size: 18px; font-weight: 700; }
+    .back { color: #fff; text-decoration: none; font-size: 14px; opacity: .92; }
+    main { padding: 14px; }
+    .order-card {
+        display: block;
+        background: var(--card);
+        border-radius: var(--radius-md);
+        padding: 15px 17px;
+        margin-bottom: 13px;
+        box-shadow: var(--shadow-sm);
+        text-decoration: none;
+        color: inherit;
+        transition: box-shadow .2s, transform .15s;
+        animation: fadeUp .35s ease both;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    .order-card:nth-child(1){animation-delay:.03s}
+    .order-card:nth-child(2){animation-delay:.06s}
+    .order-card:nth-child(3){animation-delay:.09s}
+    .order-card:nth-child(4){animation-delay:.12s}
+    .order-card:nth-child(5){animation-delay:.15s}
+    .order-card:active { transform: scale(.985); box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+    .row1 { display: flex; align-items: center; justify-content: space-between; }
+    .order-no { font-size: 13px; font-weight: 700; color: var(--text-sub); letter-spacing: .3px; }
+    .badge {
+        font-size: 12px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        color: #fff;
+        flex-shrink: 0;
+        font-weight: 600;
+        box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    }
+    .st-待支付 { background: linear-gradient(135deg, #ffa726, #ff9800); }
+    .st-已支付 { background: linear-gradient(135deg, #42a5f5, #2196f3); }
+    .st-制作中 { background: linear-gradient(135deg, #ab47bc, #9c27b0); }
+    .st-已完成 { background: linear-gradient(135deg, #66bb6a, #4caf50); }
+    .st-已取消 { background: linear-gradient(135deg, #bdbdbd, #9e9e9e); }
+    .row2 { font-size: 12px; color: var(--text-sub); margin-top: 8px; }
+    .row3 {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-top: 11px;
+        padding-top: 11px;
+        border-top: 1px dashed #eee;
+        font-size: 13px;
+        color: var(--text-sub);
+    }
+    .row3 b { color: var(--accent); font-size: 18px; font-weight: 800; }
+    .empty { text-align: center; color: var(--text-light); padding: 80px 0; font-size: 14px; }
+    .empty::before { content: '📋'; display: block; font-size: 48px; margin-bottom: 14px; opacity: .45; }
+    .empty a { color: var(--primary); text-decoration: none; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header class="header">
+    <a class="back" href="index.html">‹ 返回点菜</a>
+    <h1>我的订单</h1>
+</header>
+
+<main id="list"></main>
+
+<script src="data.js"></script>
+<script>
+const fmt = fen => '¥' + (fen / 100).toFixed(2);
+
+(async function init() {
+    const list = document.getElementById('list');
+    let orders = [];
+    try {
+        const res = await API.orders();
+        if (!res.ok) throw new Error(res.status);
+        orders = await res.json();
+    } catch (e) {
+        list.innerHTML = '<div class="empty">订单加载失败,请确认后端服务已启动</div>';
+        return;
+    }
+    if (orders.length === 0) {
+        list.innerHTML = '<div class="empty">还没有订单,<a href="index.html">去点一单</a></div>';
+        return;
+    }
+    list.innerHTML = orders.map(o => `
+        <a class="order-card" href="order_detail.html?no=${o.order_no}">
+            <div class="row1">
+                <span class="order-no">订单号 ${o.order_no}</span>
+                <span class="badge st-${o.status}">${o.status}</span>
+            </div>
+            <div class="row2">${o.create_time} · ${o.order_type}</div>
+            <div class="row3">
+                <span>共 ${o.item_count} 件商品</span>
+                <b>${fmt(o.total_fen)}</b>
+            </div>
+        </a>`).join('');
+})();
+</script>
+</body>
+</html>

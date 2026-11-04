@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>订单详情 - 美味点餐</title>
+<style>
+    :root {
+        --primary: #ff6a00;
+        --primary-light: #ff9448;
+        --accent: #ff4500;
+        --bg: #f5f6f8;
+        --card: #ffffff;
+        --text: #2c2c2c;
+        --text-sub: #8a8f99;
+        --text-light: #b8bcc4;
+        --border: #f0f1f3;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
+        --radius-sm: 10px;
+        --radius-md: 14px;
+        --radius-lg: 18px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+        font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        max-width: 640px;
+        margin: 0 auto;
+        min-height: 100vh;
+        padding-bottom: 90px;
+    }
+    .header {
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: #fff;
+        padding: 18px 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        box-shadow: 0 4px 16px rgba(255,106,0,.25);
+    }
+    .header h1 { font-size: 18px; font-weight: 700; }
+    .back { color: #fff; text-decoration: none; font-size: 14px; opacity: .92; }
+    main { padding: 14px; }
+    .card {
+        background: var(--card);
+        border-radius: var(--radius-md);
+        padding: 16px 18px;
+        margin-bottom: 13px;
+        box-shadow: var(--shadow-sm);
+        animation: fadeUp .35s ease both;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    .card:nth-child(1) { animation-delay: .05s; }
+    .card:nth-child(2) { animation-delay: .1s; }
+    .card:nth-child(3) { animation-delay: .15s; }
+    .status-card { text-align: center; padding: 26px 16px 22px; position: relative; overflow: hidden; }
+    .status-card::before {
+        content: '';
+        position: absolute;
+        top: -40px; left: 50%; transform: translateX(-50%);
+        width: 160px; height: 160px;
+        border-radius: 50%;
+        opacity: .08;
+    }
+    .st-待支付::before { background: #ff9800; }
+    .st-已支付::before { background: #2196f3; }
+    .st-制作中::before { background: #9c27b0; }
+    .st-已完成::before { background: #4caf50; }
+    .st-已取消::before { background: #9e9e9e; }
+    .status-text { font-size: 24px; font-weight: 800; position: relative; }
+    .st-待支付 { color: #ff9800; }
+    .st-已支付 { color: #2196f3; }
+    .st-制作中 { color: #9c27b0; }
+    .st-已完成 { color: #4caf50; }
+    .st-已取消 { color: #9e9e9e; }
+    .status-tip { font-size: 12px; color: var(--text-sub); margin-top: 7px; position: relative; }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        padding: 8px 0;
+        border-bottom: 1px solid #f7f8fa;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .k { color: var(--text-sub); }
+    .info-row .v { max-width: 65%; text-align: right; word-break: break-all; color: var(--text); }
+
+    .card h2 { font-size: 15px; margin-bottom: 12px; font-weight: 700; }
+    .item {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 11px 0;
+        border-bottom: 1px solid #f7f8fa;
+    }
+    .item:last-child { border-bottom: none; }
+    .item img { width: 50px; height: 50px; border-radius: var(--radius-sm); object-fit: cover; background: #f0f1f3; }
+    .item-info { flex: 1; min-width: 0; }
+    .item-name { font-size: 14px; font-weight: 600; }
+    .item-unit { font-size: 12px; color: var(--text-sub); margin-top: 4px; }
+    .item-sub { color: var(--accent); font-weight: 700; font-size: 15px; }
+    .total-row {
+        display: flex;
+        justify-content: flex-end;
+        align-items: baseline;
+        gap: 8px;
+        padding-top: 14px;
+        border-top: 1px dashed #eee;
+        font-size: 13px;
+        color: var(--text-sub);
+    }
+    .total-row b { color: var(--accent); font-size: 21px; font-weight: 800; }
+
+    /* 底部操作栏 */
+    .bottom-bar {
+        position: fixed;
+        left: 0; right: 0; bottom: 0;
+        max-width: 640px;
+        margin: 0 auto;
+        height: 62px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+        padding: 0 14px;
+        z-index: 30;
+        box-shadow: 0 -4px 16px rgba(0,0,0,.08);
+    }
+    .bottom-bar button {
+        height: 42px;
+        padding: 0 20px;
+        border-radius: 999px;
+        font-size: 14px;
+        cursor: pointer;
+        border: 1.5px solid #e2e5ea;
+        background: #fff;
+        color: var(--text-sub);
+        font-weight: 600;
+        transition: transform .1s, opacity .15s;
+    }
+    .bottom-bar button:active { transform: scale(.95); }
+    .btn-primary {
+        border: none !important;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light)) !important;
+        color: #fff !important;
+        box-shadow: 0 3px 10px rgba(255,106,0,.35);
+    }
+    .btn-danger { color: #f44336 !important; border-color: #f44336 !important; background: #fff5f5 !important; }
+
+    .empty { text-align: center; color: var(--text-light); padding: 80px 0; font-size: 14px; }
+    .empty a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .toast {
+        position: fixed;
+        left: 50%;
+        top: 45%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, .78);
+        color: #fff;
+        padding: 13px 24px;
+        border-radius: 12px;
+        font-size: 14px;
+        z-index: 60;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .25s;
+        backdrop-filter: blur(4px);
+    }
+    .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<header class="header">
+    <a class="back" href="orders.html">‹ 订单列表</a>
+    <h1>订单详情</h1>
+</header>
+
+<main id="main"></main>
+
+<div class="bottom-bar" id="actionBar" style="display:none"></div>
+
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script>
+const CART_KEY = 'foodCartV1';
+const fmt = fen => '¥' + (fen / 100).toFixed(2);
+const $ = id => document.getElementById(id);
+const orderNo = new URLSearchParams(location.search).get('no');
+let ORDER = null;
+
+const STATUS_TIPS = {
+    '待支付': '请尽快完成支付',
+    '已支付': '支付成功,等待商家接单制作',
+    '制作中': '商家正在制作,请稍候',
+    '已完成': '订单已完成,欢迎再次光临',
+    '已取消': '订单已取消'
+};
+
+function toast(msg) {
+    const t = $('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+async function load() {
+    let o;
+    try {
+        const res = await API.order(orderNo);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '加载失败');
+        o = data;
+    } catch (e) {
+        $('main').innerHTML = `<div class="empty">${e.message || '订单不存在'},<a href="orders.html">返回订单列表</a></div>`;
+        return;
+    }
+    ORDER = o;
+    $('main').innerHTML = `
+        <section class="card status-card">
+            <div class="status-text st-${o.status}">${o.status}</div>
+            <div class="status-tip">${STATUS_TIPS[o.status] || ''}</div>
+        </section>
+        <section class="card">
+            <h2>商品清单</h2>
+            ${o.items.map(i => `
+                <div class="item">
+                    <img src="${i.img}" alt="${i.name}">
+                    <div class="item-info">
+                        <div class="item-name">${i.name}</div>
+                        <div class="item-unit">${fmt(i.price)} × ${i.quantity}</div>
+                    </div>
+                    <div class="item-sub">${fmt(i.price * i.quantity)}</div>
+                </div>`).join('')}
+            <div class="total-row">合计 <b>${fmt(o.total_fen)}</b></div>
+        </section>
+        <section class="card">
+            <div class="info-row"><span class="k">订单号</span><span class="v">${o.order_no}</span></div>
+            <div class="info-row"><span class="k">下单时间</span><span class="v">${o.create_time}</span></div>
+            <div class="info-row"><span class="k">收货方式</span><span class="v">${o.order_type}</span></div>
+            <div class="info-row"><span class="k">备注</span><span class="v">${o.remark || '无'}</span></div>
+            ${o.pay_time ? `<div class="info-row"><span class="k">支付时间</span><span class="v">${o.pay_time}</span></div>` : ''}
+        </section>`;
+    renderActions();
+}
+
+/* 操作按钮:待支付 -> [取消订单][模拟支付];任何状态 -> [再来一单] */
+function renderActions() {
+    const bar = $('actionBar');
+    let html = '<button onclick="reorder()">再来一单</button>';
+    if (ORDER.status === '待支付') {
+        html = '<button class="btn-danger" onclick="cancelOrder()">取消订单</button>'
+             + '<button class="btn-primary" onclick="pay()">模拟支付</button>' + html;
+    }
+    bar.innerHTML = html;
+    bar.style.display = 'flex';
+}
+
+async function pay() {
+    try {
+        const res = await API.pay(orderNo);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '支付失败');
+        toast('支付成功!');
+        load();
+    } catch (e) { toast(e.message); }
+}
+
+async function cancelOrder() {
+    if (!confirm('确定取消该订单吗?')) return;
+    try {
+        const res = await API.cancel(orderNo);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '取消失败');
+        toast('订单已取消');
+        load();
+    } catch (e) { toast(e.message); }
+}
+
+/* 再来一单:把订单商品加回购物车(同菜品数量累加),跳回点菜页 */
+function reorder() {
+    const cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+    for (const it of ORDER.items) {
+        const ex = cart.find(c => c.id === it.dish_id);
+        if (ex) {
+            ex.qty += it.quantity;
+            ex.checked = true;
+        } else {
+            cart.push({ id: it.dish_id, qty: it.quantity, checked: true });
+        }
+    }
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    location.href = 'index.html';
+}
+
+load();
+</script>
+</body>
+</html>

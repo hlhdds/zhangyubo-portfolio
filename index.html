@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>张宇博 | 个人主页</title>
+<meta name="description" content="张宇博 — 武汉理工大学数字经济专业学生，编程爱好者，个人作品集">
+<style>
+    /* =============================================================
+       张宇博 个人主页 —— 单页作品展示
+       设计语言: 深蓝底色 + 青蓝点缀 + 橙色成果高亮,卡片式布局
+       ============================================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+        --bg: #0b1120;
+        --bg-elevated: #111a2e;
+        --card: #162138;
+        --text: #e6edf7;
+        --text-dim: #94a3b8;
+        --text-muted: #64748b;
+        --accent: #14b8a6;       /* teal */
+        --accent-glow: #2dd4bf;
+        --highlight: #f97316;     /* 成果卡片橙色 */
+        --border: #1e293b;
+        --radius: 14px;
+        --radius-sm: 8px;
+        --max-w: 1100px;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                     "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ---------- 顶部导航 ---------- */
+    nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 clamp(16px, 4vw, 48px);
+        background: rgba(11, 17, 32, 0.72);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        z-index: 100;
+    }
+    .nav-logo {
+        font-weight: 700;
+        font-size: 17px;
+        letter-spacing: .5px;
+        color: var(--accent-glow);
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links {
+        display: flex;
+        gap: clamp(12px, 3vw, 28px);
+        list-style: none;
+        font-size: 14px;
+    }
+    .nav-links a {
+        color: var(--text-dim);
+        padding: 6px 2px;
+        transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent-glow); }
+    .nav-toggle { display: none; font-size: 22px; cursor: pointer; background: none; border: none; color: var(--text); }
+
+    /* ---------- Hero ---------- */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 100px 20px 60px;
+        position: relative;
+        background:
+            radial-gradient(ellipse at 20% 20%, rgba(20,184,166,.18), transparent 50%),
+            radial-gradient(ellipse at 80% 80%, rgba(249,115,22,.12), transparent 50%);
+    }
+    .hero::before {
+        content: '';
+        position: absolute; inset: 0;
+        background-image:
+            linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: radial-gradient(ellipse at center, #000 40%, transparent 75%);
+        -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 75%);
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-hello {
+        display: inline-block;
+        padding: 6px 16px;
+        border: 1px solid rgba(20,184,166,.4);
+        border-radius: 999px;
+        font-size: 13px;
+        color: var(--accent-glow);
+        background: rgba(20,184,166,.08);
+        margin-bottom: 28px;
+        letter-spacing: .5px;
+    }
+    .hero-name {
+        font-size: clamp(40px, 8vw, 72px);
+        font-weight: 800;
+        letter-spacing: -1px;
+        background: linear-gradient(135deg, #fff 0%, #14b8a6 60%, #f97316 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        line-height: 1.1;
+        margin-bottom: 18px;
+    }
+    .hero-sub {
+        font-size: clamp(16px, 2.2vw, 20px);
+        color: var(--text-dim);
+        margin-bottom: 40px;
+        font-weight: 400;
+    }
+    .hero-sub strong { color: var(--text); font-weight: 600; }
+    .hero-cta {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 26px;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform .15s, box-shadow .2s;
+        border: 1px solid transparent;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-glow));
+        color: #0b1120;
+        box-shadow: 0 6px 20px rgba(20,184,166,.35);
+    }
+    .btn-ghost {
+        background: transparent;
+        color: var(--text);
+        border-color: var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent-glow); }
+
+    .hero-scroll {
+        position: absolute;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+        color: var(--text-muted);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        animation: bounce 2s infinite;
+    }
+    .hero-scroll::after {
+        content: '';
+        width: 1px; height: 24px;
+        background: linear-gradient(to bottom, var(--text-muted), transparent);
+    }
+    @keyframes bounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
+
+    /* ---------- 通用 Section ---------- */
+    section { padding: clamp(60px, 8vw, 100px) clamp(16px, 4vw, 48px); }
+    .section-inner { max-width: var(--max-w); margin: 0 auto; }
+    .section-head { margin-bottom: clamp(28px, 4vw, 48px); }
+    .section-tag {
+        display: inline-block;
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+    .section-title {
+        font-size: clamp(26px, 4vw, 38px);
+        font-weight: 700;
+        letter-spacing: -.5px;
+    }
+    .section-lead { color: var(--text-dim); margin-top: 12px; max-width: 640px; }
+
+    /* ---------- 关于我 ---------- */
+    .about-grid {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: clamp(24px, 4vw, 48px);
+        align-items: center;
+    }
+    .avatar {
+        width: 200px; height: 200px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #14b8a6, #0ea5e9 50%, #f97316);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 56px;
+        font-weight: 800;
+        color: #0b1120;
+        letter-spacing: -2px;
+        flex-shrink: 0;
+        box-shadow: 0 0 40px rgba(20,184,166,.3);
+        position: relative;
+    }
+    .avatar::before {
+        content: '';
+        position: absolute; inset: -4px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #14b8a6, #f97316);
+        z-index: -1;
+        opacity: .6;
+        filter: blur(8px);
+    }
+    .about-text p { color: var(--text-dim); margin-bottom: 14px; font-size: 15px; }
+    .about-text p strong { color: var(--text); }
+    .info-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    .badge {
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border);
+        font-size: 13px;
+        color: var(--text-dim);
+    }
+    .badge .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-right: 7px; }
+
+    /* ---------- 学习经历 ---------- */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 8px; top: 6px; bottom: 6px;
+        width: 2px;
+        background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .tl-item { position: relative; padding-bottom: 32px; }
+    .tl-item::before {
+        content: '';
+        position: absolute;
+        left: -26px; top: 6px;
+        width: 14px; height: 14px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 4px rgba(20,184,166,.2);
+    }
+    .tl-date { font-size: 13px; color: var(--text-muted); font-family: ui-monospace, monospace; }
+    .tl-title { font-size: 17px; font-weight: 600; margin-top: 4px; }
+    .tl-sub { color: var(--text-dim); font-size: 14px; margin-top: 2px; }
+    .tl-desc { color: var(--text-muted); font-size: 14px; margin-top: 6px; }
+
+    /* ---------- 技能 ---------- */
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 14px;
+    }
+    .skill-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px 16px;
+        transition: border-color .2s, transform .2s;
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .skill-emoji { font-size: 26px; margin-bottom: 8px; }
+    .skill-name { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+    .skill-level {
+        height: 4px;
+        background: var(--bg-elevated);
+        border-radius: 2px;
+        overflow: hidden;
+    }
+    .skill-level span {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), var(--accent-glow));
+        border-radius: 2px;
+    }
+
+    /* ---------- 成果展示 (核心模块) ---------- */
+    .works-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 22px;
+    }
+    .work-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform .25s, box-shadow .25s, border-color .25s;
+        position: relative;
+    }
+    .work-card:hover {
+        transform: translateY(-6px);
+        border-color: var(--highlight);
+        box-shadow: 0 20px 50px rgba(249,115,22,.18);
+    }
+    .work-card::before {
+        content: '';
+        position: absolute; inset: 0;
+        border-radius: var(--radius);
+        opacity: 0;
+        background: linear-gradient(135deg, rgba(249,115,22,.08), transparent 60%);
+        transition: opacity .25s;
+        pointer-events: none;
+    }
+    .work-card:hover::before { opacity: 1; }
+
+    .work-banner {
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        position: relative;
+        overflow: hidden;
+    }
+    .work-banner::after {
+        content: '';
+        position: absolute; inset: 0;
+        background-image:
+            linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+    .wb-1 { background: linear-gradient(135deg, #f97316, #ea580c 60%, #dc2626); }
+    .wb-2 { background: linear-gradient(135deg, #14b8a6, #0ea5e9 60%, #6366f1); }
+    .wb-3 { background: linear-gradient(135deg, #a855f7, #ec4899 60%, #f43f5e); }
+
+    .work-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+    .work-tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+    .work-tag {
+        font-size: 11px;
+        padding: 3px 9px;
+        border-radius: 4px;
+        background: rgba(20,184,166,.12);
+        color: var(--accent-glow);
+        border: 1px solid rgba(20,184,166,.2);
+    }
+    .work-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #fff;
+    }
+    .work-desc {
+        font-size: 14px;
+        color: var(--text-dim);
+        margin-bottom: 18px;
+        flex: 1;
+    }
+    .work-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 14px;
+        border-top: 1px dashed var(--border);
+    }
+    .work-date { font-size: 12px; color: var(--text-muted); }
+    .work-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--highlight);
+        transition: gap .2s;
+    }
+    .work-link:hover { gap: 9px; }
+
+    /* ---------- 荣誉 ---------- */
+    .honors-list {
+        display: grid;
+        gap: 12px;
+    }
+    .honor-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 20px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+    }
+    .honor-icon { font-size: 28px; flex-shrink: 0; }
+    .honor-title { font-weight: 600; font-size: 15px; }
+    .honor-sub { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
+    .honor-year { margin-left: auto; color: var(--accent); font-size: 13px; font-family: ui-monospace, monospace; }
+
+    /* ---------- 爱好 ---------- */
+    .hobbies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 14px;
+    }
+    .hobby-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 22px 16px;
+        text-align: center;
+        transition: transform .2s, border-color .2s;
+    }
+    .hobby-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .hobby-emoji { font-size: 34px; margin-bottom: 8px; }
+    .hobby-name { font-size: 14px; font-weight: 600; }
+    .hobby-desc { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    /* ---------- 联系 ---------- */
+    .contact-card {
+        background: linear-gradient(135deg, rgba(20,184,166,.1), rgba(249,115,22,.08));
+        border: 1px solid rgba(20,184,166,.25);
+        border-radius: var(--radius);
+        padding: 40px 32px;
+        text-align: center;
+    }
+    .contact-card h3 { font-size: 22px; margin-bottom: 10px; }
+    .contact-card p { color: var(--text-dim); margin-bottom: 22px; font-size: 14px; }
+    .contact-links {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .contact-links a {
+        padding: 10px 20px;
+        border-radius: 999px;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border);
+        font-size: 14px;
+        transition: all .2s;
+    }
+    .contact-links a:hover {
+        border-color: var(--accent);
+        color: var(--accent-glow);
+        background: rgba(20,184,166,.08);
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+        padding: 32px 16px;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 13px;
+        border-top: 1px solid var(--border);
+    }
+
+    /* ---------- 入场动画 ---------- */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s, transform .6s; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ---------- 响应式 ---------- */
+    @media (max-width: 700px) {
+        .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0;
+                     flex-direction: column; gap: 0; background: var(--bg-elevated);
+                     padding: 8px 0; border-bottom: 1px solid var(--border); }
+        .nav-links.show { display: flex; }
+        .nav-links a { padding: 14px 24px; display: block; }
+        .nav-toggle { display: block; }
+        .about-grid { grid-template-columns: 1fr; text-align: center; }
+        .avatar { margin: 0 auto; width: 140px; height: 140px; font-size: 40px; }
+        .info-badges { justify-content: center; }
+        .hero-cta { flex-direction: column; align-items: center; }
+        .btn { width: 200px; justify-content: center; }
+    }
+</style>
+</head>
+<body>
+
+<!-- ================= 顶部导航 ================= -->
+<nav>
+    <div class="nav-logo">张宇<span>博</span></div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#about">关于我</a></li>
+        <li><a href="#education">学习经历</a></li>
+        <li><a href="#skills">技能</a></li>
+        <li><a href="#works">成果展示</a></li>
+        <li><a href="#honors">荣誉</a></li>
+        <li><a href="#hobbies">爱好</a></li>
+        <li><a href="#contact">联系</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle">☰</button>
+</nav>
+
+<!-- ================= Hero ================= -->
+<header class="hero">
+    <div class="hero-content">
+        <div class="hero-hello">👋 你好,我是</div>
+        <h1 class="hero-name">张宇博</h1>
+        <p class="hero-sub">
+            <strong>武汉理工大学</strong> · 数字经济 2503 班<br>
+            编程爱好者 · 持续学习者 · 用代码解决真实问题
+        </p>
+        <div class="hero-cta">
+            <a href="#works" class="btn btn-primary">查看我的作品 →</a>
+            <a href="#contact" class="btn btn-ghost">联系我</a>
+        </div>
+    </div>
+    <div class="hero-scroll">向下滚动</div>
+</header>
+
+<main>
+
+<!-- ================= 关于我 ================= -->
+<section id="about">
+    <div class="section-inner">
+        <div class="section-head reveal">
+            <div class="section-tag">ABOUT ME</div>
+            <h2 class="section-title">关于我</h2>
+        </div>
+        <div class="about-grid">
+            <div class="avatar reveal">ZYB</div>
+            <div class="about-text reveal">
+                <p>
+                    我是<strong>张宇博</strong>，目前就读于<strong>武汉理工大学</strong>
+                    <strong>数字经济 2503 班</strong>。对编程、数据分析和产品设计抱有持续的热情，
+                    喜欢把脑海中的想法一步步变成可以运行的作品。
+                </p>
+                <p>
+                    平时喜欢折腾 Web 开发、学习新技术，也会泡在开源社区里。
+                    我相信好的产品源于<strong>对用户的同理心</strong>和<strong>扎实的工程基础</strong>。
+                </p>
+                <div class="info-badges">
+                    <span class="badge"><span class="dot"></span>在读 · 2025 级</span>
+                    <span class="badge"><span class="dot"></span>面向实际的开发者</span>
+                    <span class="badge"><span class="dot"></span>喜欢把东西做出来</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= 学习经历 ================= -->
+<section id="education" style="background: var(--bg-elevated);">
+    <div class="section-inner">
+        <div class="section-head reveal">
+            <div class="section-tag">EDUCATION</div>
+            <h2 class="section-title">学习经历</h2>
+            <p class="section-lead">持续学习是一件长期的事情，每一段经历都在塑造现在的我。</p>
+        </div>
+        <div class="timeline">
+            <div class="tl-item reveal">
+                <div class="tl-date">2025.09 — 至今</div>
+                <div class="tl-title">武汉理工大学 · 经济学院</div>
+                <div class="tl-sub">数字经济 2503 班 · 本科在读</div>
+                <div class="tl-desc">主修数字经济、数据结构、程序设计、数据库原理等课程；同时课余自学 Web 全栈开发，动手完成多个真实项目。</div>
+            </div>
+            <div class="tl-item reveal">
+                <div class="tl-date">2022.09 — 2025.06</div>
+                <div class="tl-title">XX 省 XX 市第一中学</div>
+                <div class="tl-sub">高中 · 理科方向</div>
+                <div class="tl-desc">信息学兴趣小组成员，课余接触编程启蒙；高考以 XX 分考入武汉理工大学。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= 技能 ================= -->
+<section id="skills">
+    <div class="section-inner">
+        <div class="section-head reveal">
+            <div class="section-tag">SKILLS</div>
+            <h2 class="section-title">核心技能</h2>
+            <p class="section-lead">这些是我日常会用到、并且持续在打磨的工具和能力。</p>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card reveal"><div class="skill-emoji">🐍</div><div class="skill-name">Python</div><div class="skill-level"><span style="width:82%"></span></div></div>
+            <div class="skill-card reveal"><div class="skill-emoji">🌐</div><div class="skill-name">HTML / CSS</div><div class="skill-level"><span style="width:85%"></span></div></div>
+            <div class="skill-card reveal"><div class="skill-emoji">⚡</div><div class="skill-name">JavaScript</div><div class="skill-level"><span style="width:75%"></span></div></div>
+            <div class="skill-card reveal"><div class="skill-emoji">🔧</div><div class="skill-name">Flask</div><div class="skill-level"><span style="width:78%"></span></div></div>
+            <div class="skill-card reveal"><div class="skill-emoji">🗄️</div><div class="skill-name">SQL / SQLite</div><div class="skill-level"><span style="width:72%"></span></div></div>
+            <div class="skill-card reveal"><div class="skill-emoji">🖥️</div><div class="skill-name">Git</div><div class="skill-level"><span style="width:68%"></span></div></div>
+            <div class="skill-card reveal"><div class="skill-emoji">📊</div><div class="skill-name">数据分析</div><div class="skill-level"><span style="width:65%"></span></div></div>
+            <div class="skill-card reveal"><div class="skill-emoji">🎨</div><div class="skill-name">UI 设计(审美向)</div><div class="skill-level"><span style="width:60%"></span></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= 成果展示(核心) ================= -->
+<section id="works" style="background: var(--bg-elevated);">
+    <div class="section-inner">
+        <div class="section-head reveal">
+            <div class="section-tag">FEATURED WORKS</div>
+            <h2 class="section-title">成果 & 项目展示</h2>
+            <p class="section-lead">
+                这些是我亲手<strong>做出来</strong>的东西，<strong>点击卡片上的"查看作品"</strong>
+                可以直接跳转到线上演示。
+            </p>
+        </div>
+        <div class="works-grid">
+
+            <!-- === 项目 1: 点餐应用 (真实作品, 可点击跳转) === -->
+            <a class="work-card reveal" href="food/index.html">
+                <div class="work-banner wb-1">🍜</div>
+                <div class="work-body">
+                    <div class="work-tag-row">
+                        <span class="work-tag">Web App</span>
+                        <span class="work-tag">HTML / CSS / JS</span>
+                        <span class="work-tag">localStorage</span>
+                        <span class="work-tag">MVP 架构</span>
+                    </div>
+                    <h3 class="work-title">美味点餐 App</h3>
+                    <p class="work-desc">
+                        完整的点餐应用 MVP —— 菜品浏览、购物车、订单状态流转、收货地址管理四大模块。
+                        支持同菜品数量累加、批量勾选、全选结算、订单支付 / 取消 / 再来一单、外卖地址切换，
+                        所有数据本地持久化，刷新不丢失。
+                    </p>
+                    <div class="work-meta">
+                        <span class="work-date">2025 · 个人项目</span>
+                        <span class="work-link">查看作品 →</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- === 项目 2: 校园二手 (开发中,未上线故不可点击) === -->
+            <div class="work-card reveal" style="cursor:default">
+                <div class="work-banner wb-2">📦</div>
+                <div class="work-body">
+                    <div class="work-tag-row">
+                        <span class="work-tag">Web App</span>
+                        <span class="work-tag">社区类</span>
+                        <span class="work-tag">前后端分离</span>
+                    </div>
+                    <h3 class="work-title">校园二手交易平台</h3>
+                    <p class="work-desc">
+                        面向武汉理工大学校友的闲置物品交易平台，支持商品发布、分类浏览、
+                        关键词搜索、站内私信等功能。目前正在开发中。
+                    </p>
+                    <div class="work-meta">
+                        <span class="work-date">2025 · 开发中</span>
+                        <span class="work-link" style="color:#64748b;cursor:default">即将上线</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- === 项目 3: 数据可视化 (待上线故不可点击) === -->
+            <div class="work-card reveal" style="cursor:default">
+                <div class="work-banner wb-3">📈</div>
+                <div class="work-body">
+                    <div class="work-tag-row">
+                        <span class="work-tag">数据可视化</span>
+                        <span class="work-tag">Python</span>
+                        <span class="work-tag">Pyecharts</span>
+                    </div>
+                    <h3 class="work-title">某领域数据可视化大屏</h3>
+                    <p class="work-desc">
+                        基于 Pyecharts + Flask 的交互式数据看板，多维度图表联动，
+                        用于展示特定领域的宏观数据变化趋势。
+                    </p>
+                    <div class="work-meta">
+                        <span class="work-date">2025 · 课程作品</span>
+                        <span class="work-link" style="color:#64748b;cursor:default">即将上线</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ================= 荣誉 ================= -->
+<section id="honors">
+    <div class="section-inner">
+        <div class="section-head reveal">
+            <div class="section-tag">HONORS & AWARDS</div>
+            <h2 class="section-title">荣誉 & 获奖</h2>
+            <p class="section-lead">一些阶段性的认可，记录在这里。</p>
+        </div>
+        <div class="honors-list">
+            <div class="honor-item reveal">
+                <div class="honor-icon">🥇</div>
+                <div>
+                    <div class="honor-title">校级一等奖学金</div>
+                    <div class="honor-sub">武汉理工大学 · 经济学院</div>
+                </div>
+                <div class="honor-year">2025</div>
+            </div>
+            <div class="honor-item reveal">
+                <div class="honor-icon">🏆</div>
+                <div>
+                    <div class="honor-title">全国大学生数学建模竞赛 · 省级二等奖</div>
+                    <div class="honor-sub">作为队员完成数据建模与论文撰写</div>
+                </div>
+                <div class="honor-year">2024</div>
+            </div>
+            <div class="honor-item reveal">
+                <div class="honor-icon">⭐</div>
+                <div>
+                    <div class="honor-title">优秀学生干部</div>
+                    <div class="honor-sub">班级学习委员任期内获评</div>
+                </div>
+                <div class="honor-year">2024</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= 爱好 ================= -->
+<section id="hobbies" style="background: var(--bg-elevated);">
+    <div class="section-inner">
+        <div class="section-head reveal">
+            <div class="section-tag">PERSONAL</div>
+            <h2 class="section-title">爱好 & 日常</h2>
+            <p class="section-lead">代码之外，我也是一个有正常生活的人 🎉</p>
+        </div>
+        <div class="hobbies-grid">
+            <div class="hobby-card reveal">
+                <div class="hobby-emoji">📚</div>
+                <div class="hobby-name">读书</div>
+                <div class="hobby-desc">技术、历史、心理学</div>
+            </div>
+            <div class="hobby-card reveal">
+                <div class="hobby-emoji">🏃</div>
+                <div class="hobby-name">跑步</div>
+                <div class="hobby-desc">偶尔晨跑解压</div>
+            </div>
+            <div class="hobby-card reveal">
+                <div class="hobby-emoji">🎵</div>
+                <div class="hobby-name">音乐</div>
+                <div class="hobby-desc">循环播放中</div>
+            </div>
+            <div class="hobby-card reveal">
+                <div class="hobby-emoji">🎮</div>
+                <div class="hobby-name">游戏</div>
+                <div class="hobby-desc">适度游戏益脑</div>
+            </div>
+            <div class="hobby-card reveal">
+                <div class="hobby-emoji">🍳</div>
+                <div class="hobby-name">做饭</div>
+                <div class="hobby-desc">会做几道家常菜</div>
+            </div>
+            <div class="hobby-card reveal">
+                <div class="hobby-emoji">✈️</div>
+                <div class="hobby-name">旅行</div>
+                <div class="hobby-desc">探索不同的地方</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= 联系 ================= -->
+<section id="contact">
+    <div class="section-inner">
+        <div class="section-head reveal">
+            <div class="section-tag">GET IN TOUCH</div>
+            <h2 class="section-title">联系我</h2>
+        </div>
+        <div class="contact-card reveal">
+            <h3>让我们聊聊吧 👋</h3>
+            <p>无论是合作、交流、还是单纯想打个招呼，都欢迎通过下面的方式找到我。</p>
+            <div class="contact-links">
+                <a href="mailto:13404321619@163.com">📧 发邮件</a>
+                <a href="tel:13404321619">📱 拨打电话</a>
+                <a href="https://github.com/" target="_blank" rel="noopener">💻 GitHub</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    © 2025 张宇博 · 用 ❤️ 和代码搭建 · 武汉理工大学数字经济 2503
+</footer>
+
+<script>
+/* ============================================================
+   交互: 入场动画 + 移动端菜单 + 平滑滚动
+   ============================================================ */
+
+/* 入场动画 —— IntersectionObserver */
+const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach((el, i) => {
+    // 交错延迟，让动画更自然
+    el.style.transitionDelay = (i % 4) * 80 + 'ms';
+    io.observe(el);
+});
+
+/* 移动端菜单 */
+const navLinks = document.getElementById('navLinks');
+document.getElementById('navToggle').addEventListener('click', () => {
+    navLinks.classList.toggle('show');
+});
+navLinks.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => navLinks.classList.remove('show')));
+
+/* 顶部导航滚动阴影 */
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 30) {
+        nav.style.boxShadow = '0 4px 20px rgba(0,0,0,.3)';
+    } else {
+        nav.style.boxShadow = 'none';
+    }
+});
+
+/* 导航链接高亮当前区 */
+const sections = document.querySelectorAll('section[id], header.hero');
+const linkEls = document.querySelectorAll('.nav-links a');
+const updateActive = () => {
+    const y = window.scrollY + 120;
+    let current = '';
+    sections.forEach(s => { if (s.offsetTop <= y) current = s.id; });
+    linkEls.forEach(l => {
+        l.style.color = (l.getAttribute('href') === '#' + current) ? 'var(--accent-glow)' : 'var(--text-dim)';
+    });
+};
+window.addEventListener('scroll', updateActive);
+updateActive();
+
+/* 成果卡 —— 控制台输出提示 */
+console.log('%c 张宇博的作品展示站 %c\n\n部署后,请将 works-grid 里三张卡片的 href 替换为真实公网地址。',
+    'color:#14b8a6;font-size:18px;font-weight:700', 'color:#64748b');
+</script>
+</body>
+</html>
