@@ -390,44 +390,6 @@
     }
     .work-link:hover { gap: 9px; }
 
-    /* ---------- 荣誉 ---------- */
-    .honors-list {
-        display: grid;
-        gap: 12px;
-    }
-    .honor-item {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        padding: 16px 20px;
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-sm);
-    }
-    .honor-icon { font-size: 28px; flex-shrink: 0; }
-    .honor-title { font-weight: 600; font-size: 15px; }
-    .honor-sub { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
-    .honor-year { margin-left: auto; color: var(--accent); font-size: 13px; font-family: ui-monospace, monospace; }
-
-    /* ---------- 爱好 ---------- */
-    .hobbies-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 14px;
-    }
-    .hobby-card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 22px 16px;
-        text-align: center;
-        transition: transform .2s, border-color .2s;
-    }
-    .hobby-card:hover { transform: translateY(-3px); border-color: var(--accent); }
-    .hobby-emoji { font-size: 34px; margin-bottom: 8px; }
-    .hobby-name { font-size: 14px; font-weight: 600; }
-    .hobby-desc { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-
     /* ---------- 联系 ---------- */
     .contact-card {
         background: linear-gradient(135deg, rgba(20,184,166,.1), rgba(249,115,22,.08));
@@ -497,8 +459,6 @@
         <li><a href="#education">学习经历</a></li>
         <li><a href="#skills">技能</a></li>
         <li><a href="#works">成果展示</a></li>
-        <li><a href="#honors">荣誉</a></li>
-        <li><a href="#hobbies">爱好</a></li>
         <li><a href="#contact">联系</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle">☰</button>
@@ -676,86 +636,6 @@
                 </div>
             </div>
 
-        </div>
-    </div>
-</section>
-
-<!-- ================= 荣誉 ================= -->
-<section id="honors">
-    <div class="section-inner">
-        <div class="section-head reveal">
-            <div class="section-tag">HONORS & AWARDS</div>
-            <h2 class="section-title">荣誉 & 获奖</h2>
-            <p class="section-lead">一些阶段性的认可，记录在这里。</p>
-        </div>
-        <div class="honors-list">
-            <div class="honor-item reveal">
-                <div class="honor-icon">🥇</div>
-                <div>
-                    <div class="honor-title">校级一等奖学金</div>
-                    <div class="honor-sub">武汉理工大学 · 经济学院</div>
-                </div>
-                <div class="honor-year">2025</div>
-            </div>
-            <div class="honor-item reveal">
-                <div class="honor-icon">🏆</div>
-                <div>
-                    <div class="honor-title">全国大学生数学建模竞赛 · 省级二等奖</div>
-                    <div class="honor-sub">作为队员完成数据建模与论文撰写</div>
-                </div>
-                <div class="honor-year">2024</div>
-            </div>
-            <div class="honor-item reveal">
-                <div class="honor-icon">⭐</div>
-                <div>
-                    <div class="honor-title">优秀学生干部</div>
-                    <div class="honor-sub">班级学习委员任期内获评</div>
-                </div>
-                <div class="honor-year">2024</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ================= 爱好 ================= -->
-<section id="hobbies" style="background: var(--bg-elevated);">
-    <div class="section-inner">
-        <div class="section-head reveal">
-            <div class="section-tag">PERSONAL</div>
-            <h2 class="section-title">爱好 & 日常</h2>
-            <p class="section-lead">代码之外，我也是一个有正常生活的人 🎉</p>
-        </div>
-        <div class="hobbies-grid">
-            <div class="hobby-card reveal">
-                <div class="hobby-emoji">📚</div>
-                <div class="hobby-name">读书</div>
-                <div class="hobby-desc">技术、历史、心理学</div>
-            </div>
-            <div class="hobby-card reveal">
-                <div class="hobby-emoji">🏃</div>
-                <div class="hobby-name">跑步</div>
-                <div class="hobby-desc">偶尔晨跑解压</div>
-            </div>
-            <div class="hobby-card reveal">
-                <div class="hobby-emoji">🎵</div>
-                <div class="hobby-name">音乐</div>
-                <div class="hobby-desc">循环播放中</div>
-            </div>
-            <div class="hobby-card reveal">
-                <div class="hobby-emoji">🎮</div>
-                <div class="hobby-name">游戏</div>
-                <div class="hobby-desc">适度游戏益脑</div>
-            </div>
-            <div class="hobby-card reveal">
-                <div class="hobby-emoji">🍳</div>
-                <div class="hobby-name">做饭</div>
-                <div class="hobby-desc">会做几道家常菜</div>
-            </div>
-            <div class="hobby-card reveal">
-                <div class="hobby-emoji">✈️</div>
-                <div class="hobby-name">旅行</div>
-                <div class="hobby-desc">探索不同的地方</div>
-            </div>
         </div>
     </div>
 </section>
