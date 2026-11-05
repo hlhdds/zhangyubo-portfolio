@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>变形金刚 Transformers 介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            background: linear-gradient(135deg, #0a0a2e 0%, #1a1a4e 50%, #2d1b69 100%);
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 顶部标题 */
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            background: linear-gradient(90deg, #ff6b00, #ffd700, #ff6b00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 5px;
+            text-shadow: 0 0 30px rgba(255, 107, 0, 0.3);
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .header h2 {
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-top: 10px;
+            letter-spacing: 3px;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        /* 简介区 */
+        .intro {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+        }
+
+        /* 阵营卡片 */
+        .factions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .faction-card {
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .faction-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .faction-card.autobot {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            border: 2px solid #60a5fa;
+        }
+
+        .faction-card.decepticon {
+            background: linear-gradient(135deg, #7f1d1d, #dc2626);
+            border: 2px solid #f87171;
+        }
+
+        .faction-card h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .faction-card .slogan {
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .faction-card p {
+            margin-bottom: 15px;
+            color: #f0f0f0;
+        }
+
+        .emblem {
+            font-size: 4rem;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            opacity: 0.3;
+        }
+
+        /* 角色列表 */
+        .characters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .char-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .char-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+
+        .char-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: #ffd700;
+        }
+
+        .char-card .role {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        .char-card .alt-form {
+            font-size: 0.95rem;
+            color: #87ceeb;
+            margin-bottom: 10px;
+        }
+
+        .char-card p {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* 时间线 */
+        .timeline-section {
+            margin: 50px 0;
+        }
+
+        .timeline-section h3 {
+            text-align: center;
+            font-size: 2rem;
+            color: #ffd700;
+            margin-bottom: 30px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #ff6b00, #ffd700);
+        }
+
+        .timeline-item {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ffd700;
+            box-shadow: 0 0 10px #ffd700;
+        }
+
+        .timeline-item .year {
+            font-weight: bold;
+            color: #ff6b00;
+            font-size: 1.1rem;
+        }
+
+        .timeline-item .event {
+            color: #e0e0e0;
+            margin-top: 3px;
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 2.5rem; }
+            .factions { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 标题 -->
+        <header class="header">
+            <h1>TRANSFORMERS</h1>
+            <h2>变 形 金 刚</h2>
+        </header>
+
+        <!-- 简介 -->
+        <section class="intro">
+            <p>
+                《变形金刚》（Transformers）是由美国孩之宝（Hasbro）和日本特佳丽（Takara）
+                共同开发的跨媒体制作系列，自1984年诞生以来风靡全球。故事讲述了来自
+                <strong>塞伯坦星球（Cybertron）</strong> 的外星机械生命体——变形金刚，
+                他们能够变形为汽车、飞机、武器等各种形态。两大阵营 <strong>汽车人（Autobots）</strong>
+                与 <strong>霸天虎（Decepticons）</strong> 为了争夺能量和家园展开了跨越星际的史诗战争。
+            </p>
+        </section>
+
+        <!-- 两大阵营 -->
+        <section class="factions">
+            <div class="faction-card autobot">
+                <div class="emblem">🅰</div>
+                <h3>汽车人 Autobots</h3>
+                <p class="slogan">"自由权利归众生"</p>
+                <p>由擎天柱领导的正义阵营，崇尚自由与和平。他们为了保护宇宙中的生命而战，
+                在与霸天虎的战争中不惜牺牲一切。汽车人多变形为民用车辆，象征着守护与希望。</p>
+                <p><strong>领袖：</strong>擎天柱（Optimus Prime）</p>
+                <p><strong>配色：</strong>蓝、红、银</p>
+            </div>
+
+            <div class="faction-card decepticon">
+                <div class="emblem">🅳</div>
+                <h3>霸天虎 Decepticons</h3>
+                <p class="slogan">"和平经由暴政"</p>
+                <p>由威震天领导的邪恶阵营，追求力量与统治。他们野心勃勃，为了征服宇宙
+                不惜毁灭一切。霸天虎多变形为军用载具和武器，象征着毁灭与征服。</p>
+                <p><strong>领袖：</strong>威震天（Megatron）</p>
+                <p><strong>配色：</strong>紫、灰、银</p>
+            </div>
+        </section>
+
+        <!-- 经典角色 -->
+        <h3 style="text-align:center; font-size:2rem; color:#ffd700; margin:40px 0 20px;">经典角色</h3>
+        <section class="characters">
+            <div class="char-card">
+                <h4>擎天柱 Optimus Prime</h4>
+                <div class="role">汽车人领袖</div>
+                <div class="alt-form">变形形态：彼得比尔特卡车</div>
+                <p>正义、勇敢、富有责任感的领袖，拥有强大的力量与智慧，是汽车人的精神支柱。</p>
+            </div>
+
+            <div class="char-card">
+                <h4>威震天 Megatron</h4>
+                <div class="role">霸天虎领袖</div>
+                <div class="alt-form">变形形态：手枪/坦克/战机</div>
+                <p>冷酷无情的暴君，拥有毁灭性的力量，是擎天柱的宿敌，一心想要统治宇宙。</p>
+            </div>
+
+            <div class="char-card">
+                <h4>大黄蜂 Bumblebee</h4>
+                <div class="role">汽车人侦察兵</div>
+                <div class="alt-form">变形形态：雪佛兰科迈罗</div>
+                <p>忠诚、勇敢的小型战士，与人类关系最为密切，是汽车人与人类沟通的桥梁。</p>
+            </div>
+
+            <div class="char-card">
+                <h4>红蜘蛛 Starscream</h4>
+                <div class="role">霸天虎副指挥官</div>
+                <div class="alt-form">变形形态：F-15战斗机</div>
+                <p>野心勃勃的空军指挥官，一直觊觎威震天的领袖之位，性格狡猾多变。</p>
+            </div>
+
+            <div class="char-card">
+                <h4>铁皮 Ironhide</h4>
+                <div class="role">汽车人武器专家</div>
+                <div class="alt-form">变形形态：GMC皮卡</div>
+                <p>经验丰富的老兵，负责汽车人的武器装备，性格刚毅，是擎天柱最信任的战友之一。</p>
+            </div>
+
+            <div class="char-card">
+                <h4>声波 Soundwave</h4>
+                <div class="role">霸天虎情报官</div>
+                <div class="alt-form">变形形态：录音机/卫星</div>
+                <p>沉默寡言的情报专家，能够截获和破译各种信号，是威震天最忠诚的部下。</p>
+            </div>
+        </section>
+
+        <!-- 发展历程 -->
+        <section class="timeline-section">
+            <h3>发展历程</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="year">1984年</div>
+                    <div class="event">变形金刚系列诞生，首部动画《变形金刚》与玩具同步推出，开启了传奇时代。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">1986年</div>
+                    <div class="event">动画电影《变形金刚：大电影》上映，擎天柱牺牲、热破成为补天士等情节成为经典。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">1996年</div>
+                    <div class="event">《变形金刚：超能勇士》（Beast Wars）播出，引入野兽形态变形金刚，革新系列。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2007年</div>
+                    <div class="event">迈克尔·贝执导的真人版电影《变形金刚》上映，全球票房大爆，开启电影宇宙。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2018年</div>
+                    <div class="event">独立电影《大黄蜂》上映，回归G1风格，获得粉丝与市场的广泛好评。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2023年</div>
+                    <div class="event">《变形金刚：超能勇士崛起》上映，将超能勇士元素融入真人电影宇宙。</div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>本页面为变形金刚粉丝向介绍页面，仅供学习交流使用。</p>
+            <p>Transformers © Hasbro / Takara Tomy</p>
+        </footer>
+    </div>
+
+    <script>
+        // 页面加载时的小动画
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.char-card, .faction-card');
+            cards.forEach((card, i) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, i * 100);
+            });
+
+            // 标题点击彩蛋
+            const title = document.querySelector('.header h1');
+            let clickCount = 0;
+            title.addEventListener('click', () => {
+                clickCount++;
+                if (clickCount % 3 === 0) {
+                    alert('Autobots, roll out! 🚗💨');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
