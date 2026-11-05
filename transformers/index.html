@@ -32,6 +32,28 @@
             position: relative;
         }
 
+        .home-link {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            color: rgba(255, 215, 0, .9);
+            font-size: .85rem;
+            text-decoration: none;
+            border: 1px solid rgba(255, 215, 0, .35);
+            border-radius: 999px;
+            background: rgba(0, 0, 0, .35);
+            backdrop-filter: blur(6px);
+            transition: background .3s, border-color .3s;
+        }
+
+        .home-link:hover {
+            background: rgba(255, 215, 0, .15);
+            border-color: rgba(255, 215, 0, .7);
+        }
+
         .header h1 {
             font-size: 4rem;
             background: linear-gradient(90deg, #ff6b00, #ffd700, #ff6b00);
@@ -244,6 +266,7 @@
     <div class="container">
         <!-- 标题 -->
         <header class="header">
+            <a href="../index.html" class="home-link">‹ 返回首页</a>
             <h1>TRANSFORMERS</h1>
             <h2>变 形 金 刚</h2>
         </header>

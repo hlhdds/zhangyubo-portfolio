@@ -62,3 +62,14 @@ video.addEventListener('loadedmetadata', () => {
 
 // 兜底:哪怕 loadedmetadata 没触发(极少见)也启动
 setTimeout(() => requestAnimationFrame(frame), 800);
+
+/* 从作品页返回首页时恢复背景视频:
+   浏览器在页面不可见时会暂停媒体,恢复页面(含 bfcache)也不会自动续播 */
+function resumeVideo() {
+    if (video.paused) video.play().catch(() => {});
+}
+window.addEventListener('pageshow', resumeVideo);
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) resumeVideo();
+});
+window.addEventListener('focus', resumeVideo);

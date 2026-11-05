@@ -55,6 +55,20 @@
     }
     .header h1 { font-size: 21px; font-weight: 700; letter-spacing: .5px; }
     .header p { font-size: 12px; opacity: .82; margin-top: 3px; }
+    .header .home-link {
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 3px 10px;
+        color: rgba(255, 255, 255, .85);
+        font-size: 12px;
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, .35);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .1);
+        transition: background .2s;
+    }
+    .header .home-link:active { background: rgba(255, 255, 255, .25); }
     .header .order-link {
         position: absolute;
         right: 16px; top: 22px;
@@ -354,6 +368,7 @@
 <body>
 
 <header class="header">
+    <a href="../index.html" class="home-link">‹ 返回首页</a>
     <h1>美味点餐</h1>
     <p>购物车模块 MVP · 菜品/下单走后端 API,购物车本地存储</p>
     <a href="orders.html" class="order-link">我的订单</a>
