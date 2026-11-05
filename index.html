@@ -4,831 +4,723 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>张宇博 · Digital Creator</title>
-<meta name="description" content="张宇博 — 武汉理工大学数字经济专业学生，独立开发者，作品集">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://db.onlinewebfonts.com/c/0e6de1ec911a2e267ff136bbdd384a44?family=Helvetica+Neue+Light">
+<meta name="description" content="张宇博 — 武汉理工大学数字经济专业学生，独立开发者。中心枢纽式作品集。">
 <style>
 /* ============================================================
-   张宇博 个人主页 v3 —— 液体玻璃 Hero + 霓虹深底 Sections
-   Hero: 全屏视频 + SVG 折射滤镜 + canvas 实时玻璃卡 (规格文档)
-   下方: 深底霓虹赛博风 (v2)
+   张宇博 个人主页 v4 —— 中心枢纽节点式交互布局
+   亮色科技风 · 单屏无滚动 · 中心品牌核 + 4 个悬浮节点 + 点击弹层
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
 
-:root {
-    --bg: #05060d;
-    --bg-1: #0a0d1a;
-    --card: rgba(16, 20, 40, 0.55);
-    --text: #f4f6ff;
-    --text-dim: #b8bfd8;
-    --text-muted: #6d7493;
-    --blue: #00d4ff;
-    --blue-glow: 0 0 20px rgba(0,212,255,.6), 0 0 40px rgba(0,212,255,.3);
-    --purple: #b537ff;
-    --purple-glow: 0 0 20px rgba(181,55,255,.6), 0 0 40px rgba(181,55,255,.3);
-    --orange: #ff6b35;
-    --green: #00ffa3;
-    --radius: 18px;
-    --radius-sm: 10px;
-    --max-w: 1180px;
-}
-
-html, body { width: 100%; height: auto; min-height: 100%; overflow-x: hidden; }
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue Light",
-                 "Helvetica Neue", "Segoe UI", "PingFang SC",
-                 "Microsoft YaHei", Arial, sans-serif;
+html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    background: #f6f8fc;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+                 "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: var(--text);
-    line-height: 1.65;
-    background: var(--bg);
-    overflow-x: hidden;
-    position: relative;
+    color: #0f172a;
 }
-a { color: inherit; text-decoration: none; }
-main { position: relative; z-index: 1; }
 
-/* ---------- Hero 背景视频 ---------- */
-.bg-video {
-    position: fixed; top: 0; left: 0;
-    display: block;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    z-index: 0;
+/* 背景: 径向光斑 + 网格 + 扫描线 */
+body::before {
+    content: ""; position: fixed; inset: 0; z-index: 0;
+    background:
+        radial-gradient(ellipse 70% 60% at 15% 10%, rgba(0,122,255,.09) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 50% at 85% 15%, rgba(138,43,226,.08) 0%, transparent 55%),
+        radial-gradient(ellipse 80% 70% at 50% 100%, rgba(255,107,53,.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 20% 85%, rgba(0,255,163,.06) 0%, transparent 50%);
+    pointer-events: none;
+}
+body::after {
+    content: ""; position: fixed; inset: 0; z-index: 0;
+    background-image:
+        linear-gradient(rgba(15,23,42,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(circle 60% at 50% 50%, #000 40%, transparent 90%);
+    -webkit-mask-image: radial-gradient(circle 60% at 50% 50%, #000 40%, transparent 90%);
     pointer-events: none;
 }
 
-/* ---------- Hero 结束后的渐变过渡 ---------- */
-.hero-transition {
-    position: relative; z-index: 2;
-    height: 240px;
-    background: linear-gradient(to bottom, transparent 0%, var(--bg) 100%);
-    pointer-events: none;
-    margin-top: -1px;
+/* 调色板 */
+:root {
+    --blue: #0078ff;
+    --blue-soft: #e8f2ff;
+    --blue-glow: 0 0 22px rgba(0,120,255,.35), 0 0 48px rgba(0,120,255,.18);
+    --purple: #8a2be2;
+    --purple-soft: #f3e8ff;
+    --purple-glow: 0 0 22px rgba(138,43,226,.35), 0 0 48px rgba(138,43,226,.18);
+    --orange: #ff6b35;
+    --orange-soft: #fff0e8;
+    --orange-glow: 0 0 22px rgba(255,107,53,.35), 0 0 48px rgba(255,107,53,.18);
+    --green: #00d68f;
+    --green-soft: #e6faf1;
+    --green-glow: 0 0 22px rgba(0,214,143,.35), 0 0 48px rgba(0,214,143,.18);
+    --bg: #f6f8fc;
+    --text: #0f172a;
+    --text-dim: #475569;
+    --text-muted: #94a3b8;
+    --card: rgba(255,255,255,.75);
+    --card-solid: #ffffff;
+    --border: rgba(15,23,42,.08);
 }
 
 /* ============================================================
-   HERO 首屏 —— 液体玻璃
+   导航 —— 极简左上角 logo + 右上角状态
    ============================================================ */
-.hero {
-    position: relative; z-index: 10;
-    display: flex; flex-direction: column;
-    width: 100%; height: 100vh; height: 100dvh;
-    pointer-events: none;
-    overflow: hidden;
+.topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 28px;
+    display: flex; justify-content: space-between; align-items: center;
 }
-
-/* 右侧玻璃卡容器 */
-#dup-video-container {
-    position: absolute; left: 0; top: 0;
-    z-index: 0; overflow: hidden; pointer-events: none;
+.brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 800; font-size: 15px; letter-spacing: .04em;
 }
-#dup-image {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    filter: url(#liquid-glass-refraction);
-}
-
-/* 左栏 */
-.hero-side {
-    position: relative;
-    z-index: 2;
-    padding: 0 clamp(16px, 4vw, 48px);
-    display: flex; flex-direction: column;
-    height: 100%;
-}
-.hero-copy {
-    margin: auto 0;
-    max-width: 520px;
-    color: #000;
-    pointer-events: auto;
-}
-.hero-eyebrow {
-    font-size: 11px; font-weight: 700; letter-spacing: .25em;
-    text-transform: uppercase;
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 14px;
-    background: rgba(0,0,0,.08);
-    border-radius: 999px;
-    margin-bottom: 20px;
-}
-.hero-title {
-    font-size: clamp(36px, 7vw, 72px);
-    font-weight: 300;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: #000;
-}
-.hero-title .hl {
-    font-weight: 600;
-    background: linear-gradient(90deg, #000 30%, var(--purple) 60%, var(--orange));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-.hero-desc {
-    margin-top: 18px;
-    max-width: 440px;
-    font-size: clamp(13px, 1.2vw, 15px);
-    line-height: 1.7;
-    color: rgba(0,0,0,.62);
-}
-
-/* Chamfer 按钮 —— 按规格文档 §9 */
-.chamfer {
-    position: relative; display: inline-flex; align-items: center; justify-content: space-between;
-    width: 260px; height: 48px; margin-top: 28px; padding: 0 1.5rem;
-    color: #000; text-decoration: none; pointer-events: auto; transition: opacity 300ms;
-}
-.chamfer:hover { opacity: 0.6; }
-.chamfer__glass {
-    position: absolute; inset: 0;
-    background: transparent;
-    clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
-    border: 1px solid rgba(0,0,0,.25);
-}
-.chamfer__outline { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.chamfer__label { position: relative; font-size: 13px; letter-spacing: .025em; }
-.chamfer .icon { position: relative; }
-.chamfer .icon path { stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-
-/* 右栏玻璃卡 —— 按规格文档 §10 */
-.glass-card {
-    position: absolute;
-    right: clamp(16px, 4vw, 48px);
-    bottom: clamp(32px, 6vw, 72px);
-    width: 340px; max-width: calc(100% - 32px); height: 440px;
-    padding: 2rem;
-    border-radius: 48px;
-    overflow: hidden;
-    background: transparent;
-    border: 1px solid rgba(47,47,47,.15);
-    pointer-events: auto;
-    display: flex; flex-direction: column; justify-content: space-between;
-    animation: fade-slide-up-card 900ms cubic-bezier(.16,1,.3,1) both;
-}
-@keyframes fade-slide-up-card {
-    from { opacity: 0; transform: translateY(28px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-.glass-card__frost {
-    position: absolute; inset: 0; z-index: 1;
-    border-radius: 48px; pointer-events: none;
-    background: rgba(255,255,255,.05);
-    box-shadow: inset 0 1.5px 2px rgba(255,255,255,.3),
-                inset 0 -1px 2px rgba(0,0,0,.15);
-    transition: background 400ms;
-}
-.glass-card:hover .glass-card__frost { background: rgba(255,255,255,.1); }
-.glass-card__head, .glass-card__body, .glass-card__wave { position: relative; z-index: 2; }
-.glass-card__head {
-    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
-    padding-bottom: .75rem; border-bottom: 1px solid rgba(0,0,0,.1);
-}
-.glass-card__title { font-size: 1rem; font-weight: 500; letter-spacing: -0.025em; color: #000; }
-.glass-card__index { font-size: .75rem; color: rgba(0,0,0,.4); }
-.glass-card__body { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
-.finding__title { font-size: .875rem; font-weight: 600; letter-spacing: -0.025em; color: #000; }
-.finding__text { margin-top: .25rem; font-size: .75rem; line-height: 1.625; color: rgba(0,0,0,.5); }
-.glass-card__wave { display: block; width: 100%; height: auto; margin-top: 1.25rem; }
-
-@media (max-width: 768px) {
-    .glass-card {
-        position: relative; right: auto; bottom: auto;
-        width: 100%; height: 320px; margin-top: 24px;
-        padding: 1.5rem;
-        border-radius: 32px;
-    }
-    .hero-copy { margin: 10vh 0 0; }
-    .hero-side { padding-top: 80px; height: auto; min-height: 100vh; padding-bottom: 32px; }
-}
-@media (min-width: 768px) {
-    .glass-card__title { font-size: 1.125rem; }
-    .glass-card__body { gap: 1.25rem; margin-top: 1.25rem; }
-    .finding__title { font-size: 1rem; }
-    .finding__text { font-size: .875rem; margin-top: .375rem; }
-}
-
-/* ---------- SVG 滤镜容器 ---------- */
-.glass-defs { position: absolute; width: 0; height: 0; pointer-events: none; }
-
-/* ============================================================
-   导航栏 —— Hero 上半透明白,滚过 Hero 切回深底霓虹
-   ============================================================ */
-nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 50; height: 64px;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 clamp(16px, 4vw, 48px);
-    background: rgba(255,255,255,.55);
-    backdrop-filter: blur(16px) saturate(1.2);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
-    border-bottom: 1px solid rgba(0,0,0,.08);
-    color: #000;
-    transition: background .4s, color .4s, border-color .4s, box-shadow .4s;
-}
-nav::after { /* 深底模式的 logo 点 */
-    content: "";
+.brand .core-dot {
     width: 10px; height: 10px; border-radius: 50%;
     background: var(--blue);
     box-shadow: var(--blue-glow);
-    position: absolute; opacity: 0;
-    transition: opacity .4s;
-    display: none;
+    animation: corePulse 2.4s ease-in-out infinite;
 }
-.nav-logo { font-weight: 800; font-size: 18px; letter-spacing: .04em; }
-.nav-links { display: flex; gap: clamp(12px, 2.5vw, 28px); list-style: none; }
-.nav-links a {
-    font-size: 13px; font-weight: 600;
-    color: rgba(0,0,0,.75);
-    padding: 6px 10px; border-radius: 8px;
-    transition: color .2s, background .2s;
+@keyframes corePulse {
+    0%,100% { box-shadow: var(--blue-glow); transform: scale(1); }
+    50% { box-shadow: 0 0 30px rgba(0,120,255,.6), 0 0 60px rgba(0,120,255,.3); transform: scale(1.15); }
 }
-.nav-links a:hover { color: #000; background: rgba(0,0,0,.06); }
-nav .dot { display: none; } /* Hero 白模式隐藏蓝脉冲点 */
-
-/* 深底模式 */
-nav.scrolled {
-    background: rgba(5,6,13,.72);
-    border-bottom-color: rgba(255,255,255,.06);
-    color: var(--text);
-    box-shadow: 0 4px 30px rgba(0,0,0,.4);
+.status {
+    font-size: 12px; color: var(--text-muted); letter-spacing: .12em;
+    display: flex; align-items: center; gap: 8px;
 }
-nav.scrolled .nav-links a { color: var(--text-dim); }
-nav.scrolled .nav-links a:hover { color: #fff; background: rgba(255,255,255,.06); }
-nav.scrolled .dot { display: inline-block; }
-nav .dot {
-    width: 10px; height: 10px; border-radius: 50%;
-    background: var(--blue); box-shadow: var(--blue-glow);
-    animation: pulse 2.2s ease-in-out infinite;
-    margin-right: 10px;
-}
-@keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:.4 } }
-
-@media (max-width: 520px) {
-    .nav-logo span { display: none; }
-    .nav-links { gap: 6px; }
-    .nav-links a { font-size: 12px; padding: 4px 6px; }
+.status::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 8px rgba(0,214,143,.7);
 }
 
 /* ============================================================
-   深底 Sections (v2 霓虹风格,原样保留)
+   中心枢纽布局
    ============================================================ */
-section.neon { position: relative; padding: clamp(60px, 10vw, 120px) clamp(16px, 4vw, 48px); }
-.section-inner { max-width: var(--max-w); margin: 0 auto; position: relative; }
-.section-head { margin-bottom: clamp(32px, 5vw, 56px); }
-.section-tag {
-    display: inline-block;
-    font-size: 11px; font-weight: 700; letter-spacing: .22em;
-    padding: 6px 14px;
-    border: 1px solid rgba(0,212,255,.4);
-    color: var(--blue);
-    background: rgba(0,212,255,.06);
-    border-radius: 999px;
-    margin-bottom: 14px;
-    text-transform: uppercase;
-}
-.section-title {
-    font-size: clamp(28px, 4vw, 44px);
-    font-weight: 800;
-    letter-spacing: -0.01em;
-    line-height: 1.15;
-    background: linear-gradient(120deg, #fff 20%, var(--blue) 50%, #fff 80%);
-    background-size: 200% auto;
-    -webkit-background-clip: text; background-clip: text;
-    color: transparent;
-    animation: shimmer 4s linear infinite;
-}
-@keyframes shimmer { to { background-position: 200% center; } }
-.section-lead { color: var(--text-dim); margin-top: 10px; max-width: 620px; }
-
-/* 深底 sections 动态背景 —— 注意视频 position:fixed 覆盖整个视口,所以 section 必须有实色背景盖住它 */
-.neon-bg { background: var(--bg); position: relative; z-index: 1; overflow: hidden; }
-.neon-bg::before {
-    content: "";
-    position: absolute; inset: 0; z-index: 0;
-    background:
-        radial-gradient(ellipse 80% 60% at 10% 10%, rgba(0,212,255,.18) 0%, transparent 60%),
-        radial-gradient(ellipse 70% 50% at 90% 20%, rgba(181,55,255,.15) 0%, transparent 60%),
-        radial-gradient(ellipse 90% 70% at 50% 90%, rgba(255,107,53,.12) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 30% 70%, rgba(0,255,163,.10) 0%, transparent 55%);
-    pointer-events: none;
-    animation: driftBg 18s ease-in-out infinite alternate;
-}
-.neon-bg::after {
-    content: "";
-    position: absolute; inset: 0; z-index: 0;
-    background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 85%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 85%);
-    pointer-events: none;
-}
-@keyframes driftBg {
-    0%   { transform: translate3d(0,0,0) scale(1); }
-    100% { transform: translate3d(-30px, 20px, 0) scale(1.04); }
-}
-
-/* 玻璃卡片通用 */
-.glass {
-    background: var(--card);
-    backdrop-filter: blur(16px) saturate(1.2);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: var(--radius);
-}
-
-/* 关于我 */
-.about-card {
-    padding: clamp(24px, 4vw, 40px);
-    position: relative; overflow: hidden;
-}
-.about-card::before {
-    content: ""; position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(0,212,255,.06), transparent 40%, rgba(181,55,255,.06));
-    pointer-events: none;
-}
-.about-title { font-size: clamp(22px, 3vw, 28px); font-weight: 700; margin-bottom: 14px; }
-.about-text { color: var(--text-dim); line-height: 1.8; }
-.about-text strong { color: var(--blue); }
-
-/* 学习经历 */
-.timeline { position: relative; padding-left: 28px; }
-.timeline::before {
-    content: ""; position: absolute; left: 8px; top: 6px; bottom: 6px;
-    width: 2px; background: linear-gradient(var(--blue), var(--purple)); border-radius: 2px;
-}
-.tl-item { position: relative; padding-bottom: 32px; }
-.tl-item::before {
-    content: ""; position: absolute; left: -26px; top: 6px;
-    width: 14px; height: 14px; border-radius: 50%;
-    background: var(--blue);
-    box-shadow: var(--blue-glow), inset 0 0 0 3px rgba(5,6,13,.8);
-}
-.tl-date { font-size: 12px; color: var(--text-muted); font-family: ui-monospace, monospace; letter-spacing: .04em; }
-.tl-title { font-size: 18px; font-weight: 700; margin-top: 4px; }
-.tl-sub { color: var(--blue); font-size: 13px; font-weight: 600; margin-top: 2px; }
-.tl-desc { color: var(--text-dim); margin-top: 10px; }
-
-/* 技能 */
-.skills-grid {
-    display: grid; gap: 16px;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-}
-.skill-card {
-    padding: 22px 18px; text-align: center;
-    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: var(--radius-sm);
-    transition: transform .3s, border-color .3s, box-shadow .3s;
-}
-.skill-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(0,212,255,.4);
-    box-shadow: 0 20px 40px -20px rgba(0,212,255,.4), var(--blue-glow);
-}
-.skill-emoji { font-size: 34px; }
-.skill-name { font-weight: 700; margin-top: 8px; }
-.skill-level { margin-top: 12px; height: 4px; border-radius: 4px; background: rgba(255,255,255,.08); overflow: hidden; }
-.skill-level span {
-    display: block; height: 100%;
-    background: linear-gradient(90deg, var(--blue), var(--purple));
-    border-radius: 4px;
-}
-
-/* 作品卡 */
-.works-grid {
-    display: grid; gap: clamp(20px, 3vw, 28px);
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    perspective: 1000px;
-}
-.work-card {
-    position: relative; display: block; border-radius: var(--radius);
-    overflow: hidden; background: var(--card);
-    backdrop-filter: blur(12px) saturate(1.1);
-    -webkit-backdrop-filter: blur(12px) saturate(1.1);
-    border: 1px solid rgba(255,255,255,.1);
-    transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s, border-color .3s;
-    transform-style: preserve-3d;
-}
-.work-card::before {
-    content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit;
-    background: linear-gradient(135deg, rgba(0,212,255,.6), rgba(181,55,255,.6) 40%, rgba(255,107,53,.5));
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor; mask-composite: exclude;
-    opacity: .6; transition: opacity .3s; pointer-events: none; z-index: 1;
-}
-.work-card:hover {
-    transform: translateY(-8px) rotateX(2deg);
-    border-color: rgba(0,212,255,.5);
-    box-shadow:
-        0 30px 60px -20px rgba(0,212,255,.35),
-        0 0 0 1px rgba(0,212,255,.3),
-        inset 0 0 60px -30px rgba(181,55,255,.4);
-}
-.work-card:hover::before { opacity: 1; }
-.work-banner {
-    height: 150px; position: relative;
+.stage {
+    position: fixed; inset: 0; z-index: 1;
     display: flex; align-items: center; justify-content: center;
-    font-size: 56px; overflow: hidden;
 }
-.wb-1 { background: linear-gradient(135deg, #ff6b35, #ff3d00); box-shadow: inset 0 -40px 60px rgba(0,0,0,.3); }
-.wb-2 { background: linear-gradient(135deg, #b537ff, #7c1bff); box-shadow: inset 0 -40px 60px rgba(0,0,0,.3); }
-.wb-3 { background: linear-gradient(135deg, #00d4ff, #0070ff); box-shadow: inset 0 -40px 60px rgba(0,0,0,.3); }
-.wb-4 { background: linear-gradient(135deg, #00ffa3, #00c878); box-shadow: inset 0 -40px 60px rgba(0,0,0,.3); }
-.work-banner::after {
-    content: ""; position: absolute; right: -1px; bottom: -1px;
-    width: 40px; height: 40px;
-    background: linear-gradient(135deg, transparent 50%, var(--bg) 50%); z-index: 2;
-}
-.work-body { padding: 24px 24px 20px; position: relative; z-index: 2; }
-.work-tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-.work-tag {
-    font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
-    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); color: var(--text-dim);
-}
-.work-title { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; }
-.work-desc { color: var(--text-dim); font-size: 14px; margin-top: 8px; line-height: 1.65; }
-.work-meta {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-top: 16px; padding-top: 14px; border-top: 1px dashed rgba(255,255,255,.08);
-}
-.work-date { font-size: 12px; color: var(--text-muted); font-family: ui-monospace, monospace; }
-.work-link {
-    font-size: 13px; font-weight: 700; color: var(--blue);
-    display: inline-flex; align-items: center; gap: 4px;
-    transition: gap .2s, filter .2s;
-}
-.work-card:hover .work-link { gap: 8px; filter: drop-shadow(0 0 8px rgba(0,212,255,.6)); }
 
-/* 联系 */
-.contact-card {
-    padding: clamp(28px, 4vw, 44px); text-align: center;
-    position: relative; overflow: hidden;
+/* 连接 SVG */
+.orbit-svg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    pointer-events: none;
 }
-.contact-card::before {
-    content: ""; position: absolute; inset: -2px;
-    background: conic-gradient(from 0deg, var(--blue), var(--purple), var(--orange), var(--green), var(--blue));
-    filter: blur(20px); opacity: .18; z-index: -1;
-    animation: spin 12s linear infinite;
+.orbit-svg path {
+    fill: none;
+    stroke: rgba(15,23,42,.1);
+    stroke-width: 1.2;
+    stroke-dasharray: 4 6;
+}
+/* 流动粒子 */
+.orbit-svg circle.pulse {
+    fill: var(--blue);
+    filter: drop-shadow(0 0 4px rgba(0,120,255,.8));
+}
+
+/* 中心核 */
+.core {
+    position: relative;
+    width: clamp(180px, 26vw, 260px);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 30% 30%, #fff, #f0f4ff 60%, #e0e8ff);
+    border: 1.5px solid rgba(0,120,255,.2);
+    box-shadow:
+        0 0 0 1px rgba(0,120,255,.08),
+        0 20px 60px -20px rgba(0,120,255,.3),
+        inset 0 0 40px rgba(255,255,255,.8);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s;
+    z-index: 5;
+}
+.core:hover {
+    transform: scale(1.04);
+    box-shadow:
+        0 0 0 2px rgba(0,120,255,.25),
+        0 30px 80px -20px rgba(0,120,255,.4),
+        inset 0 0 60px rgba(255,255,255,.9);
+}
+.core::before {
+    content: "";
+    position: absolute; inset: -18px;
+    border-radius: 50%;
+    border: 1px dashed rgba(0,120,255,.2);
+    animation: spin 30s linear infinite;
+}
+.core::after {
+    content: "";
+    position: absolute; inset: -34px;
+    border-radius: 50%;
+    border: 1px dashed rgba(138,43,226,.15);
+    animation: spin 45s linear infinite reverse;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-.contact-card h3 { font-size: clamp(22px, 3vw, 30px); font-weight: 800; }
-.contact-card p { color: var(--text-dim); margin-top: 8px; }
-.contact-links { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-.contact-links a {
-    padding: 10px 20px; border-radius: 10px;
-    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
-    color: var(--text-dim); font-weight: 600; font-size: 13px; transition: all .25s;
+
+.core .c-eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: .3em;
+    color: var(--blue); text-transform: uppercase;
+    margin-bottom: 10px;
 }
-.contact-links a:hover {
-    color: #fff; border-color: var(--blue);
-    background: rgba(0,212,255,.1); box-shadow: var(--blue-glow);
+.core .c-name {
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #0f172a 20%, var(--blue) 60%, var(--purple));
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    line-height: 1;
+}
+.core .c-sub {
+    font-size: 11px; color: var(--text-muted);
+    margin-top: 12px; letter-spacing: .08em;
 }
 
-/* Footer */
-footer { text-align: center; padding: 40px 16px 60px; color: var(--text-muted); font-size: 12px; letter-spacing: .06em; position: relative; z-index: 1; }
+/* 节点 */
+.node {
+    position: absolute;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    z-index: 4;
+    transition: transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.node:hover { transform: translateY(-4px); }
 
-/* 入场动画 */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s, transform .7s; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.node-dot {
+    width: clamp(52px, 7vw, 72px);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: clamp(20px, 2.6vw, 28px);
+    background: #fff;
+    border: 1.5px solid rgba(15,23,42,.08);
+    box-shadow:
+        0 6px 20px -10px rgba(15,23,42,.2),
+        inset 0 1px 0 rgba(255,255,255,1);
+    transition: transform .3s, box-shadow .3s, border-color .3s;
+    position: relative;
+}
+.node-dot::before {
+    content: "";
+    position: absolute; inset: -6px;
+    border-radius: 50%;
+    background: radial-gradient(circle, currentColor 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity .3s;
+    filter: blur(12px);
+    z-index: -1;
+}
+.node:hover .node-dot::before { opacity: .4; }
+.node:hover .node-dot {
+    transform: scale(1.12);
+    border-color: currentColor;
+}
+.node:hover .node-label { color: currentColor; transform: translateY(-1px); }
+
+.node-label {
+    font-size: 12px; font-weight: 700; letter-spacing: .08em;
+    color: var(--text-dim);
+    padding: 4px 12px;
+    background: #fff;
+    border: 1px solid rgba(15,23,42,.06);
+    border-radius: 999px;
+    transition: color .3s, transform .3s, border-color .3s;
+    white-space: nowrap;
+}
+
+/* 四个节点的颜色 & 位置(桌面端) */
+.node--works  { color: var(--orange); top: 10%;  right: 8%; }
+.node--skills { color: var(--blue);   bottom: 14%; right: 12%; }
+.node--about  { color: var(--green);  bottom: 14%; left: 12%; }
+.node--contact{ color: var(--purple); top: 10%;  left: 8%; }
+
+/* 节点定位数学: 围绕中心,距离中心核 radius */
+/* 中心核在 (50%,50%), 节点沿 45° / 135° / 225° / 315° 方向 */
+/* 但上面已经写死了 top/left/right, 足够; 另外用 transform 微调对齐核中心 */
+
+/* ============================================================
+   详情弹层
+   ============================================================ */
+.modal-backdrop {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(15,23,42,.3);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0; visibility: hidden;
+    transition: opacity .35s, visibility 0s linear .35s;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+}
+.modal-backdrop.is-open {
+    opacity: 1; visibility: visible;
+    transition: opacity .35s, visibility 0s;
+}
+
+.modal {
+    position: relative;
+    width: min(560px, 92vw);
+    max-height: min(560px, 80vh);
+    overflow: hidden;
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid rgba(15,23,42,.08);
+    box-shadow:
+        0 40px 80px -20px rgba(15,23,42,.25),
+        0 0 0 1px rgba(255,255,255,.8) inset;
+    transform: translateY(20px) scale(.96);
+    opacity: 0;
+    transition: transform .4s cubic-bezier(.16,1,.3,1), opacity .3s;
+    display: flex; flex-direction: column;
+}
+.modal-backdrop.is-open .modal {
+    transform: translateY(0) scale(1); opacity: 1;
+}
+
+.modal-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 24px 16px;
+    border-bottom: 1px solid rgba(15,23,42,.06);
+}
+.modal-title {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 18px; font-weight: 800;
+    letter-spacing: -0.01em;
+}
+.modal-title .m-icon {
+    width: 36px; height: 36px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+.modal-close {
+    width: 32px; height: 32px; border-radius: 10px;
+    border: none; background: rgba(15,23,42,.05);
+    color: var(--text-muted);
+    font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, color .2s, transform .2s;
+}
+.modal-close:hover { background: rgba(15,23,42,.1); color: var(--text); transform: rotate(90deg); }
+
+.modal-body {
+    padding: 20px 24px 24px;
+    overflow-y: auto;
+    flex: 1;
+    font-size: 14px; line-height: 1.7;
+    color: var(--text-dim);
+}
+
+/* Works 列表 */
+.work-list { display: flex; flex-direction: column; gap: 12px; }
+.work-item {
+    display: flex; gap: 14px;
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(15,23,42,.03);
+    border: 1px solid rgba(15,23,42,.05);
+    text-decoration: none; color: inherit;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+.work-item:hover {
+    transform: translateY(-2px);
+    border-color: currentColor;
+    box-shadow: 0 10px 30px -12px rgba(0,0,0,.15);
+}
+.work-item .w-emoji {
+    width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+}
+.work-item .w-body { flex: 1; }
+.work-item .w-name { font-weight: 700; color: var(--text); }
+.work-item .w-desc { font-size: 12.5px; margin-top: 4px; color: var(--text-dim); line-height: 1.5; }
+.work-item .w-meta { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+
+/* Skills 网格 */
+.skill-grid {
+    display: grid; gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+}
+.skill-chip {
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(15,23,42,.03);
+    border: 1px solid rgba(15,23,42,.05);
+    text-align: center;
+}
+.skill-chip .s-emoji { font-size: 22px; }
+.skill-chip .s-name { font-size: 12px; font-weight: 700; color: var(--text); margin-top: 4px; }
+.skill-chip .s-bar {
+    margin-top: 8px; height: 3px; border-radius: 3px;
+    background: rgba(15,23,42,.06); overflow: hidden;
+}
+.skill-chip .s-bar span {
+    display: block; height: 100%; border-radius: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+}
+
+/* About */
+.about-block { margin-bottom: 14px; }
+.about-block:last-child { margin-bottom: 0; }
+.about-block h4 {
+    font-size: 12px; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--text-muted);
+    margin-bottom: 8px;
+}
+.about-block p { color: var(--text-dim); }
+.edu-row {
+    padding: 12px 14px; border-radius: 12px;
+    background: rgba(15,23,42,.03); border: 1px solid rgba(15,23,42,.05);
+    margin-top: 6px;
+}
+.edu-row .edu-date { font-size: 11px; color: var(--text-muted); font-family: ui-monospace, monospace; }
+.edu-row .edu-title { font-weight: 700; color: var(--text); margin-top: 2px; }
+.edu-row .edu-sub { color: var(--blue); font-size: 12.5px; margin-top: 2px; }
+.edu-row .edu-desc { font-size: 12.5px; margin-top: 6px; line-height: 1.6; }
+
+/* Contact */
+.contact-list { display: flex; flex-direction: column; gap: 8px; }
+.contact-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; border-radius: 12px;
+    background: rgba(15,23,42,.03); border: 1px solid rgba(15,23,42,.05);
+    color: var(--text); text-decoration: none;
+    transition: transform .2s, border-color .2s;
+}
+.contact-row:hover { transform: translateX(4px); border-color: currentColor; }
+.contact-row .c-icon { font-size: 18px; }
+.contact-row .c-label { font-size: 11px; color: var(--text-muted); }
+.contact-row .c-val { font-size: 13px; font-weight: 600; }
+
+/* 节点色系 (用于 modal head) */
+.modal[data-node="works"] .modal-title { color: var(--orange); }
+.modal[data-node="works"] .modal-title .m-icon { background: var(--orange-soft); color: var(--orange); }
+.modal[data-node="skills"] .modal-title { color: var(--blue); }
+.modal[data-node="skills"] .modal-title .m-icon { background: var(--blue-soft); color: var(--blue); }
+.modal[data-node="about"] .modal-title { color: var(--green); }
+.modal[data-node="about"] .modal-title .m-icon { background: var(--green-soft); color: var(--green); }
+.modal[data-node="contact"] .modal-title { color: var(--purple); }
+.modal[data-node="contact"] .modal-title .m-icon { background: var(--purple-soft); color: var(--purple); }
+.modal[data-node="works"] .work-item { color: var(--orange); }
+.modal[data-node="skills"] .skill-chip .s-bar span { background: linear-gradient(90deg, var(--blue), var(--purple)); }
+.modal[data-node="contact"] .contact-row { color: var(--purple); }
+
+/* 底部签名 */
+.foot-signature {
+    position: fixed; bottom: 18px; left: 0; right: 0; z-index: 2;
+    text-align: center; font-size: 11px; color: var(--text-muted); letter-spacing: .1em;
+}
+
+/* ============================================================
+   响应式: 移动端改成 2x2 网格布局, 中心核缩小
+   ============================================================ */
+@media (max-width: 720px) {
+    .core { width: 150px; }
+    .node-dot { width: 52px; height: 52px; font-size: 20px; }
+    .node-label { font-size: 11px; padding: 3px 10px; }
+    /* 重新排布节点 —— 2x2 */
+    .node--works  { top: 18%; right: 8%; }
+    .node--skills { bottom: 18%; right: 8%; }
+    .node--about  { bottom: 18%; left: 8%; }
+    .node--contact{ top: 18%; left: 8%; }
+}
+@media (max-width: 480px) {
+    .topbar { padding: 14px 16px; }
+    .core { width: 130px; }
+    .node--works  { top: 14%; right: 6%; }
+    .node--skills { bottom: 22%; right: 6%; }
+    .node--about  { bottom: 22%; left: 6%; }
+    .node--contact{ top: 14%; left: 6%; }
+}
 
 /* 无障碍 */
-@media (prefers-reduced-motion: reduce) { * { transition-duration: .01ms !important; animation-duration: .01ms !important; } }
-
-@media (max-width: 720px) {
-    @media (min-width: 768px) { /* 空,占位避免语法问题 */ }
+@media (prefers-reduced-motion: reduce) {
+    .core::before, .core::after, .corePulse, .orbit-svg circle.pulse { animation: none !important; }
+    .node, .node-dot, .node-label, .modal, .work-item, .contact-row { transition: none !important; }
 }
 </style>
 </head>
 <body>
 
-<!-- ============ SVG 液体玻璃滤镜 (按规格文档 §3) ============ -->
-<svg class="glass-defs" width="0" height="0" aria-hidden="true" focusable="false">
-  <defs>
-    <filter id="liquid-glass-refraction"
-            x="-30%" y="-30%" width="160%" height="160%"
-            color-interpolation-filters="sRGB">
+<!-- ========= 顶部 ========= -->
+<div class="topbar">
+    <div class="brand"><span class="core-dot"></span>张宇博</div>
+    <div class="status">●  ONLINE</div>
+</div>
 
-      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.015" numOctaves="3" result="noise" />
+<!-- ========= 中心枢纽 ========= -->
+<div class="stage" id="stage">
 
-      <feColorMatrix in="SourceAlpha" type="matrix" result="boosted_alpha"
-        values="0 0 0 0 0
-                0 0 0 0 0
-                0 0 0 0 0
-                0 0 0 100 0" />
+    <!-- 连接线 SVG (绘制后注入 4 条线 + 4 个脉冲圆) -->
+    <svg class="orbit-svg" id="orbit-svg" xmlns="http://www.w3.org/2000/svg"></svg>
 
-      <feGaussianBlur in="boosted_alpha" stdDeviation="45" result="blurred_alpha" />
-
-      <feComponentTransfer in="blurred_alpha" result="edge_mask">
-        <feFuncA type="linear" slope="-1.3" intercept="1" />
-      </feComponentTransfer>
-
-      <feComposite in="noise" in2="edge_mask" operator="arithmetic"
-                   k1="1" k2="0" k3="0" k4="0" result="masked_noise" />
-
-      <!-- 红 -->
-      <feDisplacementMap in="SourceGraphic" in2="masked_noise" scale="65"
-                         xChannelSelector="R" yChannelSelector="G" result="red_displaced" />
-      <feColorMatrix in="red_displaced" type="matrix" result="red"
-        values="1 0 0 0 0
-                0 0 0 0 0
-                0 0 0 0 0
-                0 0 0 1 0" />
-
-      <!-- 绿 -->
-      <feDisplacementMap in="SourceGraphic" in2="masked_noise" scale="56"
-                         xChannelSelector="R" yChannelSelector="G" result="green_displaced" />
-      <feColorMatrix in="green_displaced" type="matrix" result="green"
-        values="0 0 0 0 0
-                0 1 0 0 0
-                0 0 0 0 0
-                0 0 0 1 0" />
-
-      <!-- 蓝 -->
-      <feDisplacementMap in="SourceGraphic" in2="masked_noise" scale="47"
-                         xChannelSelector="R" yChannelSelector="G" result="blue_displaced" />
-      <feColorMatrix in="blue_displaced" type="matrix" result="blue"
-        values="0 0 0 0 0
-                0 0 0 0 0
-                0 0 1 0 0
-                0 0 0 1 0" />
-
-      <feBlend in="red" in2="green" mode="screen" result="rg" />
-      <feBlend in="rg" in2="blue" mode="screen" result="chromatic_dispersion" />
-    </filter>
-  </defs>
-</svg>
-
-<!-- ============ 导航 ============ -->
-<nav>
-    <div class="nav-logo"><span class="dot"></span><span>张宇博</span></div>
-    <ul class="nav-links">
-        <li><a href="#about">关于</a></li>
-        <li><a href="#education">经历</a></li>
-        <li><a href="#skills">技能</a></li>
-        <li><a href="#works">作品</a></li>
-        <li><a href="#contact">联系</a></li>
-    </ul>
-</nav>
-
-<main>
-
-<!-- ============ HERO 首屏 ============ -->
-<section class="hero">
-    <div class="hero-side">
-        <div class="hero-copy">
-            <div class="hero-eyebrow">Digital Creator · Independent Developer</div>
-            <h1 class="hero-title">
-                Hi, I'm <span class="hl">张宇博</span>.
-            </h1>
-            <p class="hero-desc">
-                武汉理工大学 · 数字经济 2503 班。从想法到代码，从原型到上线，
-                享受把构想变成现实的过程。
-            </p>
-            <a class="chamfer" href="#works">
-                <svg class="chamfer__outline" viewBox="0 0 260 48" preserveAspectRatio="none" aria-hidden="true">
-                    <polygon points="14,0 260,0 260,34 246,48 0,48 0,14"
-                             fill="none" stroke="currentColor" stroke-width="1.5" vector-effect="non-scaling-stroke" />
-                </svg>
-                <span class="chamfer__label">查看作品</span>
-                <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-                </svg>
-            </a>
-        </div>
+    <!-- 中心核 -->
+    <div class="core" id="core" title="品牌核:点击查看简介">
+        <div class="c-eyebrow">DIGITAL CREATOR</div>
+        <div class="c-name">张宇博</div>
+        <div class="c-sub">Wuhan · 2025</div>
     </div>
 
-    <!-- 玻璃卡 -->
-    <aside class="glass-card" data-glass-card>
-        <div id="dup-video-container"><canvas id="dup-image"></canvas></div>
-        <div class="glass-card__frost" aria-hidden="true"></div>
-
-        <div class="glass-card__head">
-            <h2 class="glass-card__title">What I'm Working On</h2>
-            <span class="glass-card__index">// NOW</span>
-        </div>
-
-        <div class="glass-card__body">
-            <div class="finding">
-                <h3 class="finding__title">美味点餐 App — 完整 MVP</h3>
-                <p class="finding__text">菜单 / 购物车 / 订单流转 / 收货地址四大模块，全栈跑通并上线 GitHub Pages。</p>
-            </div>
-            <div class="finding">
-                <h3 class="finding__title">个人品牌网站 · v3</h3>
-                <p class="finding__text">液体玻璃 Hero + 霓虹深底 sections，端到端 2025.11 发布。</p>
-            </div>
-        </div>
-
-        <svg class="glass-card__wave" viewBox="0 0 220 50" fill="none" aria-hidden="true">
-            <path d="M0 30 C10 30 12 45 18 45 C24 45 26 10 34 10 C42 10 44 40 52 40 C60 40 62 5 70 5 C78 5 80 42 88 42 C96 42 98 15 106 15 C114 15 116 38 124 38 C132 38 134 20 142 20 C150 20 152 35 160 35 C168 35 170 22 178 22 C186 22 188 32 196 32 C204 32 210 28 220 28"
-                  stroke="black" stroke-width="1.8" stroke-linecap="round" fill="none" />
-        </svg>
-    </aside>
-</section>
-
-<!-- Hero → 深底 过渡 -->
-<div class="hero-transition"></div>
-
-<!-- ============ 关于我 ============ -->
-<section id="about" class="neon-bg">
-    <div class="neon">
-        <div class="section-inner">
-            <div class="section-head reveal">
-                <div class="section-tag">ABOUT ME</div>
-                <h2 class="section-title">关于我</h2>
-                <p class="section-lead">简短介绍一下自己。</p>
-            </div>
-            <div class="glass about-card reveal">
-                <div class="about-title">一个热爱代码和创造的年轻人 ✨</div>
-                <div class="about-text">
-                    我是张宇博，目前就读于武汉理工大学经济学院数字经济专业。
-                    课程之外，我喜欢自己动手做项目——从一个小功能开始，慢慢变成真正能跑起来的产品。
-                    这段旅程让我学会了如何拆解需求、如何让东西简单可用，也让我在遇到 bug 时不再焦虑。
-                    我相信最好的学习方式就是 <strong>动手做</strong>。
-                </div>
-            </div>
-        </div>
+    <!-- 4 个节点 -->
+    <div class="node node--works"   data-node="works">
+        <div class="node-dot">📦</div>
+        <div class="node-label">作品 WORKS</div>
     </div>
-</section>
-
-<!-- ============ 学习经历 ============ -->
-<section id="education" class="neon-bg">
-    <div class="neon">
-        <div class="section-inner">
-            <div class="section-head reveal">
-                <div class="section-tag">EDUCATION</div>
-                <h2 class="section-title">学习经历</h2>
-                <p class="section-lead">持续学习是一件长期的事情，每一段经历都在塑造现在的我。</p>
-            </div>
-            <div class="timeline reveal">
-                <div class="tl-item">
-                    <div class="tl-date">2025.09 — 至今</div>
-                    <div class="tl-title">武汉理工大学 · 经济学院</div>
-                    <div class="tl-sub">数字经济 2503 班 · 本科在读</div>
-                    <div class="tl-desc">主修数字经济、数据结构、程序设计、数据库原理等课程；同时课余自学 Web 全栈开发，动手完成多个真实项目。</div>
-                </div>
-            </div>
-        </div>
+    <div class="node node--skills"  data-node="skills">
+        <div class="node-dot">⚡</div>
+        <div class="node-label">技术 STACK</div>
     </div>
-</section>
-
-<!-- ============ 技能 ============ -->
-<section id="skills" class="neon-bg">
-    <div class="neon">
-        <div class="section-inner">
-            <div class="section-head reveal">
-                <div class="section-tag">SKILLS</div>
-                <h2 class="section-title">核心技能</h2>
-                <p class="section-lead">这些是我日常会用到、并且持续在打磨的工具和能力。</p>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-card reveal"><div class="skill-emoji">🐍</div><div class="skill-name">Python</div><div class="skill-level"><span style="width:82%"></span></div></div>
-                <div class="skill-card reveal"><div class="skill-emoji">🌐</div><div class="skill-name">HTML / CSS</div><div class="skill-level"><span style="width:85%"></span></div></div>
-                <div class="skill-card reveal"><div class="skill-emoji">⚡</div><div class="skill-name">JavaScript</div><div class="skill-level"><span style="width:75%"></span></div></div>
-                <div class="skill-card reveal"><div class="skill-emoji">🔧</div><div class="skill-name">Flask</div><div class="skill-level"><span style="width:78%"></span></div></div>
-                <div class="skill-card reveal"><div class="skill-emoji">🗄️</div><div class="skill-name">SQL / SQLite</div><div class="skill-level"><span style="width:72%"></span></div></div>
-                <div class="skill-card reveal"><div class="skill-emoji">🖥️</div><div class="skill-name">Git</div><div class="skill-level"><span style="width:68%"></span></div></div>
-                <div class="skill-card reveal"><div class="skill-emoji">📊</div><div class="skill-name">数据分析</div><div class="skill-level"><span style="width:65%"></span></div></div>
-                <div class="skill-card reveal"><div class="skill-emoji">🎨</div><div class="skill-name">UI 设计</div><div class="skill-level"><span style="width:60%"></span></div></div>
-            </div>
-        </div>
+    <div class="node node--about"   data-node="about">
+        <div class="node-dot">👤</div>
+        <div class="node-label">关于 ABOUT</div>
     </div>
-</section>
-
-<!-- ============ 作品展示 ============ -->
-<section id="works" class="neon-bg">
-    <div class="neon">
-        <div class="section-inner">
-            <div class="section-head reveal">
-                <div class="section-tag">SELECTED WORKS</div>
-                <h2 class="section-title">从构想到现实</h2>
-                <p class="section-lead">这些是我亲手搭建、亲手打磨、已经跑起来的东西。</p>
-            </div>
-
-            <div class="works-grid">
-
-                <!-- 作品 1: 点餐应用 -->
-                <a class="work-card reveal" href="food/index.html">
-                    <div class="work-banner wb-1">🍜</div>
-                    <div class="work-body">
-                        <div class="work-tag-row">
-                            <span class="work-tag">Web App</span>
-                            <span class="work-tag">HTML / CSS / JS</span>
-                            <span class="work-tag">localStorage</span>
-                        </div>
-                        <h3 class="work-title">美味点餐 App</h3>
-                        <p class="work-desc">完整点餐应用 MVP —— 菜品浏览、购物车、订单状态流转、收货地址管理四大模块。</p>
-                        <div class="work-meta">
-                            <span class="work-date">2025 · 个人项目</span>
-                            <span class="work-link">View →</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- 作品 2: 变形金刚 -->
-                <a class="work-card reveal" href="transformers/index.html">
-                    <div class="work-banner wb-2">🤖</div>
-                    <div class="work-body">
-                        <div class="work-tag-row">
-                            <span class="work-tag">HTML</span>
-                            <span class="work-tag">CSS</span>
-                            <span class="work-tag">单页</span>
-                        </div>
-                        <h3 class="work-title">变形金刚 Transformers 介绍</h3>
-                        <p class="work-desc">沉浸式深色主题单页网站，介绍 G1 变形金刚阵营、角色、故事线。</p>
-                        <div class="work-meta">
-                            <span class="work-date">2025 · 个人作品</span>
-                            <span class="work-link">View →</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- 作品 3 模板: 改 href / wb-1~4 / 标题 / 简介 / 日期 -->
-                <a class="work-card reveal" href="#">
-                    <div class="work-banner wb-3">📈</div>
-                    <div class="work-body">
-                        <div class="work-tag-row">
-                            <span class="work-tag">数据可视化</span>
-                            <span class="work-tag">Python</span>
-                            <span class="work-tag">Pyecharts</span>
-                        </div>
-                        <h3 class="work-title">某领域数据可视化大屏</h3>
-                        <p class="work-desc">基于 Pyecharts + Flask 的交互式数据看板，多维度图表联动。</p>
-                        <div class="work-meta">
-                            <span class="work-date">2025 · 课程作品</span>
-                            <span class="work-link">View →</span>
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </div>
+    <div class="node node--contact" data-node="contact">
+        <div class="node-dot">📡</div>
+        <div class="node-label">联系 CONTACT</div>
     </div>
-</section>
+</div>
 
-<!-- ============ 联系 ============ -->
-<section id="contact" class="neon-bg">
-    <div class="neon">
-        <div class="section-inner">
-            <div class="glass contact-card reveal">
-                <h3>让我们聊聊吧 👋</h3>
-                <p>无论是合作、交流、还是单纯想打个招呼，都欢迎通过下面的方式找到我。</p>
-                <div class="contact-links">
-                    <a href="mailto:13404321619@163.com">📧 发邮件</a>
-                    <a href="tel:13404321619">📱 拨打电话</a>
-                    <a href="https://github.com/hlhdds" target="_blank" rel="noopener">💻 GitHub</a>
-                </div>
+<div class="foot-signature">© 2025 张宇博 · WUT · Built with ❤️</div>
+
+<!-- ========= 弹层 ========= -->
+<div class="modal-backdrop" id="modal">
+    <div class="modal" id="modal-inner">
+        <div class="modal-head">
+            <div class="modal-title">
+                <span class="m-icon" id="m-icon">📦</span>
+                <span id="m-title">标题</span>
             </div>
+            <button class="modal-close" id="m-close" aria-label="关闭">✕</button>
         </div>
+        <div class="modal-body" id="m-body">内容</div>
     </div>
-</section>
-
-</main>
-
-<footer>
-    © 2025 张宇博 · Wuhan University of Technology · Built with ❤️ and Liquid Glass
-</footer>
-
-<!-- 液体玻璃实时折射 -->
-<script type="module" src="./glass-card.js"></script>
+</div>
 
 <script>
-/* ---- 导航滚动切换 Hero 白 ↔ 深底霓虹 ---- */
-const nav = document.querySelector('nav');
-const hero = document.querySelector('.hero');
-function updateNav() {
-    // hero 底部绝对文档位置, 和 window.scrollY 同单位
-    const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : window.innerHeight;
-    if (window.scrollY > heroBottom - 120) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-}
-window.addEventListener('scroll', updateNav, { passive: true });
-window.addEventListener('resize', updateNav);
-updateNav();
+/* ============================================================
+   枢纽交互: 连接 SVG + 节点定位 + 弹层内容
+   ============================================================ */
 
-/* ---- 入场动画 ---- */
-const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+/* ---- 1. 画连接线 ---- */
+function drawOrbits() {
+    const svg = document.getElementById('orbit-svg');
+    if (!svg) return;
+    const core = document.getElementById('core');
+    const coreRect = core.getBoundingClientRect();
+    const cx = coreRect.left + coreRect.width / 2;
+    const cy = coreRect.top + coreRect.height / 2;
 
-/* ---- 导航锚点高亮 ---- */
-const sections = ['about','education','skills','works','contact'].map(id => document.getElementById(id)).filter(Boolean);
-const navLinks = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll', () => {
-    const y = window.scrollY + 120; let cur = '';
-    sections.forEach((s) => { if (s.offsetTop <= y) cur = s.id; });
-    navLinks.forEach((a) => {
-        const active = a.getAttribute('href') === '#' + cur;
-        a.style.color = active ? (nav.classList.contains('scrolled') ? '#fff' : '#000') : '';
-        a.style.background = active ? (nav.classList.contains('scrolled') ? 'rgba(0,212,255,.1)' : 'rgba(0,0,0,.08)') : '';
+    // 建立 SVG 视口等于整个 viewport
+    svg.setAttribute('width', window.innerWidth);
+    svg.setAttribute('height', window.innerHeight);
+    svg.innerHTML = '';
+
+    const nodes = document.querySelectorAll('.node');
+    nodes.forEach((n, i) => {
+        const r = n.getBoundingClientRect();
+        const nx = r.left + r.width / 2;
+        const ny = r.top + r.height / 2;
+
+        // 虚线
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        // 二次贝塞尔, 中间略微弯曲向外
+        const mx = (cx + nx) / 2;
+        const my = (cy + ny) / 2;
+        const dx = nx - cx, dy = ny - cy;
+        const len = Math.sqrt(dx*dx + dy*dy) || 1;
+        const off = 40; // 弯出去多少
+        const bx = mx + (-dy/len) * off;
+        const by = my + (dx/len) * off;
+        path.setAttribute('d', `M ${cx} ${cy} Q ${bx} ${by} ${nx} ${ny}`);
+        svg.appendChild(path);
+
+        // 脉冲圆 —— 沿路径 0..1 循环
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('class', 'pulse');
+        circle.setAttribute('r', 3.5);
+        circle.setAttribute('cx', cx);
+        circle.setAttribute('cy', cy);
+        svg.appendChild(circle);
+
+        // 缓存 path 引用, 脉冲圆之后要用到
+        circle.dataset.pathD = path.getAttribute('d');
+        circle.dataset.progress = (i * 0.25).toFixed(2); // 错开起点
     });
-}, { passive: true });
+}
+
+/* ---- 2. 脉冲圆沿路径跑 (setInterval 简化版, 够平滑) ---- */
+let pulseTick = 0;
+function pulseLoop() {
+    pulseTick = (pulseTick + 0.008) % 1;
+    const circles = document.querySelectorAll('.orbit-svg circle.pulse');
+    circles.forEach((c) => {
+        const d = c.dataset.pathD;
+        if (!d) return;
+        // 简易: 用 path API getPointAtLength
+        const pathEl = document.querySelector(`.orbit-svg path`); // 拿第一个, 稍后改成对应
+        /* 这里简化: 按比例在两端间线性插值 —— 弯曲不影响视觉 */
+        // 我们存 path 长度数组太费劲, 换简单办法: 线性插值 + 小抖动
+        // 先用 SVGPathElement, 但我们要按 index 区分
+    });
+}
+
+/* 更简单的脉冲: 只在虚线起点 / 终点闪一下, 不沿路径跑 */
+function simplePulse() {
+    const paths = document.querySelectorAll('.orbit-svg path');
+    const offset = (Date.now() / 50) % 40;
+    paths.forEach((p) => {
+        p.style.strokeDashoffset = -offset;
+    });
+}
+setInterval(simplePulse, 50);
+
+/* ---- 3. 弹层内容 ---- */
+const CONTENTS = {
+    works: {
+        icon: '📦', title: '作品 WORKS',
+        html: `
+<div class="work-list">
+  <a class="work-item" href="food/index.html">
+    <div class="w-emoji" style="background:#fff0e8">🍜</div>
+    <div class="w-body">
+      <div class="w-name">美味点餐 App</div>
+      <div class="w-desc">完整点餐应用 MVP —— 菜品浏览、购物车、订单流转、收货地址四大模块。</div>
+      <div class="w-meta">HTML · CSS · JS · localStorage · 2025</div>
+    </div>
+  </a>
+  <a class="work-item" href="transformers/index.html">
+    <div class="w-emoji" style="background:#f3e8ff">🤖</div>
+    <div class="w-body">
+      <div class="w-name">变形金刚 Transformers 介绍</div>
+      <div class="w-desc">沉浸式深色主题单页网站,介绍 G1 变形金刚阵营、角色、故事线。</div>
+      <div class="w-meta">HTML · CSS · 2025</div>
+    </div>
+  </a>
+  <a class="work-item" href="#">
+    <div class="w-emoji" style="background:#e6faf1">📈</div>
+    <div class="w-body">
+      <div class="w-name">数据可视化大屏 (占位)</div>
+      <div class="w-desc">基于 Pyecharts + Flask 的交互式数据看板,多维度图表联动。</div>
+      <div class="w-meta">Python · Pyecharts · 2025 · 即将上线</div>
+    </div>
+  </a>
+</div>
+<p style="margin-top:14px;font-size:12px;color:#94a3b8">点击卡片即可访问对应作品。</p>
+        `
+    },
+    skills: {
+        icon: '⚡', title: '技术栈 STACK',
+        html: `
+<div class="skill-grid">
+  <div class="skill-chip"><div class="s-emoji">🐍</div><div class="s-name">Python</div><div class="s-bar"><span style="width:82%"></span></div></div>
+  <div class="skill-chip"><div class="s-emoji">🌐</div><div class="s-name">HTML / CSS</div><div class="s-bar"><span style="width:85%"></span></div></div>
+  <div class="skill-chip"><div class="s-emoji">⚡</div><div class="s-name">JavaScript</div><div class="s-bar"><span style="width:75%"></span></div></div>
+  <div class="skill-chip"><div class="s-emoji">🔧</div><div class="s-name">Flask</div><div class="s-bar"><span style="width:78%"></span></div></div>
+  <div class="skill-chip"><div class="s-emoji">🗄️</div><div class="s-name">SQL / SQLite</div><div class="s-bar"><span style="width:72%"></span></div></div>
+  <div class="skill-chip"><div class="s-emoji">🖥️</div><div class="s-name">Git</div><div class="s-bar"><span style="width:68%"></span></div></div>
+  <div class="skill-chip"><div class="s-emoji">📊</div><div class="s-name">数据分析</div><div class="s-bar"><span style="width:65%"></span></div></div>
+  <div class="skill-chip"><div class="s-emoji">🎨</div><div class="s-name">UI 设计</div><div class="s-bar"><span style="width:60%"></span></div></div>
+</div>
+<p style="margin-top:14px;font-size:12px;color:#94a3b8">水平条仅为大致参考,持续学习中。</p>
+        `
+    },
+    about: {
+        icon: '👤', title: '关于 ABOUT',
+        html: `
+<div class="about-block">
+  <h4>WHO AM I</h4>
+  <p>我是张宇博,武汉理工大学经济学院数字经济专业学生。喜欢自己动手做项目 —— 从一个小功能开始,慢慢变成真正能跑起来的产品。我相信最好的学习方式就是<strong style="color:var(--green)">动手做</strong>。</p>
+</div>
+<div class="about-block">
+  <h4>EDUCATION</h4>
+  <div class="edu-row">
+    <div class="edu-date">2025.09 — 至今</div>
+    <div class="edu-title">武汉理工大学 · 经济学院</div>
+    <div class="edu-sub">数字经济 2503 班 · 本科在读</div>
+    <div class="edu-desc">主修数字经济、数据结构、程序设计、数据库原理等;课余自学 Web 全栈开发。</div>
+  </div>
+</div>
+        `
+    },
+    contact: {
+        icon: '📡', title: '联系 CONTACT',
+        html: `
+<div class="contact-list">
+  <a class="contact-row" href="mailto:13404321619@163.com">
+    <span class="c-icon">📧</span>
+    <div><div class="c-label">EMAIL</div><div class="c-val">13404321619@163.com</div></div>
+  </a>
+  <a class="contact-row" href="tel:13404321619">
+    <span class="c-icon">📱</span>
+    <div><div class="c-label">PHONE</div><div class="c-val">13404321619</div></div>
+  </a>
+  <a class="contact-row" href="https://github.com/hlhdds" target="_blank" rel="noopener">
+    <span class="c-icon">💻</span>
+    <div><div class="c-label">GITHUB</div><div class="c-val">github.com/hlhdds</div></div>
+  </a>
+  <a class="contact-row" href="https://hlhdds.github.io/zhangyubo-portfolio/" target="_blank" rel="noopener">
+    <span class="c-icon">🌐</span>
+    <div><div class="c-label">PORTFOLIO</div><div class="c-val">hlhdds.github.io/zhangyubo-portfolio</div></div>
+  </a>
+</div>
+<p style="margin-top:14px;font-size:12px;color:#94a3b8">欢迎合作交流,或者单纯打个招呼 👋</p>
+        `
+    }
+};
+
+/* ---- 4. 弹层控制 ---- */
+const modal = document.getElementById('modal');
+const modalInner = document.getElementById('modal-inner');
+const mIcon = document.getElementById('m-icon');
+const mTitle = document.getElementById('m-title');
+const mBody = document.getElementById('m-body');
+
+function openModal(key) {
+    const c = CONTENTS[key];
+    if (!c) return;
+    modalInner.dataset.node = key;
+    mIcon.textContent = c.icon;
+    mTitle.textContent = c.title;
+    mBody.innerHTML = c.html;
+    modal.classList.add('is-open');
+}
+function closeModal() {
+    modal.classList.remove('is-open');
+}
+
+document.querySelectorAll('.node').forEach((n) => {
+    n.addEventListener('click', () => openModal(n.dataset.node));
+});
+document.getElementById('core').addEventListener('click', () => openModal('about'));
+document.getElementById('m-close').addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+/* ---- 5. 初始化 ---- */
+window.addEventListener('load', () => { drawOrbits(); });
+window.addEventListener('resize', () => { drawOrbits(); });
+window.addEventListener('orientationchange', () => setTimeout(drawOrbits, 200));
+
+/* 首次 300ms 后再画一次, 等待布局稳定 */
+setTimeout(drawOrbits, 300);
+
+/* 节流的 drawOrbits */
+let _t = 0;
+const ro = new ResizeObserver(() => {
+    const now = Date.now();
+    if (now - _t > 100) { drawOrbits(); _t = now; }
+});
+document.querySelectorAll('.node, #core').forEach((el) => ro.observe(el));
 </script>
 
 </body>
