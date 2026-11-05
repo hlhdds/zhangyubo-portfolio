@@ -4,24 +4,10 @@
    规格来源: Terranova landing page 规格文档 §11
    ============================================================ */
 const DUP_PIXEL_RATIO = 1;    // 按规格保持 1×,SVG 滤镜在 retina 下成本太高
-const VIDEO_URL = 'https://motionsites.org/assets/prompt-media/a47102c095df0c25357f.mp4';
 
-const video = document.createElement('video');
-video.id = 'bg-video';
-video.className = 'bg-video';
-video.setAttribute('aria-hidden', 'true');
-video.autoplay = true;
-video.muted = true;
-video.loop = true;
-video.playsInline = true;
-video.preload = 'auto';
-video.src = VIDEO_URL;
-/* 注意: 不能加 crossorigin —— 该站点没发 CORS,加了视频直接加载失败 */
-
-// 塞到 body 最前面
-const firstChild = document.body.firstChild;
-if (firstChild) document.body.insertBefore(video, firstChild);
-else document.body.appendChild(video);
+/* 复用 index.html 标记里的 #bg-video(规格 §2)
+   注意: 不能加 crossorigin —— 该站点没发 CORS,加了视频直接加载失败 */
+const video = document.getElementById('bg-video');
 
 const container = document.getElementById('dup-video-container');
 const canvas    = document.getElementById('dup-image');
