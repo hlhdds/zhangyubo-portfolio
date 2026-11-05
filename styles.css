@@ -57,7 +57,42 @@ html, body {
 .rule__plus { font-size: 0.75rem; line-height: 1; color: rgba(0, 0, 0, 0.4); padding: 0.25rem 0; }
 @media (min-width: 768px) { .rule { display: flex; } }
 
-/* ---------- §6 导航 ---------- */
+/* ---------- §6 画面中央入口 ---------- */
+.about-hit {
+    position: absolute; left: 50%; top: 50%; z-index: 1;
+    transform: translate(-50%, -50%);
+    display: flex; align-items: center; justify-content: center;
+    color: #000; text-decoration: none;
+    pointer-events: auto;              /* .hero 为 none,这里单独恢复 */
+    cursor: pointer;
+}
+.about-hint {
+    display: flex; flex-direction: column; align-items: center; gap: 0.875rem;
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 400ms, transform 400ms;
+}
+.about-hit:hover .about-hint { opacity: 1; transform: translateY(-3px); }
+
+.about-hint__ring {
+    position: relative; width: 84px; height: 84px;
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.about-hint__ring::after {
+    content: ''; position: absolute; inset: -1px; border-radius: 9999px;
+    border: 1px solid rgba(0, 0, 0, 0.28);
+    animation: hint-pulse 2800ms ease-out infinite;
+}
+@keyframes hint-pulse {
+    0%   { transform: scale(1);    opacity: 0.7; }
+    70%  { transform: scale(1.45); opacity: 0; }
+    100% { transform: scale(1.45); opacity: 0; }
+}
+.about-hint__label { font-size: 0.75rem; letter-spacing: 0.2em; text-indent: 0.2em; }
+
+/* ---------- §7 导航 ---------- */
 .nav { position: relative; z-index: 2; display: flex; align-items: center; justify-content: flex-end; padding: 1.25rem; }
 .nav__item {
     display: inline-flex; align-items: center; gap: 0.625rem;
