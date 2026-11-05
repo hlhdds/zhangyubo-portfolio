@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>美味点餐 - 购物车</title>
+<title>美味点餐</title>
 <style>
     :root {
         --primary: #ff6a00;
@@ -392,8 +392,7 @@
  * 金额统一用"分"存储，避免浮点误差。
  * ============================================================ */
 const CART_KEY = 'foodCartV1';
-/* 菜品目录:由 data.js 内置下发 */
-let DISHES = [];
+/* 菜品目录:由 data.js 内置下发(全局 DISHES),此处不再重复声明 */
 let dishMap = new Map();
 
 /* ---------- 本地存储 ---------- */
@@ -558,11 +557,11 @@ $('checkoutBtn').addEventListener('click', checkout);
     try {
         const res = await API.dishes();
         if (!res.ok) throw new Error(res.status);
-        DISHES = await res.json();
-        dishMap = new Map(DISHES.map(d => [d.id, d]));
+        const list = await res.json();
+        dishMap = new Map(list.map(d => [d.id, d]));
         cart = loadCart();
     } catch (e) {
-        $('menu').innerHTML = '<div class="cart-empty">菜品加载失败,请确认后端服务(python server.py)已启动</div>';
+        $('menu').innerHTML = '<div class="cart-empty">菜品加载失败,请刷新重试</div>';
         return;
     }
     renderMenu();
