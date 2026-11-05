@@ -93,15 +93,6 @@
 
         <!-- 顶部导航 -->
         <nav class="nav">
-            <button id="menu-open" class="nav__item" aria-expanded="false" aria-controls="menu">
-                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <line x1="4" y1="6" x2="20" y2="6" />
-                    <line x1="4" y1="12" x2="20" y2="12" />
-                    <line x1="4" y1="18" x2="20" y2="18" />
-                </svg>
-                <span class="nav__label nav__label--menu">菜单</span>
-            </button>
             <a class="nav__item" href="https://github.com/hlhdds" target="_blank" rel="noopener">
                 <span class="nav__dot" aria-hidden="true"></span>
                 <span class="nav__label">GitHub</span>
@@ -118,7 +109,7 @@
                     武汉理工大学数字经济专业学生，独立开发者。
                     喜欢动手把一个个小想法，做成真正能跑起来的产品。
                 </p>
-                <a class="chamfer" href="#" id="explore-open">
+                <a class="chamfer" href="#works" id="explore-open">
                     <span class="chamfer__glass" aria-hidden="true"></span>
                     <svg class="chamfer__outline" viewBox="0 0 260 48" preserveAspectRatio="none" aria-hidden="true">
                         <polygon points="14,0 260,0 260,34 246,48 0,48 0,14"
@@ -130,10 +121,13 @@
                         <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
                     </svg>
                 </a>
+                <p class="lede__contact">
+                    <a href="mailto:13404321619@163.com">13404321619@163.com</a>
+                </p>
             </div>
 
             <!-- 右栏液态玻璃卡片 -->
-            <aside class="card group" data-glass-card>
+            <aside class="card group" id="works" data-glass-card>
                 <div id="dup-video-container"><canvas id="dup-image"></canvas></div>
                 <div class="card__frost" aria-hidden="true"></div>
 
@@ -160,63 +154,6 @@
             </aside>
         </div>
     </main>
-
-    <!-- ======== 滑入式菜单 ======== -->
-    <div class="menu" id="menu">
-        <div class="menu__backdrop" id="menu-backdrop"></div>
-        <div class="menu__panel">
-            <button class="menu__close" id="menu-close">
-                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M18 6 6 18" /><path d="m6 6 12 12" />
-                </svg>
-                <span>关闭</span>
-            </button>
-
-            <nav class="menu__nav">
-                <a class="menu__link" href="food/index.html">
-                    <span class="menu__linkText">美味点餐 App</span>
-                    <svg class="menu__arrow icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-                    </svg>
-                </a>
-                <a class="menu__link" href="transformers/index.html">
-                    <span class="menu__linkText">变形金刚介绍站</span>
-                    <svg class="menu__arrow icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-                    </svg>
-                </a>
-                <a class="menu__link" href="https://github.com/hlhdds" target="_blank" rel="noopener">
-                    <span class="menu__linkText">GitHub</span>
-                    <svg class="menu__arrow icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-                    </svg>
-                </a>
-                <a class="menu__link" href="mailto:13404321619@163.com">
-                    <span class="menu__linkText">写信给我</span>
-                    <svg class="menu__arrow icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-                    </svg>
-                </a>
-                <a class="menu__link" href="tel:13404321619">
-                    <span class="menu__linkText">电话联系</span>
-                    <svg class="menu__arrow icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-                    </svg>
-                </a>
-            </nav>
-
-            <div class="menu__foot">
-                <span class="menu__footLabel">联系我</span>
-                <a class="menu__mail" href="mailto:13404321619@163.com">13404321619@163.com</a>
-            </div>
-        </div>
-    </div>
 
     <script type="module" src="./glass-card.js"></script>
     <script type="module" src="./ui.js"></script>
