@@ -109,7 +109,8 @@
                     武汉理工大学数字经济专业学生，独立开发者。
                     喜欢动手把一个个小想法，做成真正能跑起来的产品。
                 </p>
-                <a class="chamfer" href="#works" id="explore-open">
+                <a class="chamfer" href="#works" id="explore-open"
+                   aria-haspopup="dialog" aria-expanded="false" aria-controls="works-panel">
                     <span class="chamfer__glass" aria-hidden="true"></span>
                     <svg class="chamfer__outline" viewBox="0 0 260 48" preserveAspectRatio="none" aria-hidden="true">
                         <polygon points="14,0 260,0 260,34 246,48 0,48 0,14"
@@ -154,6 +155,45 @@
             </aside>
         </div>
     </main>
+
+    <!-- ======== 作品面板:由「探索作品」唤出 ======== -->
+    <div class="works-panel" id="works-panel" role="dialog" aria-modal="true" aria-labelledby="works-title">
+        <div class="works-panel__backdrop" id="works-backdrop"></div>
+        <div class="works-panel__sheet">
+            <div class="works-panel__head">
+                <h2 class="works-panel__title" id="works-title">作品</h2>
+                <button class="works-panel__close" id="works-close" aria-label="关闭">
+                    <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="works-panel__list">
+                <a class="works-panel__item" href="food/index.html">
+                    <span>
+                        <span class="works-panel__name">美味点餐 App</span>
+                        <span class="works-panel__desc">菜品浏览 · 购物车 · 订单流转 · 收货地址</span>
+                    </span>
+                    <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                    </svg>
+                </a>
+                <a class="works-panel__item" href="transformers/index.html">
+                    <span>
+                        <span class="works-panel__name">变形金刚介绍站</span>
+                        <span class="works-panel__desc">G1 阵营 · 角色 · 故事线</span>
+                    </span>
+                    <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                    </svg>
+                </a>
+            </nav>
+        </div>
+    </div>
 
     <script type="module" src="./glass-card.js"></script>
     <script type="module" src="./ui.js"></script>

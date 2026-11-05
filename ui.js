@@ -1,25 +1,33 @@
 /* ============================================================
    ui.js —— 首页交互
-   「探索作品」:滚动到作品玻璃卡,并做一次高亮脉冲
+   「探索作品」唤出作品面板;支持遮罩/关闭按钮/ESC 关闭
    ============================================================ */
 
-const worksCard  = document.getElementById('works');
-const exploreBtn = document.getElementById('explore-open');
+const panel    = document.getElementById('works-panel');
+const openBtn  = document.getElementById('explore-open');
+const closeBtn = document.getElementById('works-close');
+const backdrop = document.getElementById('works-backdrop');
 
-let highlightTimer = 0;
+function setPanel(open) {
+    panel.classList.toggle('is-open', open);
+    openBtn.setAttribute('aria-expanded', String(open));
+    (open ? closeBtn : openBtn).focus({ preventScroll: true });
+}
 
-exploreBtn.addEventListener('click', (e) => {
+openBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    setPanel(true);
+});
 
-    worksCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+closeBtn.addEventListener('click', () => setPanel(false));
+backdrop.addEventListener('click', () => setPanel(false));
 
-    /* 先移再加速一次强制重排,保证连续点击时动画能重新播放 */
-    worksCard.classList.remove('is-highlighted');
-    void worksCard.offsetWidth;
-    worksCard.classList.add('is-highlighted');
+panel.querySelectorAll('.works-panel__item').forEach((link) => {
+    link.addEventListener('click', () => setPanel(false));
+});
 
-    clearTimeout(highlightTimer);
-    highlightTimer = setTimeout(() => {
-        worksCard.classList.remove('is-highlighted');
-    }, 1500);
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && panel.classList.contains('is-open')) {
+        setPanel(false);
+    }
 });
