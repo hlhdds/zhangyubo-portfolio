@@ -119,6 +119,58 @@ body { min-height: 100dvh; overflow-x: hidden; }
 }
 .contact a:hover { opacity: 0.6; }
 
+/* ---------- 学习经历 / 兴趣爱好 ---------- */
+.extra {
+    display: grid;
+    gap: 1rem;
+    margin-top: clamp(1.5rem, 4vw, 2.5rem);
+}
+@media (min-width: 900px) {
+    .extra {
+        grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+        align-items: start;
+    }
+}
+
+.timeline { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.25rem; }
+.timeline li { position: relative; padding-left: 1.125rem; }
+.timeline li::before {
+    content: '';
+    position: absolute; left: 0; top: 0.45em;
+    width: 7px; height: 7px; border-radius: 9999px;
+    background: rgba(0, 0, 0, 0.5);
+}
+.timeline li:not(:last-child)::after {
+    content: '';
+    position: absolute; left: 3px; top: 1.35em; bottom: -0.85rem;
+    width: 1px; background: rgba(0, 0, 0, 0.14);
+}
+.timeline__time {
+    display: block;
+    font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.42);
+}
+.timeline__title { display: block; margin-top: 0.25rem; font-size: 0.9375rem; }
+.timeline__desc {
+    display: block; margin-top: 0.25rem;
+    font-size: 0.75rem; line-height: 1.8;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tags li {
+    padding: 0.4rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(47, 47, 47, 0.15);
+}
+.extra__note {
+    margin: 1rem 0 0;
+    font-size: 0.75rem; line-height: 1.85;
+    color: rgba(0, 0, 0, 0.5);
+}
+
 /* ---------- 入场动画:从首页点进来时有「浮现」感 ---------- */
 @keyframes rise-in {
     from { opacity: 0; transform: translateY(26px); }
