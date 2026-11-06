@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>足球球星猜谜 — 张宇博</title>
+    <meta name="description" content="足球球星猜谜小游戏：随机出现球星照片，输入名字和所属俱乐部。">
+    <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/0e6de1ec911a2e267ff136bbdd384a44?family=Helvetica+Neue+Light" />
+    <link rel="stylesheet" href="./quiz.css" />
+</head>
+<body>
+
+    <video class="bg-video" autoplay muted loop playsinline preload="auto" aria-hidden="true"
+           src="https://motionsites.org/assets/prompt-media/a47102c095df0c25357f.mp4"></video>
+
+    <div class="page">
+        <nav class="nav">
+            <a class="nav__link" href="../index.html">‹ 返回首页</a>
+            <a class="nav__link" href="https://github.com/hlhdds" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+
+        <main class="quiz">
+            <header class="quiz__head">
+                <p class="eyebrow">Football Quiz</p>
+                <h1 class="quiz__title">足球球星猜谜</h1>
+                <div class="quiz__stats">
+                    <span id="progress">第 1 / 11 题</span>
+                    <span class="quiz__sep" aria-hidden="true"></span>
+                    <span id="score">答对 0</span>
+                </div>
+            </header>
+
+            <section class="glass" id="card">
+                <div class="photo">
+                    <img id="photo" class="photo__img" alt="待猜球员照片" />
+                </div>
+
+                <div class="panel">
+                    <form class="form" id="form" autocomplete="off">
+                        <label class="field">
+                            <span class="field__label">球员姓名</span>
+                            <input class="field__input" id="nameInput" type="text" placeholder="例如：梅西" />
+                        </label>
+                        <label class="field">
+                            <span class="field__label">所属俱乐部</span>
+                            <input class="field__input" id="clubInput" type="text" placeholder="例如：巴塞罗那" />
+                        </label>
+                        <div class="actions">
+                            <button class="btn" type="submit">提交答案</button>
+                            <button class="btn btn--ghost" id="skipBtn" type="button">跳过</button>
+                        </div>
+                    </form>
+                    <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+                </div>
+            </section>
+
+            <section class="glass glass--done" id="done" hidden>
+                <h2 class="done__title">全部完成</h2>
+                <p class="done__text" id="doneText"></p>
+                <button class="btn" id="restart" type="button">再来一局</button>
+            </section>
+        </main>
+
+        <footer class="foot">球员图片：TheSportsDB</footer>
+    </div>
+
+    <script src="./data.js"></script>
+    <script src="./quiz.js"></script>
+</body>
+</html>
