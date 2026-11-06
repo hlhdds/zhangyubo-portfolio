@@ -1,5 +1,5 @@
 // 足球球星猜谜 —— 球员数据（全部中文）
-// 手工精选 11 位 + 批量 99 位，共 110 位
+// 手工精选 15 位 + 批量 99 位，共 114 位
 // 判题同时支持中文别名和英文别名
 
 const PLAYERS = [
@@ -204,6 +204,81 @@ const PLAYERS = [
             "枪手"
         ],
         "img": "images/saka.png"
+    },
+    {
+        "id": "modric",
+        "name": "莫德里奇",
+        "club": "皇家马德里",
+        "nameAliases": [
+            "莫德里奇",
+            "卢卡·莫德里奇",
+            "Luka Modric",
+            "Modric",
+            "Modrić"
+        ],
+        "clubAliases": [
+            "皇家马德里",
+            "皇马",
+            "Real Madrid",
+            "Madrid"
+        ],
+        "img": "images/modric.png"
+    },
+    {
+        "id": "kroos",
+        "name": "克罗斯",
+        "club": "皇家马德里",
+        "nameAliases": [
+            "克罗斯",
+            "托尼·克罗斯",
+            "Toni Kroos",
+            "Kroos"
+        ],
+        "clubAliases": [
+            "皇家马德里",
+            "皇马",
+            "Real Madrid",
+            "Madrid"
+        ],
+        "img": "images/kroos.png"
+    },
+    {
+        "id": "salah",
+        "name": "萨拉赫",
+        "club": "利物浦",
+        "nameAliases": [
+            "萨拉赫",
+            "穆罕默德·萨拉赫",
+            "Mohamed Salah",
+            "Salah",
+            "Mo Salah",
+            "埃及梅西"
+        ],
+        "clubAliases": [
+            "利物浦",
+            "Liverpool",
+            "LFC"
+        ],
+        "img": "images/salah.png"
+    },
+    {
+        "id": "lewandowski",
+        "name": "莱万多夫斯基",
+        "club": "巴塞罗那",
+        "nameAliases": [
+            "莱万多夫斯基",
+            "莱万",
+            "罗伯特·莱万多夫斯基",
+            "Robert Lewandowski",
+            "Lewandowski"
+        ],
+        "clubAliases": [
+            "巴塞罗那",
+            "巴萨",
+            "Barcelona",
+            "Barca"
+        ],
+        "img": "images/lewandowski.png"
     },
     {
         "id": "alexisciria",
