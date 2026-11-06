@@ -1,4 +1,7 @@
-// 足球球星猜谜 —— 球员数据（自动合并自手动精选 + TheSportsDB 批量）
+// 足球球星猜谜 —— 球员数据（全部中文）
+// 手工精选 11 位 + 批量 99 位，共 110 位
+// 判题同时支持中文别名和英文别名
+
 const PLAYERS = [
     {
         "id": "messi",
@@ -204,1649 +207,1673 @@ const PLAYERS = [
     },
     {
         "id": "alexisciria",
-        "name": "Alexis Ciria",
-        "club": "Real Madrid",
+        "name": "亚历克西斯·西里亚",
+        "club": "皇家马德里",
         "nameAliases": [
+            "亚历克西斯·西里亚",
             "Alexis Ciria",
             "Ciria"
         ],
         "clubAliases": [
-            "Real Madrid",
-            "Madrid",
             "皇马",
-            "皇家马德里"
+            "皇家马德里",
+            "Real Madrid",
+            "Madrid"
         ],
         "img": "images/alexisciria.png"
     },
     {
         "id": "lvarocarreras",
-        "name": "Álvaro Carreras",
-        "club": "Real Madrid",
+        "name": "阿尔瓦罗·卡雷拉斯",
+        "club": "皇家马德里",
         "nameAliases": [
+            "阿尔瓦罗·卡雷拉斯",
             "Álvaro Carreras",
             "Carreras"
         ],
         "clubAliases": [
-            "Real Madrid",
-            "Madrid",
             "皇马",
-            "皇家马德里"
+            "皇家马德里",
+            "Real Madrid",
+            "Madrid"
         ],
         "img": "images/lvarocarreras.png"
     },
     {
         "id": "andriylunin",
-        "name": "Andriy Lunin",
-        "club": "Real Madrid",
+        "name": "安德里·卢宁",
+        "club": "皇家马德里",
         "nameAliases": [
+            "安德里·卢宁",
             "Andriy Lunin",
             "Lunin"
         ],
         "clubAliases": [
-            "Real Madrid",
-            "Madrid",
             "皇马",
-            "皇家马德里"
+            "皇家马德里",
+            "Real Madrid",
+            "Madrid"
         ],
         "img": "images/andriylunin.png"
     },
     {
         "id": "antoniordiger",
-        "name": "Antonio Rüdiger",
-        "club": "Real Madrid",
+        "name": "安东尼奥·吕迪格",
+        "club": "皇家马德里",
         "nameAliases": [
+            "安东尼奥·吕迪格",
             "Antonio Rüdiger",
             "Rüdiger"
         ],
         "clubAliases": [
-            "Real Madrid",
-            "Madrid",
             "皇马",
-            "皇家马德里"
+            "皇家马德里",
+            "Real Madrid",
+            "Madrid"
         ],
         "img": "images/antoniordiger.png"
     },
     {
         "id": "ardagler",
-        "name": "Arda Güler",
-        "club": "Real Madrid",
+        "name": "阿尔达·居莱尔",
+        "club": "皇家马德里",
         "nameAliases": [
+            "阿尔达·居莱尔",
             "Arda Güler",
             "Güler"
         ],
         "clubAliases": [
-            "Real Madrid",
-            "Madrid",
             "皇马",
-            "皇家马德里"
+            "皇家马德里",
+            "Real Madrid",
+            "Madrid"
         ],
         "img": "images/ardagler.png"
     },
     {
         "id": "aurlientchouamni",
-        "name": "Aurélien Tchouaméni",
-        "club": "Real Madrid",
+        "name": "奥雷利昂·楚阿梅尼",
+        "club": "皇家马德里",
         "nameAliases": [
+            "奥雷利昂·楚阿梅尼",
             "Aurélien Tchouaméni",
             "Tchouaméni"
         ],
         "clubAliases": [
-            "Real Madrid",
-            "Madrid",
             "皇马",
-            "皇家马德里"
+            "皇家马德里",
+            "Real Madrid",
+            "Madrid"
         ],
         "img": "images/aurlientchouamni.png"
     },
     {
         "id": "bernardosilva",
-        "name": "Bernardo Silva",
-        "club": "Real Madrid",
+        "name": "贝尔纳多·席尔瓦",
+        "club": "皇家马德里",
         "nameAliases": [
+            "贝尔纳多·席尔瓦",
             "Bernardo Silva",
             "Silva"
         ],
         "clubAliases": [
-            "Real Madrid",
-            "Madrid",
             "皇马",
-            "皇家马德里"
+            "皇家马德里",
+            "Real Madrid",
+            "Madrid"
         ],
         "img": "images/bernardosilva.png"
     },
     {
         "id": "brahimdaz",
-        "name": "Brahim Díaz",
-        "club": "Real Madrid",
+        "name": "卜拉欣·迪亚斯",
+        "club": "皇家马德里",
         "nameAliases": [
+            "卜拉欣·迪亚斯",
             "Brahim Díaz",
             "Díaz"
         ],
         "clubAliases": [
-            "Real Madrid",
-            "Madrid",
             "皇马",
-            "皇家马德里"
+            "皇家马德里",
+            "Real Madrid",
+            "Madrid"
         ],
         "img": "images/brahimdaz.png"
     },
     {
         "id": "carlosesp",
-        "name": "Carlos Espí",
-        "club": "Real Madrid",
+        "name": "卡洛斯·埃斯皮",
+        "club": "皇家马德里",
         "nameAliases": [
+            "卡洛斯·埃斯皮",
             "Carlos Espí",
             "Espí"
         ],
         "clubAliases": [
-            "Real Madrid",
-            "Madrid",
             "皇马",
-            "皇家马德里"
+            "皇家马德里",
+            "Real Madrid",
+            "Madrid"
         ],
         "img": "images/carlosesp.png"
     },
     {
         "id": "davidjimnez",
-        "name": "David Jiménez",
-        "club": "Real Madrid",
+        "name": "大卫·希门尼斯",
+        "club": "皇家马德里",
         "nameAliases": [
+            "大卫·希门尼斯",
             "David Jiménez",
             "Jiménez"
         ],
         "clubAliases": [
-            "Real Madrid",
-            "Madrid",
             "皇马",
-            "皇家马德里"
+            "皇家马德里",
+            "Real Madrid",
+            "Madrid"
         ],
         "img": "images/davidjimnez.png"
     },
     {
         "id": "alejandrobalde",
-        "name": "Alejandro Balde",
-        "club": "Barcelona",
+        "name": "亚历杭德罗·巴尔德",
+        "club": "巴塞罗那",
         "nameAliases": [
+            "亚历杭德罗·巴尔德",
             "Alejandro Balde",
             "Balde"
         ],
         "clubAliases": [
-            "Barcelona",
-            "Barca",
             "巴萨",
-            "巴塞罗那"
+            "巴塞罗那",
+            "Barcelona",
+            "Barca"
         ],
         "img": "images/alejandrobalde.png"
     },
     {
         "id": "andreaschristensen",
-        "name": "Andreas Christensen",
-        "club": "Barcelona",
+        "name": "安德烈亚斯·克里斯滕森",
+        "club": "巴塞罗那",
         "nameAliases": [
+            "安德烈亚斯·克里斯滕森",
             "Andreas Christensen",
             "Christensen"
         ],
         "clubAliases": [
-            "Barcelona",
-            "Barca",
             "巴萨",
-            "巴塞罗那"
+            "巴塞罗那",
+            "Barcelona",
+            "Barca"
         ],
         "img": "images/andreaschristensen.png"
     },
     {
         "id": "anthonygordon",
-        "name": "Anthony Gordon",
-        "club": "Barcelona",
+        "name": "安东尼·戈登",
+        "club": "巴塞罗那",
         "nameAliases": [
+            "安东尼·戈登",
             "Anthony Gordon",
             "Gordon"
         ],
         "clubAliases": [
-            "Barcelona",
-            "Barca",
             "巴萨",
-            "巴塞罗那"
+            "巴塞罗那",
+            "Barcelona",
+            "Barca"
         ],
         "img": "images/anthonygordon.png"
     },
     {
         "id": "brianfarias",
-        "name": "Brian Fariñas",
-        "club": "Barcelona",
+        "name": "布莱恩·法里亚斯",
+        "club": "巴塞罗那",
         "nameAliases": [
+            "布莱恩·法里亚斯",
             "Brian Fariñas",
             "Fariñas"
         ],
         "clubAliases": [
-            "Barcelona",
-            "Barca",
             "巴萨",
-            "巴塞罗那"
+            "巴塞罗那",
+            "Barcelona",
+            "Barca"
         ],
         "img": "images/brianfarias.png"
     },
     {
         "id": "daniolmo",
-        "name": "Dani Olmo",
-        "club": "Barcelona",
+        "name": "达尼·奥尔莫",
+        "club": "巴塞罗那",
         "nameAliases": [
+            "达尼·奥尔莫",
             "Dani Olmo",
             "Olmo"
         ],
         "clubAliases": [
-            "Barcelona",
-            "Barca",
             "巴萨",
-            "巴塞罗那"
+            "巴塞罗那",
+            "Barcelona",
+            "Barca"
         ],
         "img": "images/daniolmo.png"
     },
     {
         "id": "dominiklivakovi",
-        "name": "Dominik Livaković",
-        "club": "Barcelona",
+        "name": "多米尼克·利瓦科维奇",
+        "club": "巴塞罗那",
         "nameAliases": [
+            "多米尼克·利瓦科维奇",
             "Dominik Livaković",
             "Livaković"
         ],
         "clubAliases": [
-            "Barcelona",
-            "Barca",
             "巴萨",
-            "巴塞罗那"
+            "巴塞罗那",
+            "Barcelona",
+            "Barca"
         ],
         "img": "images/dominiklivakovi.png"
     },
     {
         "id": "ericgarca",
-        "name": "Eric García",
-        "club": "Barcelona",
+        "name": "埃里克·加西亚",
+        "club": "巴塞罗那",
         "nameAliases": [
+            "埃里克·加西亚",
             "Eric García",
             "García"
         ],
         "clubAliases": [
-            "Barcelona",
-            "Barca",
             "巴萨",
-            "巴塞罗那"
+            "巴塞罗那",
+            "Barcelona",
+            "Barca"
         ],
         "img": "images/ericgarca.png"
     },
     {
         "id": "fermn",
-        "name": "Fermín",
-        "club": "Barcelona",
+        "name": "费尔明",
+        "club": "巴塞罗那",
         "nameAliases": [
+            "费尔明",
             "Fermín"
         ],
         "clubAliases": [
-            "Barcelona",
-            "Barca",
             "巴萨",
-            "巴塞罗那"
+            "巴塞罗那",
+            "Barcelona",
+            "Barca"
         ],
         "img": "images/fermn.png"
     },
     {
         "id": "frenkiedejong",
-        "name": "Frenkie de Jong",
-        "club": "Barcelona",
+        "name": "弗伦基·德容",
+        "club": "巴塞罗那",
         "nameAliases": [
+            "弗伦基·德容",
             "Frenkie de Jong",
-            "Jong",
-            "Frenkie Jong",
-            "F Jong"
+            "Jong"
         ],
         "clubAliases": [
-            "Barcelona",
-            "Barca",
             "巴萨",
-            "巴塞罗那"
+            "巴塞罗那",
+            "Barcelona",
+            "Barca"
         ],
         "img": "images/frenkiedejong.png"
     },
     {
         "id": "gabrieljesus",
-        "name": "Gabriel Jesus",
-        "club": "Barcelona",
+        "name": "加布里埃尔·热苏斯",
+        "club": "巴塞罗那",
         "nameAliases": [
+            "加布里埃尔·热苏斯",
             "Gabriel Jesus",
             "Jesus"
         ],
         "clubAliases": [
-            "Barcelona",
-            "Barca",
             "巴萨",
-            "巴塞罗那"
+            "巴塞罗那",
+            "Barcelona",
+            "Barca"
         ],
         "img": "images/gabrieljesus.png"
     },
     {
         "id": "abdukodirkhusanov",
-        "name": "Abdukodir Khusanov",
-        "club": "Manchester City",
+        "name": "阿卜杜科迪尔·胡萨诺夫",
+        "club": "曼城",
         "nameAliases": [
+            "阿卜杜科迪尔·胡萨诺夫",
             "Abdukodir Khusanov",
             "Khusanov"
         ],
         "clubAliases": [
-            "Manchester City",
-            "Man City",
-            "MCFC",
             "曼城",
-            "曼彻斯特城"
+            "曼彻斯特城",
+            "Manchester City",
+            "Man City"
         ],
         "img": "images/abdukodirkhusanov.png"
     },
     {
         "id": "allanelias",
-        "name": "Allan Elias",
-        "club": "Manchester City",
+        "name": "阿兰·埃利亚斯",
+        "club": "曼城",
         "nameAliases": [
+            "阿兰·埃利亚斯",
             "Allan Elias",
             "Elias"
         ],
         "clubAliases": [
-            "Manchester City",
-            "Man City",
-            "MCFC",
             "曼城",
-            "曼彻斯特城"
+            "曼彻斯特城",
+            "Manchester City",
+            "Man City"
         ],
         "img": "images/allanelias.png"
     },
     {
         "id": "antoinesemenyo",
-        "name": "Antoine Semenyo",
-        "club": "Manchester City",
+        "name": "安托万·塞梅约",
+        "club": "曼城",
         "nameAliases": [
+            "安托万·塞梅约",
             "Antoine Semenyo",
             "Semenyo"
         ],
         "clubAliases": [
-            "Manchester City",
-            "Man City",
-            "MCFC",
             "曼城",
-            "曼彻斯特城"
+            "曼彻斯特城",
+            "Manchester City",
+            "Man City"
         ],
         "img": "images/antoinesemenyo.png"
     },
     {
         "id": "ayyoubbouaddi",
-        "name": "Ayyoub Bouaddi",
-        "club": "Manchester City",
+        "name": "艾尤布·布阿迪",
+        "club": "曼城",
         "nameAliases": [
+            "艾尤布·布阿迪",
             "Ayyoub Bouaddi",
             "Bouaddi"
         ],
         "clubAliases": [
-            "Manchester City",
-            "Man City",
-            "MCFC",
             "曼城",
-            "曼彻斯特城"
+            "曼彻斯特城",
+            "Manchester City",
+            "Man City"
         ],
         "img": "images/ayyoubbouaddi.png"
     },
     {
         "id": "elliotanderson",
-        "name": "Elliot Anderson",
-        "club": "Manchester City",
+        "name": "埃利奥特·安德森",
+        "club": "曼城",
         "nameAliases": [
+            "埃利奥特·安德森",
             "Elliot Anderson",
             "Anderson"
         ],
         "clubAliases": [
-            "Manchester City",
-            "Man City",
-            "MCFC",
             "曼城",
-            "曼彻斯特城"
+            "曼彻斯特城",
+            "Manchester City",
+            "Man City"
         ],
         "img": "images/elliotanderson.png"
     },
     {
         "id": "enzofernndez",
-        "name": "Enzo Fernández",
-        "club": "Manchester City",
+        "name": "恩佐·费尔南德斯",
+        "club": "曼城",
         "nameAliases": [
+            "恩佐·费尔南德斯",
             "Enzo Fernández",
             "Fernández"
         ],
         "clubAliases": [
-            "Manchester City",
-            "Man City",
-            "MCFC",
             "曼城",
-            "曼彻斯特城"
+            "曼彻斯特城",
+            "Manchester City",
+            "Man City"
         ],
         "img": "images/enzofernndez.png"
     },
     {
         "id": "enzomaresca",
-        "name": "Enzo Maresca",
-        "club": "Manchester City",
+        "name": "恩佐·马雷斯卡",
+        "club": "曼城",
         "nameAliases": [
+            "恩佐·马雷斯卡",
             "Enzo Maresca",
             "Maresca"
         ],
         "clubAliases": [
-            "Manchester City",
-            "Man City",
-            "MCFC",
             "曼城",
-            "曼彻斯特城"
+            "曼彻斯特城",
+            "Manchester City",
+            "Man City"
         ],
         "img": "images/enzomaresca.jpg"
     },
     {
         "id": "erlinghaaland",
-        "name": "Erling Haaland",
-        "club": "Manchester City",
+        "name": "埃尔林·哈兰德",
+        "club": "曼城",
         "nameAliases": [
+            "埃尔林·哈兰德",
             "Erling Haaland",
             "Haaland"
         ],
         "clubAliases": [
-            "Manchester City",
-            "Man City",
-            "MCFC",
             "曼城",
-            "曼彻斯特城"
+            "曼彻斯特城",
+            "Manchester City",
+            "Man City"
         ],
         "img": "images/erlinghaaland.png"
     },
     {
         "id": "ferransoriano",
-        "name": "Ferran Soriano",
-        "club": "Manchester City",
+        "name": "费兰·索里亚诺",
+        "club": "曼城",
         "nameAliases": [
+            "费兰·索里亚诺",
             "Ferran Soriano",
             "Soriano"
         ],
         "clubAliases": [
-            "Manchester City",
-            "Man City",
-            "MCFC",
             "曼城",
-            "曼彻斯特城"
+            "曼彻斯特城",
+            "Manchester City",
+            "Man City"
         ],
         "img": "images/ferransoriano.png"
     },
     {
         "id": "gernimorulli",
-        "name": "Gerónimo Rulli",
-        "club": "Manchester City",
+        "name": "热罗尼莫·鲁利",
+        "club": "曼城",
         "nameAliases": [
+            "热罗尼莫·鲁利",
             "Gerónimo Rulli",
             "Rulli"
         ],
         "clubAliases": [
-            "Manchester City",
-            "Man City",
-            "MCFC",
             "曼城",
-            "曼彻斯特城"
+            "曼彻斯特城",
+            "Manchester City",
+            "Man City"
         ],
         "img": "images/gernimorulli.png"
     },
     {
         "id": "albertstuivenberg",
-        "name": "Albert Stuivenberg",
-        "club": "Arsenal",
+        "name": "阿尔伯特·斯图伊文贝格",
+        "club": "阿森纳",
         "nameAliases": [
+            "阿尔伯特·斯图伊文贝格",
             "Albert Stuivenberg",
             "Stuivenberg"
         ],
         "clubAliases": [
-            "Arsenal",
-            "Gunners",
+            "阿森纳",
             "枪手",
-            "阿森纳"
+            "Arsenal"
         ],
         "img": "images/albertstuivenberg.png"
     },
     {
         "id": "benwhite",
-        "name": "Ben White",
-        "club": "Arsenal",
+        "name": "本·怀特",
+        "club": "阿森纳",
         "nameAliases": [
+            "本·怀特",
             "Ben White",
             "White"
         ],
         "clubAliases": [
-            "Arsenal",
-            "Gunners",
+            "阿森纳",
             "枪手",
-            "阿森纳"
+            "Arsenal"
         ],
         "img": "images/benwhite.png"
     },
     {
         "id": "brunoguimares",
-        "name": "Bruno Guimarães",
-        "club": "Arsenal",
+        "name": "布鲁诺·吉马良斯",
+        "club": "阿森纳",
         "nameAliases": [
+            "布鲁诺·吉马良斯",
             "Bruno Guimarães",
             "Guimarães"
         ],
         "clubAliases": [
-            "Arsenal",
-            "Gunners",
+            "阿森纳",
             "枪手",
-            "阿森纳"
+            "Arsenal"
         ],
         "img": "images/brunoguimares.png"
     },
     {
         "id": "bukayosaka",
-        "name": "Bukayo Saka",
-        "club": "Arsenal",
+        "name": "布卡约·萨卡",
+        "club": "阿森纳",
         "nameAliases": [
+            "布卡约·萨卡",
             "Bukayo Saka",
             "Saka"
         ],
         "clubAliases": [
-            "Arsenal",
-            "Gunners",
+            "阿森纳",
             "枪手",
-            "阿森纳"
+            "Arsenal"
         ],
         "img": "images/bukayosaka.png"
     },
     {
         "id": "christostzolis",
-        "name": "Christos Tzolis",
-        "club": "Arsenal",
+        "name": "赫里斯托斯·佐利斯",
+        "club": "阿森纳",
         "nameAliases": [
+            "赫里斯托斯·佐利斯",
             "Christos Tzolis",
             "Tzolis"
         ],
         "clubAliases": [
-            "Arsenal",
-            "Gunners",
+            "阿森纳",
             "枪手",
-            "阿森纳"
+            "Arsenal"
         ],
         "img": "images/christostzolis.png"
     },
     {
         "id": "cristhianmosquera",
-        "name": "Cristhian Mosquera",
-        "club": "Arsenal",
+        "name": "克里斯蒂安·莫斯克拉",
+        "club": "阿森纳",
         "nameAliases": [
+            "克里斯蒂安·莫斯克拉",
             "Cristhian Mosquera",
             "Mosquera"
         ],
         "clubAliases": [
-            "Arsenal",
-            "Gunners",
+            "阿森纳",
             "枪手",
-            "阿森纳"
+            "Arsenal"
         ],
         "img": "images/cristhianmosquera.png"
     },
     {
         "id": "davidraya",
-        "name": "David Raya",
-        "club": "Arsenal",
+        "name": "大卫·拉亚",
+        "club": "阿森纳",
         "nameAliases": [
+            "大卫·拉亚",
             "David Raya",
             "Raya"
         ],
         "clubAliases": [
-            "Arsenal",
-            "Gunners",
+            "阿森纳",
             "枪手",
-            "阿森纳"
+            "Arsenal"
         ],
         "img": "images/davidraya.png"
     },
     {
         "id": "declanrice",
-        "name": "Declan Rice",
-        "club": "Arsenal",
+        "name": "德克兰·赖斯",
+        "club": "阿森纳",
         "nameAliases": [
+            "德克兰·赖斯",
             "Declan Rice",
             "Rice"
         ],
         "clubAliases": [
-            "Arsenal",
-            "Gunners",
+            "阿森纳",
             "枪手",
-            "阿森纳"
+            "Arsenal"
         ],
         "img": "images/declanrice.png"
     },
     {
         "id": "eberechieze",
-        "name": "Eberechi Eze",
-        "club": "Arsenal",
+        "name": "埃贝雷奇·埃泽",
+        "club": "阿森纳",
         "nameAliases": [
+            "埃贝雷奇·埃泽",
             "Eberechi Eze",
             "Eze"
         ],
         "clubAliases": [
-            "Arsenal",
-            "Gunners",
+            "阿森纳",
             "枪手",
-            "阿森纳"
+            "Arsenal"
         ],
         "img": "images/eberechieze.png"
     },
     {
         "id": "ezrikonsa",
-        "name": "Ezri Konsa",
-        "club": "Arsenal",
+        "name": "埃兹里·孔萨",
+        "club": "阿森纳",
         "nameAliases": [
+            "埃兹里·孔萨",
             "Ezri Konsa",
             "Konsa"
         ],
         "clubAliases": [
-            "Arsenal",
-            "Gunners",
+            "阿森纳",
             "枪手",
-            "阿森纳"
+            "Arsenal"
         ],
         "img": "images/ezrikonsa.png"
     },
     {
         "id": "alexanderisak",
-        "name": "Alexander Isak",
-        "club": "Liverpool",
+        "name": "亚历山大·伊萨克",
+        "club": "利物浦",
         "nameAliases": [
+            "亚历山大·伊萨克",
             "Alexander Isak",
             "Isak"
         ],
         "clubAliases": [
+            "利物浦",
             "Liverpool",
-            "LFC",
-            "利物浦"
+            "LFC"
         ],
         "img": "images/alexanderisak.png"
     },
     {
         "id": "alexismacallister",
-        "name": "Alexis Mac Allister",
-        "club": "Liverpool",
+        "name": "亚历克西斯·麦卡利斯特",
+        "club": "利物浦",
         "nameAliases": [
+            "亚历克西斯·麦卡利斯特",
             "Alexis Mac Allister",
-            "Allister",
-            "Alexis Allister",
-            "A Allister"
+            "Allister"
         ],
         "clubAliases": [
+            "利物浦",
             "Liverpool",
-            "LFC",
-            "利物浦"
+            "LFC"
         ],
         "img": "images/alexismacallister.png"
     },
     {
         "id": "alissonbecker",
-        "name": "Alisson Becker",
-        "club": "Liverpool",
+        "name": "阿利松·贝克尔",
+        "club": "利物浦",
         "nameAliases": [
+            "阿利松·贝克尔",
             "Alisson Becker",
             "Becker"
         ],
         "clubAliases": [
+            "利物浦",
             "Liverpool",
-            "LFC",
-            "利物浦"
+            "LFC"
         ],
         "img": "images/alissonbecker.png"
     },
     {
         "id": "andoniiraola",
-        "name": "Andoni Iraola",
-        "club": "Liverpool",
+        "name": "安东尼·伊劳拉",
+        "club": "利物浦",
         "nameAliases": [
+            "安东尼·伊劳拉",
             "Andoni Iraola",
             "Iraola"
         ],
         "clubAliases": [
+            "利物浦",
             "Liverpool",
-            "LFC",
-            "利物浦"
+            "LFC"
         ],
         "img": "images/andoniiraola.png"
     },
     {
         "id": "bradleybarcola",
-        "name": "Bradley Barcola",
-        "club": "Liverpool",
+        "name": "布拉德利·巴科拉",
+        "club": "利物浦",
         "nameAliases": [
+            "布拉德利·巴科拉",
             "Bradley Barcola",
             "Barcola"
         ],
         "clubAliases": [
+            "利物浦",
             "Liverpool",
-            "LFC",
-            "利物浦"
+            "LFC"
         ],
         "img": "images/bradleybarcola.png"
     },
     {
         "id": "codygakpo",
-        "name": "Cody Gakpo",
-        "club": "Liverpool",
+        "name": "科迪·加克波",
+        "club": "利物浦",
         "nameAliases": [
+            "科迪·加克波",
             "Cody Gakpo",
             "Gakpo"
         ],
         "clubAliases": [
+            "利物浦",
             "Liverpool",
-            "LFC",
-            "利物浦"
+            "LFC"
         ],
         "img": "images/codygakpo.png"
     },
     {
         "id": "conorbradley",
-        "name": "Conor Bradley",
-        "club": "Liverpool",
+        "name": "康纳·布拉德利",
+        "club": "利物浦",
         "nameAliases": [
+            "康纳·布拉德利",
             "Conor Bradley",
             "Bradley"
         ],
         "clubAliases": [
+            "利物浦",
             "Liverpool",
-            "LFC",
-            "利物浦"
+            "LFC"
         ],
         "img": "images/conorbradley.png"
     },
     {
         "id": "dominikszoboszlai",
-        "name": "Dominik Szoboszlai",
-        "club": "Liverpool",
+        "name": "多米尼克·索博斯洛伊",
+        "club": "利物浦",
         "nameAliases": [
+            "多米尼克·索博斯洛伊",
             "Dominik Szoboszlai",
             "Szoboszlai"
         ],
         "clubAliases": [
+            "利物浦",
             "Liverpool",
-            "LFC",
-            "利物浦"
+            "LFC"
         ],
         "img": "images/dominikszoboszlai.png"
     },
     {
         "id": "federicochiesa",
-        "name": "Federico Chiesa",
-        "club": "Liverpool",
+        "name": "费德里科·基耶萨",
+        "club": "利物浦",
         "nameAliases": [
+            "费德里科·基耶萨",
             "Federico Chiesa",
             "Chiesa"
         ],
         "clubAliases": [
+            "利物浦",
             "Liverpool",
-            "LFC",
-            "利物浦"
+            "LFC"
         ],
         "img": "images/federicochiesa.png"
     },
     {
         "id": "florianwirtz",
-        "name": "Florian Wirtz",
-        "club": "Liverpool",
+        "name": "弗洛里安·维尔茨",
+        "club": "利物浦",
         "nameAliases": [
+            "弗洛里安·维尔茨",
             "Florian Wirtz",
             "Wirtz"
         ],
         "clubAliases": [
+            "利物浦",
             "Liverpool",
-            "LFC",
-            "利物浦"
+            "LFC"
         ],
         "img": "images/florianwirtz.png"
     },
     {
         "id": "aleksandarpavlovi",
-        "name": "Aleksandar Pavlović",
-        "club": "Bayern Munich",
+        "name": "亚历山大·帕夫洛维奇",
+        "club": "拜仁慕尼黑",
         "nameAliases": [
+            "亚历山大·帕夫洛维奇",
             "Aleksandar Pavlović",
             "Pavlović"
         ],
         "clubAliases": [
-            "Bayern Munich",
-            "Bayern",
-            "FCB",
             "拜仁慕尼黑",
             "拜仁",
-            "慕尼黑"
+            "Bayern Munich",
+            "Bayern"
         ],
         "img": "images/aleksandarpavlovi.png"
     },
     {
         "id": "alphonsodavies",
-        "name": "Alphonso Davies",
-        "club": "Bayern Munich",
+        "name": "阿方索·戴维斯",
+        "club": "拜仁慕尼黑",
         "nameAliases": [
+            "阿方索·戴维斯",
             "Alphonso Davies",
             "Davies"
         ],
         "clubAliases": [
-            "Bayern Munich",
-            "Bayern",
-            "FCB",
             "拜仁慕尼黑",
             "拜仁",
-            "慕尼黑"
+            "Bayern Munich",
+            "Bayern"
         ],
         "img": "images/alphonsodavies.png"
     },
     {
         "id": "arijonibrahimovi",
-        "name": "Arijon Ibrahimović",
-        "club": "Bayern Munich",
+        "name": "阿里容·易卜拉欣莫维奇",
+        "club": "拜仁慕尼黑",
         "nameAliases": [
+            "阿里容·易卜拉欣莫维奇",
             "Arijon Ibrahimović",
             "Ibrahimović"
         ],
         "clubAliases": [
-            "Bayern Munich",
-            "Bayern",
-            "FCB",
             "拜仁慕尼黑",
             "拜仁",
-            "慕尼黑"
+            "Bayern Munich",
+            "Bayern"
         ],
         "img": "images/arijonibrahimovi.png"
     },
     {
         "id": "barasapokondiaye",
-        "name": "Bara Sapoko Ndiaye",
-        "club": "Bayern Munich",
+        "name": "巴拉·萨波科·恩迪亚耶",
+        "club": "拜仁慕尼黑",
         "nameAliases": [
+            "巴拉·萨波科·恩迪亚耶",
             "Bara Sapoko Ndiaye",
-            "Ndiaye",
-            "Bara Ndiaye",
-            "B Ndiaye"
+            "Ndiaye"
         ],
         "clubAliases": [
-            "Bayern Munich",
-            "Bayern",
-            "FCB",
             "拜仁慕尼黑",
             "拜仁",
-            "慕尼黑"
+            "Bayern Munich",
+            "Bayern"
         ],
         "img": "images/barasapokondiaye.png"
     },
     {
         "id": "dayotupamecano",
-        "name": "Dayot Upamecano",
-        "club": "Bayern Munich",
+        "name": "达约·于帕梅卡诺",
+        "club": "拜仁慕尼黑",
         "nameAliases": [
+            "达约·于帕梅卡诺",
             "Dayot Upamecano",
             "Upamecano"
         ],
         "clubAliases": [
-            "Bayern Munich",
-            "Bayern",
-            "FCB",
             "拜仁慕尼黑",
             "拜仁",
-            "慕尼黑"
+            "Bayern Munich",
+            "Bayern"
         ],
         "img": "images/dayotupamecano.png"
     },
     {
         "id": "harrykane",
-        "name": "Harry Kane",
-        "club": "Bayern Munich",
+        "name": "哈里·凯恩",
+        "club": "拜仁慕尼黑",
         "nameAliases": [
+            "哈里·凯恩",
             "Harry Kane",
             "Kane"
         ],
         "clubAliases": [
-            "Bayern Munich",
-            "Bayern",
-            "FCB",
             "拜仁慕尼黑",
             "拜仁",
-            "慕尼黑"
+            "Bayern Munich",
+            "Bayern"
         ],
         "img": "images/harrykane.png"
     },
     {
         "id": "hirokiit",
-        "name": "Hiroki Itō",
-        "club": "Bayern Munich",
+        "name": "伊藤洋辉",
+        "club": "拜仁慕尼黑",
         "nameAliases": [
+            "伊藤洋辉",
             "Hiroki Itō",
             "Itō"
         ],
         "clubAliases": [
-            "Bayern Munich",
-            "Bayern",
-            "FCB",
             "拜仁慕尼黑",
             "拜仁",
-            "慕尼黑"
+            "Bayern Munich",
+            "Bayern"
         ],
         "img": "images/hirokiit.png"
     },
     {
         "id": "ismaelsaibari",
-        "name": "Ismael Saibari",
-        "club": "Bayern Munich",
+        "name": "伊斯梅尔·赛巴里",
+        "club": "拜仁慕尼黑",
         "nameAliases": [
+            "伊斯梅尔·赛巴里",
             "Ismael Saibari",
             "Saibari"
         ],
         "clubAliases": [
-            "Bayern Munich",
-            "Bayern",
-            "FCB",
             "拜仁慕尼黑",
             "拜仁",
-            "慕尼黑"
+            "Bayern Munich",
+            "Bayern"
         ],
         "img": "images/ismaelsaibari.png"
     },
     {
         "id": "jamalmusiala",
-        "name": "Jamal Musiala",
-        "club": "Bayern Munich",
+        "name": "贾马尔·穆西亚拉",
+        "club": "拜仁慕尼黑",
         "nameAliases": [
+            "贾马尔·穆西亚拉",
             "Jamal Musiala",
             "Musiala"
         ],
         "clubAliases": [
-            "Bayern Munich",
-            "Bayern",
-            "FCB",
             "拜仁慕尼黑",
             "拜仁",
-            "慕尼黑"
+            "Bayern Munich",
+            "Bayern"
         ],
         "img": "images/jamalmusiala.png"
     },
     {
         "id": "janchristiandreesen",
-        "name": "Jan-Christian Dreesen",
-        "club": "Bayern Munich",
+        "name": "扬-克里斯蒂安·德雷森",
+        "club": "拜仁慕尼黑",
         "nameAliases": [
+            "扬-克里斯蒂安·德雷森",
             "Jan-Christian Dreesen",
             "Dreesen"
         ],
         "clubAliases": [
-            "Bayern Munich",
-            "Bayern",
-            "FCB",
             "拜仁慕尼黑",
             "拜仁",
-            "慕尼黑"
+            "Bayern Munich",
+            "Bayern"
         ],
         "img": "images/janchristiandreesen.png"
     },
     {
         "id": "aleksandarstankovic",
-        "name": "Aleksandar Stankovic",
-        "club": "Inter Milan",
+        "name": "亚历山大·斯坦科维奇",
+        "club": "国际米兰",
         "nameAliases": [
+            "亚历山大·斯坦科维奇",
             "Aleksandar Stankovic",
             "Stankovic"
         ],
         "clubAliases": [
-            "Inter Milan",
-            "Inter",
-            "Nerazzurri",
             "国际米兰",
-            "国米"
+            "国米",
+            "Inter Milan",
+            "Inter"
         ],
         "img": "images/aleksandarstankovic.png"
     },
     {
         "id": "alessandrobastoni",
-        "name": "Alessandro Bastoni",
-        "club": "Inter Milan",
+        "name": "亚历山德罗·巴斯托尼",
+        "club": "国际米兰",
         "nameAliases": [
+            "亚历山德罗·巴斯托尼",
             "Alessandro Bastoni",
             "Bastoni"
         ],
         "clubAliases": [
-            "Inter Milan",
-            "Inter",
-            "Nerazzurri",
             "国际米兰",
-            "国米"
+            "国米",
+            "Inter Milan",
+            "Inter"
         ],
         "img": "images/alessandrobastoni.png"
     },
     {
         "id": "andydiouf",
-        "name": "Andy Diouf",
-        "club": "Inter Milan",
+        "name": "安迪·杜夫",
+        "club": "国际米兰",
         "nameAliases": [
+            "安迪·杜夫",
             "Andy Diouf",
             "Diouf"
         ],
         "clubAliases": [
-            "Inter Milan",
-            "Inter",
-            "Nerazzurri",
             "国际米兰",
-            "国米"
+            "国米",
+            "Inter Milan",
+            "Inter"
         ],
         "img": "images/andydiouf.png"
     },
     {
         "id": "angeyoanbonny",
-        "name": "Ange-Yoan Bonny",
-        "club": "Inter Milan",
+        "name": "安热-约昂·博尼",
+        "club": "国际米兰",
         "nameAliases": [
+            "安热-约昂·博尼",
             "Ange-Yoan Bonny",
             "Bonny"
         ],
         "clubAliases": [
-            "Inter Milan",
-            "Inter",
-            "Nerazzurri",
             "国际米兰",
-            "国米"
+            "国米",
+            "Inter Milan",
+            "Inter"
         ],
         "img": "images/angeyoanbonny.png"
     },
     {
         "id": "benjaminpavard",
-        "name": "Benjamin Pavard",
-        "club": "Inter Milan",
+        "name": "邦雅曼·帕瓦尔",
+        "club": "国际米兰",
         "nameAliases": [
+            "邦雅曼·帕瓦尔",
             "Benjamin Pavard",
             "Pavard"
         ],
         "clubAliases": [
-            "Inter Milan",
-            "Inter",
-            "Nerazzurri",
             "国际米兰",
-            "国米"
+            "国米",
+            "Inter Milan",
+            "Inter"
         ],
         "img": "images/benjaminpavard.png"
     },
     {
         "id": "carlosneves",
-        "name": "Carlos Neves",
-        "club": "Inter Milan",
+        "name": "卡洛斯·内维斯",
+        "club": "国际米兰",
         "nameAliases": [
+            "卡洛斯·内维斯",
             "Carlos Neves",
             "Neves"
         ],
         "clubAliases": [
-            "Inter Milan",
-            "Inter",
-            "Nerazzurri",
             "国际米兰",
-            "国米"
+            "国米",
+            "Inter Milan",
+            "Inter"
         ],
         "img": "images/carlosneves.png"
     },
     {
         "id": "cristianchivu",
-        "name": "Cristian Chivu",
-        "club": "Inter Milan",
+        "name": "克里斯蒂安·基沃",
+        "club": "国际米兰",
         "nameAliases": [
+            "克里斯蒂安·基沃",
             "Cristian Chivu",
             "Chivu"
         ],
         "clubAliases": [
-            "Inter Milan",
-            "Inter",
-            "Nerazzurri",
             "国际米兰",
-            "国米"
+            "国米",
+            "Inter Milan",
+            "Inter"
         ],
         "img": "images/cristianchivu.png"
     },
     {
         "id": "curtisjones",
-        "name": "Curtis Jones",
-        "club": "Inter Milan",
+        "name": "柯蒂斯·琼斯",
+        "club": "国际米兰",
         "nameAliases": [
+            "柯蒂斯·琼斯",
             "Curtis Jones",
             "Jones"
         ],
         "clubAliases": [
-            "Inter Milan",
-            "Inter",
-            "Nerazzurri",
             "国际米兰",
-            "国米"
+            "国米",
+            "Inter Milan",
+            "Inter"
         ],
         "img": "images/curtisjones.png"
     },
     {
         "id": "djedspence",
-        "name": "Djed Spence",
-        "club": "Inter Milan",
+        "name": "杰德·斯彭斯",
+        "club": "国际米兰",
         "nameAliases": [
+            "杰德·斯彭斯",
             "Djed Spence",
             "Spence"
         ],
         "clubAliases": [
-            "Inter Milan",
-            "Inter",
-            "Nerazzurri",
             "国际米兰",
-            "国米"
+            "国米",
+            "Inter Milan",
+            "Inter"
         ],
         "img": "images/djedspence.png"
     },
     {
         "id": "federicodimarco",
-        "name": "Federico Dimarco",
-        "club": "Inter Milan",
+        "name": "费德里科·迪马尔科",
+        "club": "国际米兰",
         "nameAliases": [
+            "费德里科·迪马尔科",
             "Federico Dimarco",
             "Dimarco"
         ],
         "clubAliases": [
-            "Inter Milan",
-            "Inter",
-            "Nerazzurri",
             "国际米兰",
-            "国米"
+            "国米",
+            "Inter Milan",
+            "Inter"
         ],
         "img": "images/federicodimarco.png"
     },
     {
         "id": "amaddiallo",
-        "name": "Amad Diallo",
-        "club": "Manchester United",
+        "name": "阿马德·迪亚洛",
+        "club": "曼联",
         "nameAliases": [
+            "阿马德·迪亚洛",
             "Amad Diallo",
             "Diallo"
         ],
         "clubAliases": [
+            "曼联",
+            "曼彻斯特联",
             "Manchester United",
             "Man United",
-            "Man Utd",
-            "MUFC",
-            "曼联"
+            "Man Utd"
         ],
         "img": "images/amaddiallo.png"
     },
     {
         "id": "andreysantos",
-        "name": "Andrey Santos",
-        "club": "Manchester United",
+        "name": "安德烈·桑托斯",
+        "club": "曼联",
         "nameAliases": [
+            "安德烈·桑托斯",
             "Andrey Santos",
             "Santos"
         ],
         "clubAliases": [
+            "曼联",
+            "曼彻斯特联",
             "Manchester United",
             "Man United",
-            "Man Utd",
-            "MUFC",
-            "曼联"
+            "Man Utd"
         ],
         "img": "images/andreysantos.png"
     },
     {
         "id": "benjamineko",
-        "name": "Benjamin Šeško",
-        "club": "Manchester United",
+        "name": "本杰明·舍什科",
+        "club": "曼联",
         "nameAliases": [
+            "本杰明·舍什科",
             "Benjamin Šeško",
             "Šeško"
         ],
         "clubAliases": [
+            "曼联",
+            "曼彻斯特联",
             "Manchester United",
             "Man United",
-            "Man Utd",
-            "MUFC",
-            "曼联"
+            "Man Utd"
         ],
         "img": "images/benjamineko.png"
     },
     {
         "id": "brunofernandes",
-        "name": "Bruno Fernandes",
-        "club": "Manchester United",
+        "name": "布鲁诺·费尔南德斯",
+        "club": "曼联",
         "nameAliases": [
+            "布鲁诺·费尔南德斯",
             "Bruno Fernandes",
             "Fernandes"
         ],
         "clubAliases": [
+            "曼联",
+            "曼彻斯特联",
             "Manchester United",
             "Man United",
-            "Man Utd",
-            "MUFC",
-            "曼联"
+            "Man Utd"
         ],
         "img": "images/brunofernandes.png"
     },
     {
         "id": "bryanmbeumo",
-        "name": "Bryan Mbeumo",
-        "club": "Manchester United",
+        "name": "布赖恩·姆伯莫",
+        "club": "曼联",
         "nameAliases": [
+            "布赖恩·姆伯莫",
             "Bryan Mbeumo",
             "Mbeumo"
         ],
         "clubAliases": [
+            "曼联",
+            "曼彻斯特联",
             "Manchester United",
             "Man United",
-            "Man Utd",
-            "MUFC",
-            "曼联"
+            "Man Utd"
         ],
         "img": "images/bryanmbeumo.png"
     },
     {
         "id": "carlosbaleba",
-        "name": "Carlos Baleba",
-        "club": "Manchester United",
+        "name": "卡洛斯·巴莱巴",
+        "club": "曼联",
         "nameAliases": [
+            "卡洛斯·巴莱巴",
             "Carlos Baleba",
             "Baleba"
         ],
         "clubAliases": [
+            "曼联",
+            "曼彻斯特联",
             "Manchester United",
             "Man United",
-            "Man Utd",
-            "MUFC",
-            "曼联"
+            "Man Utd"
         ],
         "img": "images/carlosbaleba.png"
     },
     {
         "id": "dermotmee",
-        "name": "Dermot Mee",
-        "club": "Manchester United",
+        "name": "德莫特·米",
+        "club": "曼联",
         "nameAliases": [
+            "德莫特·米",
             "Dermot Mee",
             "Mee"
         ],
         "clubAliases": [
+            "曼联",
+            "曼彻斯特联",
             "Manchester United",
             "Man United",
-            "Man Utd",
-            "MUFC",
-            "曼联"
+            "Man Utd"
         ],
         "img": "images/dermotmee.png"
     },
     {
         "id": "diegolen",
-        "name": "Diego León",
-        "club": "Manchester United",
+        "name": "迭戈·莱昂",
+        "club": "曼联",
         "nameAliases": [
+            "迭戈·莱昂",
             "Diego León",
             "León"
         ],
         "clubAliases": [
+            "曼联",
+            "曼彻斯特联",
             "Manchester United",
             "Man United",
-            "Man Utd",
-            "MUFC",
-            "曼联"
+            "Man Utd"
         ],
         "img": "images/diegolen.png"
     },
     {
         "id": "diogodalot",
-        "name": "Diogo Dalot",
-        "club": "Manchester United",
+        "name": "迪奥戈·达洛特",
+        "club": "曼联",
         "nameAliases": [
+            "迪奥戈·达洛特",
             "Diogo Dalot",
             "Dalot"
         ],
         "clubAliases": [
+            "曼联",
+            "曼彻斯特联",
             "Manchester United",
             "Man United",
-            "Man Utd",
-            "MUFC",
-            "曼联"
+            "Man Utd"
         ],
         "img": "images/diogodalot.png"
     },
     {
         "id": "harrymaguire",
-        "name": "Harry Maguire",
-        "club": "Manchester United",
+        "name": "哈里·马圭尔",
+        "club": "曼联",
         "nameAliases": [
+            "哈里·马圭尔",
             "Harry Maguire",
             "Maguire"
         ],
         "clubAliases": [
+            "曼联",
+            "曼彻斯特联",
             "Manchester United",
             "Man United",
-            "Man Utd",
-            "MUFC",
-            "曼联"
+            "Man Utd"
         ],
         "img": "images/harrymaguire.png"
     },
     {
         "id": "ademolalookman",
-        "name": "Ademola Lookman",
-        "club": "Atletico Madrid",
+        "name": "阿德莫拉·卢克曼",
+        "club": "马德里竞技",
         "nameAliases": [
+            "阿德莫拉·卢克曼",
             "Ademola Lookman",
             "Lookman"
         ],
         "clubAliases": [
-            "Atletico Madrid",
-            "Atleti",
-            "ATM",
             "马德里竞技",
-            "马竞"
+            "马竞",
+            "Atletico Madrid",
+            "Atleti"
         ],
         "img": "images/ademolalookman.png"
     },
     {
         "id": "lexbaena",
-        "name": "Álex Baena",
-        "club": "Atletico Madrid",
+        "name": "阿莱克斯·巴埃纳",
+        "club": "马德里竞技",
         "nameAliases": [
+            "阿莱克斯·巴埃纳",
             "Álex Baena",
             "Baena"
         ],
         "clubAliases": [
-            "Atletico Madrid",
-            "Atleti",
-            "ATM",
             "马德里竞技",
-            "马竞"
+            "马竞",
+            "Atletico Madrid",
+            "Atleti"
         ],
         "img": "images/lexbaena.png"
     },
     {
         "id": "lexgrimaldo",
-        "name": "Álex Grimaldo",
-        "club": "Atletico Madrid",
+        "name": "阿莱克斯·格里马尔多",
+        "club": "马德里竞技",
         "nameAliases": [
+            "阿莱克斯·格里马尔多",
             "Álex Grimaldo",
             "Grimaldo"
         ],
         "clubAliases": [
-            "Atletico Madrid",
-            "Atleti",
-            "ATM",
             "马德里竞技",
-            "马竞"
+            "马竞",
+            "Atletico Madrid",
+            "Atleti"
         ],
         "img": "images/lexgrimaldo.png"
     },
     {
         "id": "alexandersrloth",
-        "name": "Alexander Sørloth",
-        "club": "Atletico Madrid",
+        "name": "亚历山大·索尔洛特",
+        "club": "马德里竞技",
         "nameAliases": [
+            "亚历山大·索尔洛特",
             "Alexander Sørloth",
             "Sørloth"
         ],
         "clubAliases": [
-            "Atletico Madrid",
-            "Atleti",
-            "ATM",
             "马德里竞技",
-            "马竞"
+            "马竞",
+            "Atletico Madrid",
+            "Atleti"
         ],
         "img": "images/alexandersrloth.png"
     },
     {
         "id": "arnauortiz",
-        "name": "Arnau Ortiz",
-        "club": "Atletico Madrid",
+        "name": "阿尔瑙·奥尔蒂斯",
+        "club": "马德里竞技",
         "nameAliases": [
+            "阿尔瑙·奥尔蒂斯",
             "Arnau Ortiz",
             "Ortiz"
         ],
         "clubAliases": [
-            "Atletico Madrid",
-            "Atleti",
-            "ATM",
             "马德里竞技",
-            "马竞"
+            "马竞",
+            "Atletico Madrid",
+            "Atleti"
         ],
         "img": "images/arnauortiz.jpg"
     },
     {
         "id": "carlosmartn",
-        "name": "Carlos Martín",
-        "club": "Atletico Madrid",
+        "name": "卡洛斯·马丁",
+        "club": "马德里竞技",
         "nameAliases": [
+            "卡洛斯·马丁",
             "Carlos Martín",
             "Martín"
         ],
         "clubAliases": [
-            "Atletico Madrid",
-            "Atleti",
-            "ATM",
             "马德里竞技",
-            "马竞"
+            "马竞",
+            "Atletico Madrid",
+            "Atleti"
         ],
         "img": "images/carlosmartn.png"
     },
     {
         "id": "cristianromero",
-        "name": "Cristian Romero",
-        "club": "Atletico Madrid",
+        "name": "克里斯蒂安·罗梅罗",
+        "club": "马德里竞技",
         "nameAliases": [
+            "克里斯蒂安·罗梅罗",
             "Cristian Romero",
             "Romero"
         ],
         "clubAliases": [
-            "Atletico Madrid",
-            "Atleti",
-            "ATM",
             "马德里竞技",
-            "马竞"
+            "马竞",
+            "Atletico Madrid",
+            "Atleti"
         ],
         "img": "images/cristianromero.png"
     },
     {
         "id": "dvidhancko",
-        "name": "Dávid Hancko",
-        "club": "Atletico Madrid",
+        "name": "大卫·汉茨科",
+        "club": "马德里竞技",
         "nameAliases": [
+            "大卫·汉茨科",
             "Dávid Hancko",
             "Hancko"
         ],
         "clubAliases": [
-            "Atletico Madrid",
-            "Atleti",
-            "ATM",
             "马德里竞技",
-            "马竞"
+            "马竞",
+            "Atletico Madrid",
+            "Atleti"
         ],
         "img": "images/dvidhancko.png"
     },
     {
         "id": "diegosimeone",
-        "name": "Diego Simeone",
-        "club": "Atletico Madrid",
+        "name": "迭戈·西蒙尼",
+        "club": "马德里竞技",
         "nameAliases": [
+            "迭戈·西蒙尼",
             "Diego Simeone",
             "Simeone"
         ],
         "clubAliases": [
-            "Atletico Madrid",
-            "Atleti",
-            "ATM",
             "马德里竞技",
-            "马竞"
+            "马竞",
+            "Atletico Madrid",
+            "Atleti"
         ],
         "img": "images/diegosimeone.png"
     },
     {
         "id": "aladjibamba",
-        "name": "Aladji Bamba",
-        "club": "Newcastle United",
+        "name": "阿拉吉·班巴",
+        "club": "纽卡斯尔",
         "nameAliases": [
+            "阿拉吉·班巴",
             "Aladji Bamba",
             "Bamba"
         ],
         "clubAliases": [
-            "Newcastle United",
-            "Newcastle",
-            "NUFC",
             "纽卡斯尔",
-            "纽卡"
+            "纽卡",
+            "Newcastle United",
+            "Newcastle"
         ],
         "img": "images/aladjibamba.png"
     },
     {
         "id": "alexanderbade",
-        "name": "Alexander Bade",
-        "club": "Newcastle United",
+        "name": "亚历山大·巴德",
+        "club": "纽卡斯尔",
         "nameAliases": [
+            "亚历山大·巴德",
             "Alexander Bade",
             "Bade"
         ],
         "clubAliases": [
-            "Newcastle United",
-            "Newcastle",
-            "NUFC",
             "纽卡斯尔",
-            "纽卡"
+            "纽卡",
+            "Newcastle United",
+            "Newcastle"
         ],
         "img": "images/alexanderbade.jpg"
     },
     {
         "id": "alexanderhauser",
-        "name": "Alexander Hauser",
-        "club": "Newcastle United",
+        "name": "亚历山大·豪泽",
+        "club": "纽卡斯尔",
         "nameAliases": [
+            "亚历山大·豪泽",
             "Alexander Hauser",
             "Hauser"
         ],
         "clubAliases": [
-            "Newcastle United",
-            "Newcastle",
-            "NUFC",
             "纽卡斯尔",
-            "纽卡"
+            "纽卡",
+            "Newcastle United",
+            "Newcastle"
         ],
         "img": "images/alexanderhauser.jpg"
     },
     {
         "id": "anthonyelanga",
-        "name": "Anthony Elanga",
-        "club": "Newcastle United",
+        "name": "安东尼·埃兰加",
+        "club": "纽卡斯尔",
         "nameAliases": [
+            "安东尼·埃兰加",
             "Anthony Elanga",
             "Elanga"
         ],
         "clubAliases": [
-            "Newcastle United",
-            "Newcastle",
-            "NUFC",
             "纽卡斯尔",
-            "纽卡"
+            "纽卡",
+            "Newcastle United",
+            "Newcastle"
         ],
         "img": "images/anthonyelanga.png"
     },
     {
         "id": "bazoumanatour",
-        "name": "Bazoumana Touré",
-        "club": "Newcastle United",
+        "name": "巴祖马纳·图雷",
+        "club": "纽卡斯尔",
         "nameAliases": [
+            "巴祖马纳·图雷",
             "Bazoumana Touré",
             "Touré"
         ],
         "clubAliases": [
-            "Newcastle United",
-            "Newcastle",
-            "NUFC",
             "纽卡斯尔",
-            "纽卡"
+            "纽卡",
+            "Newcastle United",
+            "Newcastle"
         ],
         "img": "images/bazoumanatour.png"
     },
     {
         "id": "danburn",
-        "name": "Dan Burn",
-        "club": "Newcastle United",
+        "name": "丹·伯恩",
+        "club": "纽卡斯尔",
         "nameAliases": [
+            "丹·伯恩",
             "Dan Burn",
             "Burn"
         ],
         "clubAliases": [
-            "Newcastle United",
-            "Newcastle",
-            "NUFC",
             "纽卡斯尔",
-            "纽卡"
+            "纽卡",
+            "Newcastle United",
+            "Newcastle"
         ],
         "img": "images/danburn.png"
     },
     {
         "id": "ewenjaouen",
-        "name": "Ewen Jaouen",
-        "club": "Newcastle United",
+        "name": "埃文·若恩",
+        "club": "纽卡斯尔",
         "nameAliases": [
+            "埃文·若恩",
             "Ewen Jaouen",
             "Jaouen"
         ],
         "clubAliases": [
-            "Newcastle United",
-            "Newcastle",
-            "NUFC",
             "纽卡斯尔",
-            "纽卡"
+            "纽卡",
+            "Newcastle United",
+            "Newcastle"
         ],
         "img": "images/ewenjaouen.png"
     },
     {
         "id": "fabianschr",
-        "name": "Fabian Schär",
-        "club": "Newcastle United",
+        "name": "法比安·舍尔",
+        "club": "纽卡斯尔",
         "nameAliases": [
+            "法比安·舍尔",
             "Fabian Schär",
             "Schär"
         ],
         "clubAliases": [
-            "Newcastle United",
-            "Newcastle",
-            "NUFC",
             "纽卡斯尔",
-            "纽卡"
+            "纽卡",
+            "Newcastle United",
+            "Newcastle"
         ],
         "img": "images/fabianschr.png"
     },
     {
         "id": "harveybarnes",
-        "name": "Harvey Barnes",
-        "club": "Newcastle United",
+        "name": "哈维·巴恩斯",
+        "club": "纽卡斯尔",
         "nameAliases": [
+            "哈维·巴恩斯",
             "Harvey Barnes",
             "Barnes"
         ],
         "clubAliases": [
-            "Newcastle United",
-            "Newcastle",
-            "NUFC",
             "纽卡斯尔",
-            "纽卡"
+            "纽卡",
+            "Newcastle United",
+            "Newcastle"
         ],
         "img": "images/harveybarnes.png"
     },
     {
         "id": "jacobmurphy",
-        "name": "Jacob Murphy",
-        "club": "Newcastle United",
+        "name": "雅各布·墨菲",
+        "club": "纽卡斯尔",
         "nameAliases": [
+            "雅各布·墨菲",
             "Jacob Murphy",
             "Murphy"
         ],
         "clubAliases": [
-            "Newcastle United",
-            "Newcastle",
-            "NUFC",
             "纽卡斯尔",
-            "纽卡"
+            "纽卡",
+            "Newcastle United",
+            "Newcastle"
         ],
         "img": "images/jacobmurphy.png"
     }
