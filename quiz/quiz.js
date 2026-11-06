@@ -2,7 +2,8 @@
 (function () {
     'use strict';
 
-    const TOTAL = PLAYERS.length;
+    const POOL_SIZE = PLAYERS.length;  // 题库总量
+    const DRAW_SIZE = 15;              // 每局随机抽多少题
 
     const els = {
         photo: document.getElementById('photo'),
@@ -70,8 +71,8 @@
     }
 
     function updateStats() {
-        const asked = TOTAL - queue.length + 1;
-        els.progress.textContent = '第 ' + Math.min(asked, TOTAL) + ' / ' + TOTAL + ' 题';
+        const done = DRAW_SIZE - queue.length;
+        els.progress.textContent = '第 ' + done + ' / ' + DRAW_SIZE + ' 题';
         els.score.textContent = '答对 ' + correctCount;
     }
 
@@ -170,12 +171,12 @@
         clearTimeout(timer);
         els.card.hidden = true;
         els.done.hidden = false;
-        els.doneText.textContent = '共 ' + TOTAL + ' 题，答对 ' + correctCount + ' 题，答错 ' + wrongCount + ' 次。';
+        els.doneText.textContent = '共 ' + DRAW_SIZE + ' 题，答对 ' + correctCount + ' 题，答错 ' + wrongCount + ' 次。';
         els.restart.focus();
     }
 
     function start() {
-        queue = shuffle(PLAYERS);
+        queue = shuffle(PLAYERS).slice(0, Math.min(DRAW_SIZE, PLAYERS.length));
         current = null;
         correctCount = 0;
         wrongCount = 0;
@@ -184,7 +185,7 @@
         els.card.hidden = false;
         els.done.hidden = true;
 
-        preload(PLAYERS);
+        preload(queue);
         showQuestion();
     }
 
